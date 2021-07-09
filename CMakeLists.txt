@@ -4,10 +4,11 @@ project(${PROJECT_NAME})
 
 add_library(${PROJECT_NAME} INTERFACE)
 
-find_library(Boost REQUIRED)
+find_package(Boost REQUIRED)
 
-target_include_directories(cronch PUBLIC ${CMAKE_CURRENT_LIST_DIR}/include)
-target_link_libraries(cronch PUBLIC Boost::headers)
+target_include_directories(cronch INTERFACE ${CMAKE_CURRENT_LIST_DIR}/include)
+target_link_libraries(cronch INTERFACE Boost::headers)
+target_compile_features(cronch INTERFACE cxx_std_20)
 
 # add_subdirectory(test)
 add_subdirectory(examples)

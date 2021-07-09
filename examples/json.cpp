@@ -1,9 +1,13 @@
 
-#include <cronch/ast.hpp>
+#include <iostream>
+
+#include <cronch/json/json.hpp>
+#include <cronch/meta.hpp>
+#include <cronch/serialize.hpp>
 
 #include <string>
 
-namespace cronch = cr;
+namespace cr = cronch;
 
 struct my_type {
     std::string name;
@@ -12,10 +16,9 @@ struct my_type {
 
 template<>
 struct cr::metadata<my_type> {
-    constexpr static auto about =
-        cr::meta::info(cr::meta::name("my_type"),
-                       cr::meta::field("name", &my_type::name),
-                       cr::meta::field("some_info", &my_type::some_info));
+    constexpr static auto about = cr::meta::info(
+        cr::meta::name("my_type"), cr::meta::field("name", &my_type::name),
+        cr::meta::field("some_info", &my_type::some_info));
 };
 
 int main()

@@ -5,6 +5,7 @@
 #include <tuple>
 
 #include <boost/fusion/algorithm.hpp>
+#include <boost/fusion/tuple.hpp>
 #include <boost/fusion/container.hpp>
 #include <boost/mpl/find.hpp>
 #include <boost/mpl/vector.hpp>
@@ -42,25 +43,25 @@ struct is_field {
 
 template<typename... Args>
 class about_store {
-    using held_t = boost::fusion::vector<Args...>;
+    using held_t = boost::fusion::tuple<Args...>;
     using held_vec = boost::mpl::vector<Args...>;
-    using fields_t =
-        boost::mpl::copy_if<held_t, is_field,
-                            boost::mpl::back_inserter<boost::mpl::vector<>>>;
 
 public:
-    constexpr explicit about_store(held_t held) : held_{std::move(held)} {}
+    constexpr explicit about_store(Args... values) : held_{std::move(values)...}
+    {
+    }
 
     template<typename Func>
-    constexpr void map_fields(Func&& f)
+    constexpr void map_fields(Func&& f) const
     {
-        boost::fusion::for_each(boost::fusion::filter_if<is_field>(held_),
-                                std::forward<Func>(f));
+        boost::fusion::for_each(
+            boost::fusion::filter_if<cronch::meta::detail::is_field>(held_),
+            std::forward<Func>(f));
     }
 
     constexpr auto name() const -> std::string_view
     {
-        using idx = boost::mpl::find<held_vec, name>::type;
+        using idx = boost::mpl::find<held_vec, cronch::meta::name>::type;
         return boost::fusion::at<idx>(held_).value;
     }
 
@@ -70,10 +71,10 @@ private:
 } // namespace detail
 
 template<typename... Args>
-constexpr auto about(Args&&... args)
+constexpr auto info(Args&&... args)
 {
     return detail::about_store<std::decay_t<Args>...>{
-        std::tuple<std::decay_t<Args>...>{std::forward<Args>(args)...}};
+        std::forward<Args>(args)...};
 }
 
 } // namespace cronch::meta

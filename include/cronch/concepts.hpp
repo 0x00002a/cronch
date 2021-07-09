@@ -3,9 +3,11 @@
 
 #include "cronch/metadata.hpp"
 
+#include <concepts>
+
 namespace cronch::concepts {
 
-template<typename T, typename Against>
+template<typename T, template<typename...> typename Against>
 concept is = requires(const T& v)
 {
     []<typename... Args>(const Against<Args...>&){}(v);
@@ -14,16 +16,13 @@ concept is = requires(const T& v)
 template<typename S>
 concept serializable = requires(const S& inst)
 {
-    using mdata_t = metadata<S>;
-    constexpr auto v2 = mdata_t::about;
+    {metadata<S>::about};
 };
 
 template<typename B>
 concept backend = requires(typename B::document_type& doc)
 {
-    {
-        doc.append(doc, {})
-    }
+    {doc.append(doc, {})};
 };
 
 } // namespace cronch::concepts
