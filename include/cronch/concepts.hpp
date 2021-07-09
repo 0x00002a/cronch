@@ -5,6 +5,15 @@
 
 #include <concepts>
 
+namespace cronch::concepts::detail {
+struct empty_serializable {
+};
+
+} // namespace cronch::concepts::detail
+template<>
+struct cronch::metadata<cronch::concepts::detail::empty_serializable> {
+    static constexpr auto about = 0;
+};
 namespace cronch::concepts {
 
 template<typename T, template<typename...> typename Against>
@@ -22,7 +31,7 @@ concept serializable = requires(const S& inst)
 template<typename B>
 concept backend = requires(typename B::document_type& doc)
 {
-    {doc.append(doc, {})};
+    B::append(doc, detail::empty_serializable{});
 };
 
 } // namespace cronch::concepts

@@ -21,6 +21,7 @@ template<typename T, typename Vt>
 struct field {
     using field_t = Vt T::*;
     using owner_t = T;
+    using value_type = Vt;
 
     std::string_view name;
     field_t mem_ref;
