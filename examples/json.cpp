@@ -12,11 +12,10 @@ struct my_type {
 
 template<>
 struct cr::metadata<my_type> {
-    constexpr static auto about = cr::meta::info(
-            cr::meta::name<my_type>("my_type"),
-            cr::meta::field("name", &my_type::name),
-            cr::meta::field("some_info", &my_type::some_info)
-            );
+    constexpr static auto about =
+        cr::meta::info(cr::meta::name("my_type"),
+                       cr::meta::field("name", &my_type::name),
+                       cr::meta::field("some_info", &my_type::some_info));
 };
 
 int main()

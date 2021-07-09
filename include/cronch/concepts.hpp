@@ -6,9 +6,10 @@
 namespace cronch::concepts {
 
 template<typename T, typename Against>
-    concept is = requires(const T& v) {
-        []<typename... Args>(const Against<Args...>&) {}(v);
-    };
+concept is = requires(const T& v)
+{
+    []<typename... Args>(const Against<Args...>&){}(v);
+};
 
 template<typename S>
 concept serializable = requires(const S& inst)
