@@ -78,5 +78,4 @@ constexpr auto info(Args&&... args)
     return detail::about_store<std::decay_t<Args>...>{
         std::forward<Args>(args)...};
 }
-
 } // namespace cronch::meta

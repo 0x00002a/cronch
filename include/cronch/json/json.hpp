@@ -14,10 +14,7 @@ class json {
 public:
     using document_type = nlohmann::json;
 
-    explicit json(const std::string& content)
-        : doc_{nlohmann::json::parse(content)}
-    {
-    }
+    explicit json(const std::string& content) : doc_(nlohmann::json::parse(content)) {}
 
     template<concepts::serializable V>
     static void append(document_type& doc, const V& v)
@@ -38,7 +35,7 @@ public:
         });
     }
     template<concepts::serializable V>
-    void parse_into(V& out) const 
+    void parse_into(V& out) const
     {
         metadata<V>::about.map_fields([&](auto&& f) mutable {
             auto mem = f.mem_ref;
