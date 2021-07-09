@@ -5,8 +5,8 @@
 #include <tuple>
 
 #include <boost/fusion/algorithm.hpp>
-#include <boost/fusion/tuple.hpp>
 #include <boost/fusion/container.hpp>
+#include <boost/hana.hpp>
 #include <boost/mpl/find.hpp>
 #include <boost/mpl/vector.hpp>
 
@@ -43,7 +43,7 @@ struct is_field {
 
 template<typename... Args>
 class about_store {
-    using held_t = boost::fusion::tuple<Args...>;
+    using held_t = boost::hana::tuple<Args...>;
     using held_vec = boost::mpl::vector<Args...>;
 
 public:
@@ -54,8 +54,9 @@ public:
     template<typename Func>
     constexpr void map_fields(Func&& f) const
     {
-        boost::fusion::for_each(
-            boost::fusion::filter_if<cronch::meta::detail::is_field>(held_),
+        boost::hana::for_each(
+            boost::hana::filter(held_,
+                                []<typename T>(T&&) { return is_field<T>{}; }),
             std::forward<Func>(f));
     }
 
