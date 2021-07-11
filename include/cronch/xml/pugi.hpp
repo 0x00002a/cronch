@@ -9,7 +9,7 @@
 #include "cronch/concepts.hpp"
 #include "cronch/metadata.hpp"
 
-namespace cronch {
+namespace cronch::xml {
 
 namespace detail {
 
@@ -19,8 +19,9 @@ public:
     using document_type = pugi::xml_document;
 
     template<concepts::serializable V>
-    static void append(document_type& doc, const V& v)
+    static void append(document_type& top, const V& v)
     {
+        auto doc = top.append_child(metadata<V>::about.name().data());
         metadata<V>::about.map_fields([&](auto&& f) mutable {
             auto mem = f.mem_ref;
             auto name = f.name;
@@ -35,7 +36,9 @@ public:
                 doc.append_attribute(name.data()).set_value(value.c_str());
             }
             else {
-                doc.append_child(name.data()).set_value(value.c_str());
+                doc.append_child(name.data())
+                    .append_child(pugi::node_pcdata)
+                    .set_value(value.c_str());
             }
         });
     }
@@ -64,7 +67,8 @@ public:
         });
     }
 
-    static auto to_string(const document_type& doc) -> std::string {
+    static auto to_string(const document_type& doc) -> std::string
+    {
         std::stringstream ss;
         doc.save(ss);
         return ss.str();

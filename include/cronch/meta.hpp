@@ -9,12 +9,15 @@
 #include <boost/hana.hpp>
 #include <boost/mpl/find.hpp>
 #include <boost/mpl/vector.hpp>
+#include <type_traits>
 
 #include "cronch/concepts.hpp"
 
 namespace cronch::meta {
 struct name {
     std::string_view value;
+
+    constexpr explicit name(std::string_view v) : value{v} {}
 };
 
 template<typename T, typename Vt>
@@ -45,7 +48,6 @@ struct is_field {
 template<typename... Args>
 class about_store {
     using held_t = boost::hana::tuple<Args...>;
-    using held_vec = boost::mpl::vector<Args...>;
 
 public:
     constexpr explicit about_store(Args... values) : held_{std::move(values)...}
@@ -63,8 +65,13 @@ public:
 
     constexpr auto name() const -> std::string_view
     {
-        using idx = boost::mpl::find<held_vec, cronch::meta::name>::type;
-        return boost::fusion::at<idx>(held_).value;
+        return boost::hana::find_if(
+                   held_,
+                   [](const auto& v) {
+                   return boost::hana::equal(boost::hana::decltype_(v), boost::hana::type_c<const cronch::meta::name>);
+                   })
+            .value()
+            .value;
     }
 
 private:

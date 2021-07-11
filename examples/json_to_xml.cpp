@@ -27,6 +27,8 @@ struct cr::metadata<my_type> {
     // clang-format on
 };
 
+constexpr auto n = cr::meta::name("m");
+
 int main()
 {
     std::stringstream ss;
@@ -35,5 +37,7 @@ int main()
     }
     std::cout << "json data: (json): " << ss.str() << '\n';
     const auto my_obj = cr::deserialize<my_type>(cr::json{ss.str()});
-    std::cout << "my_type (xml): " << cr::serialize<cr::pugi>(my_obj) << '\n';
+    std::cout << "my_type (xml): " << cr::serialize<cr::xml::pugi>(my_obj) << '\n'
+              << "(with attrs): " << cr::serialize<cr::xml::pugi_attr>(my_obj)
+              << '\n';
 }

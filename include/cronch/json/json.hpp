@@ -14,7 +14,10 @@ class json {
 public:
     using document_type = nlohmann::json;
 
-    explicit json(const std::string& content) : doc_(nlohmann::json::parse(content)) {}
+    explicit json(const std::string& content)
+        : doc_(nlohmann::json::parse(content))
+    {
+    }
 
     template<concepts::serializable V>
     static void append(document_type& doc, const V& v)
