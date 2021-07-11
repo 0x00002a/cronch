@@ -40,6 +40,11 @@ concept serializable = requires(const S& inst)
     {metadata<S>::name};
 };
 
+template<typename C>
+concept ostreamable = requires(C c, std::ostream& s) {
+    s << c;
+};
+
 template<typename B>
 concept backend = requires(typename B::document_type& doc)
 {

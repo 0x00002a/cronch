@@ -19,23 +19,44 @@ public:
     using document_type = pugi::xml_document;
 
     template<concepts::iterable V>
-    requires(concepts::serializable<V> &&
-             !concepts::has_fields<V>) 
-    static void append(pugi::xml_node& doc, const V& v)
+    requires (!concepts::serializable<V> && !concepts::ostreamable<V>)
+    static void append(pugi::xml_node& doc, std::string_view name, const V& v)
     {
-        auto top = doc.append_child(metadata<V>::name);
+        auto top = doc.append_child(name.data());
         for (const auto& child : v) {
-            append(doc, child);
+            append(top, child);
         }
     }
+
     template<concepts::serializable V>
-    requires(!concepts::has_fields<V>) 
+    static void append(pugi::xml_node& doc, std::string_view name, const V& v)
+    {
+        auto top = doc.append_child(name.data());
+        for (const auto& child : v) {
+            append(top, child);
+        }
+    }
+    template<concepts::iterable V>
+    requires(!concepts::has_fields<V> && concepts::serializable<V>) 
     static void append(pugi::xml_node& doc, const V& v)
     {
-        append_value(doc, metadata<V>::name,
+        append(doc, metadata<V>::name, v);
+    }
+
+    template<concepts::ostreamable V>
+    requires(!concepts::has_fields<V>) 
+    static void append(pugi::xml_node& doc, std::string_view name, const V& v)
+    {
+        append_value(doc, name,
                      boost::lexical_cast<std::string>(v));
     }
 
+    template<concepts::ostreamable V>
+    requires(!concepts::has_fields<V> && concepts::serializable<V>) 
+    static void append(pugi::xml_node& doc, const V& v)
+    {
+        append(doc, v, metadata<V>::name);
+    }
     template<concepts::serializable V>
     requires(concepts::has_fields<V>) 
     static void append(pugi::xml_node& top, const V& v)
@@ -44,7 +65,7 @@ public:
         metadata<V>::fields.map([&](auto&& f) mutable {
             auto mem = f.mem_ref;
             auto name = f.name;
-            auto value = boost::lexical_cast<std::string>(v.*mem);
+            const auto& value = v.*mem;
 
             using vtype = typename std::decay_t<decltype(f)>::value_type;
             if constexpr (concepts::serializable<vtype>) {
@@ -52,7 +73,7 @@ public:
                 append(subdoc, value);
             }
             else {
-                append_value(doc, name, value);
+                append(doc, name, value);
             }
         });
     }
