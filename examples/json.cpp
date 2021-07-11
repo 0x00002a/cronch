@@ -18,8 +18,8 @@ struct my_type {
 template<>
 struct cr::metadata<my_type> {
     // clang-format off
-    constexpr static auto about = cr::meta::info(
-        cr::meta::name("my_type"), 
+    constexpr static auto name = "my_type";
+    constexpr static auto fields = cr::meta::fields(
         cr::meta::field("name", &my_type::name),
         cr::meta::field("some_info", &my_type::some_info)
     );

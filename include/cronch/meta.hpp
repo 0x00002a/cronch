@@ -46,32 +46,21 @@ struct is_field {
 };
 
 template<typename... Args>
-class about_store {
+class fields_store {
     using held_t = boost::hana::tuple<Args...>;
 
 public:
-    constexpr explicit about_store(Args... values) : held_{std::move(values)...}
+    constexpr explicit fields_store(Args... values) : held_{std::move(values)...}
     {
     }
 
     template<typename Func>
-    constexpr void map_fields(Func&& f) const
+    constexpr void map(Func&& f) const
     {
         boost::hana::for_each(
             boost::hana::filter(held_,
                                 []<typename T>(T&&) { return is_field<T>{}; }),
             std::forward<Func>(f));
-    }
-
-    constexpr auto name() const -> std::string_view
-    {
-        return boost::hana::find_if(
-                   held_,
-                   [](const auto& v) {
-                   return boost::hana::equal(boost::hana::decltype_(v), boost::hana::type_c<const cronch::meta::name>);
-                   })
-            .value()
-            .value;
     }
 
 private:
@@ -80,9 +69,9 @@ private:
 } // namespace detail
 
 template<typename... Args>
-constexpr auto info(Args&&... args)
+constexpr auto fields(Args&&... args)
 {
-    return detail::about_store<std::decay_t<Args>...>{
+    return detail::fields_store<std::decay_t<Args>...>{
         std::forward<Args>(args)...};
 }
 } // namespace cronch::meta

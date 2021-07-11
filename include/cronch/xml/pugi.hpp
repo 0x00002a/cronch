@@ -18,11 +18,30 @@ class basic_xml {
 public:
     using document_type = pugi::xml_document;
 
-    template<concepts::serializable V>
-    static void append(document_type& top, const V& v)
+    template<concepts::iterable V>
+    requires(concepts::serializable<V> &&
+             !concepts::has_fields<V>) 
+    static void append(pugi::xml_node& doc, const V& v)
     {
-        auto doc = top.append_child(metadata<V>::about.name().data());
-        metadata<V>::about.map_fields([&](auto&& f) mutable {
+        auto top = doc.append_child(metadata<V>::name);
+        for (const auto& child : v) {
+            append(doc, child);
+        }
+    }
+    template<concepts::serializable V>
+    requires(!concepts::has_fields<V>) 
+    static void append(pugi::xml_node& doc, const V& v)
+    {
+        append_value(doc, metadata<V>::name,
+                     boost::lexical_cast<std::string>(v));
+    }
+
+    template<concepts::serializable V>
+    requires(concepts::has_fields<V>) 
+    static void append(pugi::xml_node& top, const V& v)
+    {
+        auto doc = top.append_child(metadata<V>::name);
+        metadata<V>::fields.map([&](auto&& f) mutable {
             auto mem = f.mem_ref;
             auto name = f.name;
             auto value = boost::lexical_cast<std::string>(v.*mem);
@@ -32,13 +51,8 @@ public:
                 auto subdoc = doc.child(name.data());
                 append(subdoc, value);
             }
-            else if constexpr (attrMode) {
-                doc.append_attribute(name.data()).set_value(value.c_str());
-            }
             else {
-                doc.append_child(name.data())
-                    .append_child(pugi::node_pcdata)
-                    .set_value(value.c_str());
+                append_value(doc, name, value);
             }
         });
     }
@@ -46,7 +60,7 @@ public:
     template<concepts::serializable V>
     void parse_into(V& out) const
     {
-        metadata<V>::about.map_fields([&](auto&& f) mutable {
+        metadata<V>::fields.map([&](auto&& f) mutable {
             auto mem = f.mem_ref;
             auto name = f.name;
             auto& value = out.*mem;
@@ -75,6 +89,19 @@ public:
     }
 
 private:
+    static void append_value(pugi::xml_node& doc, std::string_view name,
+                             const std::string& value)
+    {
+        if constexpr (attrMode) {
+            doc.append_attribute(name.data()).set_value(value.c_str());
+        }
+        else {
+            doc.append_child(name.data())
+                .append_child(pugi::node_pcdata)
+                .set_value(value.c_str());
+        }
+    }
+
     document_type doc_;
 };
 
@@ -82,4 +109,4 @@ private:
 using pugi_attr = detail::basic_xml<true>;
 using pugi = detail::basic_xml<false>;
 
-} // namespace cronch
+} // namespace cronch::xml

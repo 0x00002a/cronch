@@ -22,7 +22,7 @@ public:
     template<concepts::serializable V>
     static void append(document_type& doc, const V& v)
     {
-        metadata<V>::about.map_fields([&](auto&& f) mutable {
+        metadata<V>::fields.map([&](auto&& f) mutable {
             auto mem = f.mem_ref;
             auto name = f.name;
             const auto& value = v.*mem;
@@ -40,7 +40,7 @@ public:
     template<concepts::serializable V>
     void parse_into(V& out) const
     {
-        metadata<V>::about.map_fields([&](auto&& f) mutable {
+        metadata<V>::fields.map([&](auto&& f) mutable {
             auto mem = f.mem_ref;
             auto name = f.name;
             auto& value = out.*mem;
