@@ -41,6 +41,7 @@ struct metadata<tests::serializable_mock> {
                      meta::field("i", &tests::serializable_mock::i));
 };
 
+static_assert(meta::concepts::accessor<meta::field<tests::serializable_mock, int>>, "field must be an accessor");
 } // namespace cronch
 namespace cronch::tests {
 TEST_SUITE("serialize")
