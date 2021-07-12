@@ -30,7 +30,7 @@ public:
     }
 
     template<cronch::concepts::iterable V>
-    requires (!cronch::concepts::has_fields<V> && !concepts::ostreamable<V>)
+    requires (!cronch::concepts::has_members<V> && !concepts::ostreamable<V>)
     static void append(pugi::xml_node& doc, std::string_view name, const V& v)
     {
         auto top = doc.append_child(name.data());
@@ -41,7 +41,7 @@ public:
     
 
     template<concepts::ostreamable V>
-    requires(!concepts::has_fields<V>) 
+    requires(!concepts::has_members<V>) 
     static void append(pugi::xml_node& doc, std::string_view name, const V& v)
     {
         append_value(doc, name,
@@ -49,13 +49,13 @@ public:
     }
 
     template<typename V>
-    requires(!concepts::has_fields<V> && concepts::serializable<V>) 
+    requires(!concepts::has_members<V> && concepts::serializable<V>) 
     static void append(pugi::xml_node& doc, const V& v)
     {
         append(doc, meta::nameof<V>(), v);
     }
     template<concepts::serializable V>
-    requires(concepts::has_fields<V>) 
+    requires(concepts::has_members<V>) 
     static void append(pugi::xml_node& top, const V& v)
     {
         auto doc = top.append_child(meta::nameof<V>());
@@ -78,7 +78,7 @@ public:
         parse_into(out, meta::nameof<V>());
     }
 
-    template<cronch::concepts::has_fields V>
+    template<cronch::concepts::has_members V>
     void parse_into(V& out, std::string_view name) const
     {
         auto doc = doc_.child(name.data());

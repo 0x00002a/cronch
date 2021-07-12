@@ -56,7 +56,7 @@ public:
         doc_.get_to(out);
     }
     template<cronch::concepts::iterable V>
-    requires(!cronch::concepts::has_fields<V> &&
+    requires(!cronch::concepts::has_members<V> &&
              !concepts::json_deserializable<V>) void parse_into(V& out)
     {
         auto i = 0ul;

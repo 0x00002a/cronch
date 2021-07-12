@@ -12,11 +12,6 @@
 #include "cronch/meta/concepts.hpp"
 
 namespace cronch::meta {
-struct name {
-    std::string_view value;
-
-    constexpr explicit name(std::string_view v) : value{v} {}
-};
 
 template<typename T, typename Vt>
 struct field {
@@ -91,11 +86,11 @@ struct is_field {
 };
 
 template<typename... Args>
-class fields {
+class mems {
     using held_t = boost::hana::tuple<Args...>;
 
 public:
-    constexpr explicit fields(Args... values) : held_{std::move(values)...} {}
+    constexpr explicit mems(Args... values) : held_{std::move(values)...} {}
 
     template<typename Func>
     constexpr void map(Func&& f) const

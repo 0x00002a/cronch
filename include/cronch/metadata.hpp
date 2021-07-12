@@ -22,7 +22,7 @@ struct metadata : std::false_type {
     template<>                                                                                                         \
     struct metadata<type> {                                                                                            \
         static constexpr const char* name = #type;                                                                     \
-        static constexpr auto fields = cronch::meta::fields nfields;                                                   \
+        static constexpr auto members = cronch::meta::mems nfields;                                                   \
     };                                                                                                                 \
     }
 #define CRONCH_META_TYPE_NAME(type)                                                                                    \
