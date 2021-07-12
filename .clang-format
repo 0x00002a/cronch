@@ -1,0 +1,26 @@
+﻿---
+Language: Cpp
+AccessModifierOffset: -4
+IndentWidth: '4'
+NamespaceIndentation: None
+PenaltyBreakComment: '0'
+PenaltyBreakString: '0'
+PointerAlignment: Left
+SpaceAfterCStyleCast: 'true'
+SpaceAfterLogicalNot: 'false'
+SpaceBeforeRangeBasedForLoopColon: 'true'
+SpaceInEmptyParentheses: 'false'
+Standard: c++20
+TabWidth: '4'
+UseTab: Never
+BreakBeforeBraces: Stroustrup
+AlwaysBreakTemplateDeclarations: Yes
+CompactNamespaces: false
+FixNamespaceComments: true
+IncludeBlocks: Preserve
+ReflowComments: true
+SortIncludes: true
+SpaceAfterTemplateKeyword: false
+ColumnLimit: 120
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+...
