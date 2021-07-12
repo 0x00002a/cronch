@@ -65,8 +65,7 @@ public:
 
             using vtype = typename std::decay_t<decltype(f)>::value_type;
             if constexpr (concepts::serializable<vtype>) {
-                auto subdoc = doc.child(name.data());
-                append(subdoc, value);
+                append(doc, name, value);
             }
             else {
                 append(doc, name, value);

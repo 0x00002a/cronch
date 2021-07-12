@@ -8,8 +8,20 @@
 #include <cronch/serialize.hpp>
 #include <cronch/xml/pugi.hpp>
 
+#include <iostream>
+
 #include <string>
 #include <vector>
+
+namespace pugi {
+
+auto operator<<(std::ostream& s, const pugi::xml_document& n) -> std::ostream&
+{
+    n.print(s);
+    return s;
+}
+
+} // namespace pugi
 
 namespace cronch::tests {
 
@@ -52,13 +64,6 @@ TEST_SUITE("serialize")
             const auto expected = [&] {
                 pugi::xml_document doc;
                 auto node = doc.append_child(metadata<serializable_mock>::name);
-                node.append_child("str")
-                    .append_child(pugi::node_pcdata)
-                    .set_value(target.str.c_str());
-                node.append_child("i")
-                    .append_child(pugi::node_pcdata)
-                    .set_value(
-                        boost::lexical_cast<std::string>(target.i).c_str());
                 auto vnode = node.append_child("vstr");
                 for (const auto& v : target.vstr) {
                     vnode
@@ -66,16 +71,24 @@ TEST_SUITE("serialize")
                         .append_child(pugi::node_pcdata)
                         .set_value(v.c_str());
                 }
+                node.append_child("str")
+                    .append_child(pugi::node_pcdata)
+                    .set_value(target.str.c_str());
+                node.append_child("i")
+                    .append_child(pugi::node_pcdata)
+                    .set_value(
+                        boost::lexical_cast<std::string>(target.i).c_str());
 
                 return doc;
             }();
-            const auto actual = [&] {
+            const pugi::xml_document actual = [&] {
                 pugi::xml_document doc;
                 doc.load_string(
                     cronch::serialize<cronch::xml::pugi>(target).c_str());
                 return doc;
             }();
-            CHECK(actual == expected);
+            CHECK(boost::lexical_cast<std::string>(actual) ==
+                  boost::lexical_cast<std::string>(expected));
         }
     }
 }

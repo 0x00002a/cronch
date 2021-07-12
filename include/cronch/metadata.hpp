@@ -22,6 +22,6 @@ struct metadata : std::false_type {
     namespace cronch {                                                         \
     template<>                                                                 \
     struct metadata<type> {                                                    \
-        static constexpr const char* name = #tname;                            \
+        static constexpr const char* name = tname;                            \
     };                                                                         \
     }
