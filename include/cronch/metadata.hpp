@@ -17,11 +17,11 @@ struct metadata : std::false_type {
 
 } // namespace cronch
 
-#define CRONCH_NAMED_TYPE(type, tname)                                          \
+#define CRONCH_META_TYPE(type)                                                 \
                                                                                \
     namespace cronch {                                                         \
     template<>                                                                 \
     struct metadata<type> {                                                    \
-        static constexpr const char* name = tname;                            \
+        static constexpr const char* name = #type;                             \
     };                                                                         \
     }
