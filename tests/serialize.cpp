@@ -4,6 +4,7 @@
 #include <cronch/json/json.hpp>
 #include <cronch/meta.hpp>
 #include <cronch/metadata.hpp>
+#include <cronch/metatypes.hpp>
 #include <cronch/serialize.hpp>
 #include <cronch/xml/pugi.hpp>
 
@@ -17,7 +18,7 @@ struct serializable_mock {
     std::string str;
     int i;
 };
-}
+} // namespace cronch::tests
 namespace cronch {
 template<>
 struct metadata<tests::serializable_mock> {
@@ -28,8 +29,7 @@ struct metadata<tests::serializable_mock> {
                      meta::field("i", &tests::serializable_mock::i));
 };
 
-
-}
+} // namespace cronch
 namespace cronch::tests {
 TEST_SUITE("serialize")
 {
@@ -45,8 +45,37 @@ TEST_SUITE("serialize")
                 {"vstr", target.vstr}, {"str", target.str}, {"i", target.i}};
             const auto parsed = nlohmann::json::parse(
                 cronch::serialize<cronch::json::nloh>(target));
-            std::cout << parsed << '\n';
             CHECK(parsed == expected);
+        }
+        SUBCASE("XML")
+        {
+            const auto expected = [&] {
+                pugi::xml_document doc;
+                auto node = doc.append_child(metadata<serializable_mock>::name);
+                node.append_child("str")
+                    .append_child(pugi::node_pcdata)
+                    .set_value(target.str.c_str());
+                node.append_child("i")
+                    .append_child(pugi::node_pcdata)
+                    .set_value(
+                        boost::lexical_cast<std::string>(target.i).c_str());
+                auto vnode = node.append_child("vstr");
+                for (const auto& v : target.vstr) {
+                    vnode
+                        .append_child(metadata<std::decay_t<decltype(v)>>::name)
+                        .append_child(pugi::node_pcdata)
+                        .set_value(v.c_str());
+                }
+
+                return doc;
+            }();
+            const auto actual = [&] {
+                pugi::xml_document doc;
+                doc.load_string(
+                    cronch::serialize<cronch::xml::pugi>(target).c_str());
+                return doc;
+            }();
+            CHECK(actual == expected);
         }
     }
 }

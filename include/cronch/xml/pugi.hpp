@@ -28,7 +28,8 @@ public:
         }
     }
 
-    template<concepts::serializable V>
+    template<cronch::concepts::iterable V>
+    requires (!cronch::concepts::has_fields<V> && !concepts::ostreamable<V>)
     static void append(pugi::xml_node& doc, std::string_view name, const V& v)
     {
         auto top = doc.append_child(name.data());
@@ -36,12 +37,7 @@ public:
             append(top, child);
         }
     }
-    template<concepts::iterable V>
-    requires(!concepts::has_fields<V> && concepts::serializable<V>) 
-    static void append(pugi::xml_node& doc, const V& v)
-    {
-        append(doc, metadata<V>::name, v);
-    }
+    
 
     template<concepts::ostreamable V>
     requires(!concepts::has_fields<V>) 
@@ -51,11 +47,11 @@ public:
                      boost::lexical_cast<std::string>(v));
     }
 
-    template<concepts::ostreamable V>
+    template<typename V>
     requires(!concepts::has_fields<V> && concepts::serializable<V>) 
     static void append(pugi::xml_node& doc, const V& v)
     {
-        append(doc, v, metadata<V>::name);
+        append(doc, metadata<V>::name, v);
     }
     template<concepts::serializable V>
     requires(concepts::has_fields<V>) 

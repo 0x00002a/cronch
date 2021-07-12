@@ -21,8 +21,8 @@ public:
     }
     explicit nloh(document_type doc) : doc_{std::move(doc)} {}
 
-    template<cronch::concepts::serializable V>
-    requires(concepts::json_serializable<V>) static void append(
+    template<typename V>
+    requires(concepts::json_serializable<V> && !cronch::concepts::known_to_cronch<V>) static void append(
         document_type& doc, const V& val)
     {
         doc = val;

@@ -6,13 +6,12 @@
 
 #include "cronch/metadata.hpp"
 
-/*
 CRONCH_NAMED_TYPE(int, "int")
 CRONCH_NAMED_TYPE(long, "long")
 CRONCH_NAMED_TYPE(short, "short")
 CRONCH_NAMED_TYPE(char, "char")
 CRONCH_NAMED_TYPE(unsigned int, "uint")
-CRONCH_NAMED_TYPE(std::string, "string")*/
+CRONCH_NAMED_TYPE(std::string, "string")
 
 namespace cronch {
 template<typename T>

@@ -8,7 +8,7 @@ namespace cronch::json::concepts {
 template<typename J>
 concept json_serializable = requires(const J& v, nlohmann::json& j)
 {
-    to_json(j, v);
+    j.emplace_back(v);
 };
 
 template<typename J>
