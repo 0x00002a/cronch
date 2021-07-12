@@ -84,8 +84,11 @@ public:
     template<typename Func>
     constexpr void map(Func&& f) const
     {
-        boost::hana::for_each(boost::hana::filter(held_, []<typename T>(T&&) { return is_field<T>{}; }),
+        boost::hana::for_each(boost::hana::filter(held_, []<typename T>(T&&) { return is_field<std::decay_t<T>>{}; }),
                               std::forward<Func>(f));
+    }
+    constexpr auto empty() const -> bool {
+        return boost::hana::is_empty(held_);
     }
 
 private:

@@ -33,13 +33,14 @@ public:
     static void append(document_type& doc, const V& v)
     {
         meta::accessors<V>().map([&](auto&& f) mutable {
-            auto mem = f.mem_ref;
             auto name = f.name;
-            const auto& value = v.*mem;
-
+            
             using vtype = typename std::decay_t<decltype(f)>::value_type;
+            auto&& value = f(v);
+
             if constexpr (cronch::concepts::serializable<vtype>) {
                 auto& subdoc = doc[std::string(name)];
+                
                 append(subdoc, value);
             }
             else {
@@ -70,11 +71,10 @@ public:
     void parse_into(V& out) const
     {
         metadata<V>::fields.map([&](auto&& f) mutable {
-            auto mem = f.mem_ref;
             auto name = f.name;
-            auto& value = out.*mem;
 
             using vtype = typename std::decay_t<decltype(f)>::value_type;
+            vtype value;
             if constexpr (cronch::concepts::serializable<vtype>) {
                 nloh sub{doc_.at(std::string{name})};
                 sub.parse_into(value);
@@ -82,6 +82,7 @@ public:
             else {
                 doc_.at(std::string{name}).get_to(value);
             }
+            f(out, value);
         });
     }
 

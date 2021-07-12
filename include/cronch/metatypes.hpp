@@ -4,14 +4,15 @@
 #include <string>
 #include <vector>
 
+#include "cronch/meta.hpp"
 #include "cronch/metadata.hpp"
 
-CRONCH_NAMED_TYPE(int, "int")
-CRONCH_NAMED_TYPE(long, "long")
-CRONCH_NAMED_TYPE(short, "short")
-CRONCH_NAMED_TYPE(char, "char")
-CRONCH_NAMED_TYPE(unsigned int, "uint")
-CRONCH_NAMED_TYPE(std::string, "string")
+CRONCH_META_TYPE(int)
+CRONCH_META_TYPE(long)
+CRONCH_META_TYPE(short)
+CRONCH_META_TYPE(char)
+CRONCH_META_TYPE(unsigned int)
+CRONCH_META_TYPE(std::string)
 
 namespace cronch {
 template<typename T>
