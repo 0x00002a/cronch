@@ -57,14 +57,14 @@ struct property_impl {
         if (!getter) {
             throw std::logic_error{"property asked for get without getter"};
         }
-        return getter(&p);
+        return std::invoke(getter, &p);
     }
     constexpr void operator()(T& p, S v) const
     {
         if (!setter) {
             throw std::logic_error{"property told to set without setter"};
         }
-        setter(&p, std::forward<S>(v));
+        std::invoke(setter, &p, std::forward<S>(v));
     }
 };
 }
