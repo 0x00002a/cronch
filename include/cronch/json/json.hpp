@@ -20,7 +20,7 @@ public:
         : doc_(nlohmann::json::parse(content))
     {
     }
-    explicit nloh(document_type doc) : doc_{std::move(doc)} {}
+    explicit nloh(document_type doc) : doc_(std::move(doc)) {}
 
     template<typename V>
     requires(concepts::json_serializable<V> && !cronch::concepts::known_to_cronch<V>) static void append(
@@ -76,7 +76,8 @@ public:
             using vtype = typename std::decay_t<decltype(f)>::value_type;
             vtype value;
             if constexpr (cronch::concepts::serializable<vtype>) {
-                nloh sub{doc_.at(std::string{name})};
+                nlohmann::json sub_doc = doc_.at(std::string{name});
+                nloh sub{std::move(sub_doc)};
                 sub.parse_into(value);
             }
             else {

@@ -15,7 +15,7 @@ namespace cr = cronch;
 struct my_type {
     std::string name;
     int some_info;
-    std::vector<my_type> values;
+    std::vector<int> values;
 };
 
 template<>
