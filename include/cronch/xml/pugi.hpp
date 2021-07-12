@@ -8,6 +8,7 @@
 
 #include "cronch/concepts.hpp"
 #include "cronch/metadata.hpp"
+#include "cronch/meta/reflect.hpp"
 
 namespace cronch::xml {
 
@@ -51,17 +52,16 @@ public:
     requires(!concepts::has_fields<V> && concepts::serializable<V>) 
     static void append(pugi::xml_node& doc, const V& v)
     {
-        append(doc, metadata<V>::name, v);
+        append(doc, meta::nameof<V>(), v);
     }
     template<concepts::serializable V>
     requires(concepts::has_fields<V>) 
     static void append(pugi::xml_node& top, const V& v)
     {
-        auto doc = top.append_child(metadata<V>::name);
-        metadata<V>::fields.map([&](auto&& f) mutable {
-            auto mem = f.mem_ref;
+        auto doc = top.append_child(meta::nameof<V>());
+        meta::accessors<V>().map([&](auto&& f) mutable {
             auto name = f.name;
-            const auto& value = v.*mem;
+            auto&& value = f(v);
 
             using vtype = typename std::decay_t<decltype(f)>::value_type;
             if constexpr (concepts::serializable<vtype>) {
@@ -73,27 +73,32 @@ public:
         });
     }
 
-    template<concepts::serializable V>
-    void parse_into(V& out) const
+    template<cronch::concepts::known_to_cronch V>
+    void parse_into(V& out) const {
+        parse_into(out, meta::nameof<V>());
+    }
+
+    template<cronch::concepts::has_fields V>
+    void parse_into(V& out, std::string_view name) const
     {
-        metadata<V>::fields.map([&](auto&& f) mutable {
-            auto mem = f.mem_ref;
-            auto name = f.name;
-            auto& value = out.*mem;
+        auto doc = doc_.child(name.data());
+        meta::accessors<V>().map([&](auto&& f) mutable {
+            auto fname = f.name;
 
             using vtype = typename std::decay_t<decltype(f)>::value_type;
+            vtype value;
             if constexpr (concepts::serializable<vtype>) {
-                auto sub = doc_.child(name.data());
-                basic_xml{sub}.parse_into(value);
+                basic_xml{doc}.parse_into(value, fname);
             }
             else if constexpr (attrMode) {
                 value = boost::lexical_cast<vtype>(
-                    doc_.attribute(name.data()).value());
+                    doc_.attribute(fname.data()).value());
             }
             else {
                 value =
-                    boost::lexical_cast<vtype>(doc_.child(name.data()).text());
+                    boost::lexical_cast<vtype>(doc_.child(fname.data()).text());
             }
+            f(out, value);
         });
     }
 
