@@ -40,7 +40,7 @@ concept serializable = requires(const S& inst)
 };
 
 template<typename S>
-concept known_to_cronch = !has_fields<S> && !serializable<S>;
+concept known_to_cronch = has_fields<S> && serializable<S>;
 
 
 template<typename C>
