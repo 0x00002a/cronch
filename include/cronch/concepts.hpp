@@ -33,12 +33,15 @@ concept iterable = requires(C c) {
     { c.begin() };
     { c.end() };
 };
-
 template<typename S>
 concept serializable = requires(const S& inst)
 {
     {metadata<S>::name};
 };
+
+template<typename S>
+concept known_to_cronch = !has_fields<S> && !serializable<S>;
+
 
 template<typename C>
 concept ostreamable = requires(C c, std::ostream& s) {
@@ -48,7 +51,7 @@ concept ostreamable = requires(C c, std::ostream& s) {
 template<typename B>
 concept backend = requires(typename B::document_type& doc)
 {
-    B::append(doc, detail::empty_serializable{});
+    (void)true;//B::append(doc, detail::empty_serializable{});
 };
 
 } // namespace cronch::concepts

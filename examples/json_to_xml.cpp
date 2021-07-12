@@ -6,6 +6,7 @@
 #include <cronch/meta.hpp>
 #include <cronch/serialize.hpp>
 #include <cronch/xml/pugi.hpp>
+#include <cronch/metatypes.hpp>
 
 #include <string>
 
@@ -14,7 +15,7 @@ namespace cr = cronch;
 struct my_type {
     std::string name;
     int some_info;
-    std::vector<int> values;
+    std::vector<my_type> values;
 };
 
 template<>
@@ -38,7 +39,7 @@ int main()
         ss << line << '\n';
     }
     std::cout << "json data: (json): " << ss.str() << '\n';
-    const auto my_obj = cr::deserialize<my_type>(cr::json{ss.str()});
+    auto my_obj = cr::deserialize<my_type>(cr::json::nloh{ss.str()});
     std::cout << "my_type (xml): " << cr::serialize<cr::xml::pugi>(my_obj) << '\n'
               << "(with attrs): " << cr::serialize<cr::xml::pugi_attr>(my_obj)
               << '\n';

@@ -16,3 +16,13 @@ struct metadata : std::false_type {
 };
 
 } // namespace cronch
+
+#define CRONCH_NAMED_TYPE(type, name)                                          \
+    \
+    namespace cronch                                                           \
+    {                                                                          \
+        template<typename type>                                                \
+        struct metadata {                                                      \
+            static constexpr const char* name = "name";                        \
+        };                                                                     \
+    }

@@ -29,9 +29,9 @@ struct cr::metadata<my_type> {
 int main()
 {
     const auto my_obj = my_type{"Hello there", 4};
-    std::cout << "my_type: " << cr::serialize<cr::json>(my_obj) << '\n';
+    std::cout << "my_type: " << cr::serialize<cr::json::nloh>(my_obj) << '\n';
 
-    const auto json_out = cr::serialize<cr::json>(my_obj);
-    const auto second_obj = cr::deserialize<my_type>(cr::json{json_out});
-    std::cout << "redone: " << cr::serialize<cr::json>(second_obj) << '\n';
+    const auto json_out = cr::serialize<cr::json::nloh>(my_obj);
+    const auto second_obj = cr::deserialize<my_type>(cr::json::nloh{json_out});
+    std::cout << "redone: " << cr::serialize<cr::json::nloh>(second_obj) << '\n';
 }

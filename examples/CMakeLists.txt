@@ -3,6 +3,10 @@ function(cronch_add_example NAME SRC)
   target_link_libraries(${NAME} PUBLIC cronch)
   message(STATUS "creating example: ${NAME}")
 
+  cronch_add_werror(${NAME})
+  cronch_add_diagnostics(${NAME})
+
+
 endfunction()
 
 cronch_add_example(json json.cpp)
