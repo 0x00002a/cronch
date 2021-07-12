@@ -9,7 +9,8 @@ function(cronch_add_example NAME SRC)
 
 endfunction()
 
-cronch_add_example(json json.cpp)
+cronch_add_example(to_json_basic serialization/basic_json.cpp)
+cronch_add_example(from_json deserialization/json.cpp)
 
 find_package(pugixml REQUIRED)
 

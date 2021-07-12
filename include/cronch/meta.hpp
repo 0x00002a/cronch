@@ -76,3 +76,11 @@ constexpr auto fields(Args&&... args)
 }
 } // namespace cronch::meta
 
+#define CRONCH_META_TYPE(type, nfields)                                        \
+    namespace cronch {                                                         \
+    template<>                                                                 \
+    struct metadata<type> {                                                    \
+        static constexpr const char* name = #type;                             \
+        static constexpr auto fields = cronch::meta::fields nfields;           \
+    };                                                                         \
+    }
