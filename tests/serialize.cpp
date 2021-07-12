@@ -29,6 +29,16 @@ struct serializable_mock {
     std::vector<std::string> vstr;
     std::string str;
     int i;
+
+    auto hidden() const -> std::string {
+        return hidden_;
+    }
+    void hidden(const std::string& h) {
+        hidden_ = h;
+    }
+    
+
+    std::string hidden_;
 };
 } // namespace cronch::tests
 namespace cronch {
@@ -38,7 +48,9 @@ struct metadata<tests::serializable_mock> {
     static constexpr auto fields =
         meta::fields(meta::field("vstr", &tests::serializable_mock::vstr),
                      meta::field("str", &tests::serializable_mock::str),
-                     meta::field("i", &tests::serializable_mock::i));
+                     meta::field("i", &tests::serializable_mock::i),
+                     meta::property("hidden", &tests::serializable_mock::hidden, &tests::serializable_mock::hidden)
+                     );
 };
 
 static_assert(meta::concepts::accessor<meta::field<tests::serializable_mock, int>>, "field must be an accessor");
@@ -53,11 +65,11 @@ TEST_SUITE("serialize")
               "in the format specified")
     {
         const auto target = serializable_mock{
-            .vstr = {"Hello", "World"}, .str = "testme", .i = 5};
+            .vstr = {"Hello", "World"}, .str = "testme", .i = 5, .hidden_ = "cantfindme"};
         SUBCASE("JSON")
         {
             const auto expected = nlohmann::json{
-                {"vstr", target.vstr}, {"str", target.str}, {"i", target.i}};
+                {"vstr", target.vstr}, {"str", target.str}, {"i", target.i}, {"hidden", target.hidden()}};
             const auto parsed = nlohmann::json::parse(
                 cronch::serialize<cronch::json::nloh>(target));
             CHECK(parsed == expected);
@@ -81,6 +93,7 @@ TEST_SUITE("serialize")
                     .append_child(pugi::node_pcdata)
                     .set_value(
                         boost::lexical_cast<std::string>(target.i).c_str());
+                node.append_child("hidden").append_child(pugi::node_pcdata).set_value(target.hidden().c_str());
 
                 return doc;
             }();
