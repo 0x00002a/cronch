@@ -1,14 +1,14 @@
 
-#pragma once 
+#pragma once
 
 #include <boost/hana.hpp>
 
 #include <stdexcept>
-#include <type_traits>
 #include <string_view>
+#include <type_traits>
 
-#include "cronch/meta/concepts.hpp"
 #include "cronch/concepts.hpp"
+#include "cronch/meta/concepts.hpp"
 
 namespace cronch::meta {
 struct name {
@@ -26,16 +26,12 @@ struct field {
     std::string_view name;
     field_t mem_ref;
 
-    constexpr field(std::string_view name_, field_t mem)
-        : name{name_}, mem_ref{mem}
-    {
-    }
+    constexpr field(std::string_view name_, field_t mem) : name{name_}, mem_ref{mem} {}
 
-    constexpr auto operator()(const T& p) const -> const Vt& {
-        return p.*mem_ref;
-    }
+    constexpr auto operator()(const T& p) const -> const Vt& { return p.*mem_ref; }
     template<std::convertible_to<Vt> V>
-    constexpr void operator()(T& p, V&& v) const  {
+    constexpr void operator()(T& p, V&& v) const
+    {
         p.*mem_ref = std::forward<V>(v);
     }
 };
@@ -45,27 +41,29 @@ struct property {
     using owning_type = T;
     using value_type = S;
     using retr_t = R;
-    using get_t = R(*)(const T*);
-    using set_t = void(*)(T*, S);
-    
+    using get_t = R (*)(const T*);
+    using set_t = void (*)(T*, S);
+
+    std::string_view name;
     get_t getter;
     set_t setter;
 
-    property(set_t set = nullptr, get_t get = nullptr) : setter{set}, getter{get} {}
+    constexpr property(std::string_view n, set_t set = nullptr, get_t get = nullptr) : name{n}, setter{set}, getter{get} {}
 
-    constexpr auto operator()(const T& p) const -> R {
+    constexpr auto operator()(const T& p) const -> R
+    {
         if (!getter) {
             throw std::logic_error{"property asked for get without getter"};
         }
         return getter(&p);
     }
-    constexpr void operator()(T& p, S v) const {
+    constexpr void operator()(T& p, S v) const
+    {
         if (!setter) {
             throw std::logic_error{"property told to set without setter"};
         }
         setter(&p, std::forward<S>(v));
     }
-
 };
 
 template<typename T>
@@ -81,24 +79,17 @@ class fields {
     using held_t = boost::hana::tuple<Args...>;
 
 public:
-    constexpr explicit fields(Args... values) : held_{std::move(values)...}
-    {
-    }
+    constexpr explicit fields(Args... values) : held_{std::move(values)...} {}
 
     template<typename Func>
     constexpr void map(Func&& f) const
     {
-        boost::hana::for_each(
-            boost::hana::filter(held_,
-                                []<typename T>(T&&) { return is_field<T>{}; }),
-            std::forward<Func>(f));
+        boost::hana::for_each(boost::hana::filter(held_, []<typename T>(T&&) { return is_field<T>{}; }),
+                              std::forward<Func>(f));
     }
 
 private:
     held_t held_;
 };
-} // namespace detail
 
-
-}
-
+} // namespace cronch::meta

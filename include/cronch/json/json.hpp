@@ -6,6 +6,7 @@
 #include "cronch/concepts.hpp"
 #include "cronch/json/concepts.hpp"
 #include "cronch/metadata.hpp"
+#include "cronch/meta/reflect.hpp"
 
 #include <string>
 
@@ -31,7 +32,7 @@ public:
     template<cronch::concepts::known_to_cronch V>
     static void append(document_type& doc, const V& v)
     {
-        metadata<V>::fields.map([&](auto&& f) mutable {
+        meta::accessors<V>().map([&](auto&& f) mutable {
             auto mem = f.mem_ref;
             auto name = f.name;
             const auto& value = v.*mem;
