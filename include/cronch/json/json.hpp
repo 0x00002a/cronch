@@ -28,9 +28,8 @@ public:
         doc = val;
     }
 
-    template<cronch::concepts::serializable V>
-    requires(cronch::concepts::has_fields<V>) static void append(
-        document_type& doc, const V& v)
+    template<cronch::concepts::known_to_cronch V>
+    static void append(document_type& doc, const V& v)
     {
         metadata<V>::fields.map([&](auto&& f) mutable {
             auto mem = f.mem_ref;

@@ -12,5 +12,5 @@ target_include_directories(cronch INTERFACE ${CMAKE_CURRENT_LIST_DIR}/include)
 target_link_libraries(cronch INTERFACE Boost::headers)
 target_compile_features(cronch INTERFACE cxx_std_20)
 
-# add_subdirectory(test)
+add_subdirectory(tests)
 add_subdirectory(examples)
