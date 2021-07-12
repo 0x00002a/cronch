@@ -43,14 +43,14 @@ struct property_impl {
     using owning_type = T;
     using value_type = std::decay_t<S>;
     using retr_t = R;
-    using get_t = R (*)(const T*);
-    using set_t = void (*)(T*, S);
+    using get_t = R (T::*)() const;
+    using set_t = void (T::*)(S);
 
     std::string_view name;
     get_t getter;
     set_t setter;
 
-    constexpr property_impl(std::string_view n, set_t set = nullptr, get_t get = nullptr) : name{n}, setter{set}, getter{get} {}
+    constexpr property_impl(std::string_view n, get_t get = nullptr, set_t set = nullptr) : name{n}, getter{get}, setter{set}  {}
 
     constexpr auto operator()(const T& p) const -> R
     {
@@ -69,35 +69,18 @@ struct property_impl {
 };
 }
 
-template<typename T>
-struct owner_of_method {
-    using type = void;
-};
- 
-template<class T, class U>
-struct owner_of_method<T U::*> {
-    using type = T;
-};
-template<typename Func>
-concept basic_accessor = std::is_member_function_pointer_v<Func> &&
-    requires(Func f, const typename owner_of_method<Func>::type* p, typename owner_of_method<Func>::type* p2)
+template<typename Func, typename T>
+concept basic_accessor = requires(Func f, const T* p, T* p2)
 {
     {std::invoke(f, p)};
     {std::invoke(f, p2, std::invoke(f, p))};
 };
 
-template<basic_accessor Func>
-constexpr auto property(std::string_view name, Func accessor) {
-    using func_t = std::decay_t<Func>;
-    using T = typename owner_of_method<Func>::type;
-    using retr_t = std::invoke_result_t<func_t, const T*>;
-    return detail::property_impl<T, retr_t, retr_t>{name, accessor, accessor};
-}
-template<typename T, typename R, typename S>
-constexpr auto property(std::string_view name, R(*get)(const T*) = nullptr, void(*set)(T*, S) = nullptr) {
-    return detail::property_impl<T, R, S>{name, set, get};
-}
 
+template<typename T, typename R, typename S>
+constexpr auto property(std::string_view name, R(T::*get)() const = nullptr, void(T::*set)(S) = nullptr) {
+    return detail::property_impl<T, R, S>{name, get, set};
+}
 
 template<typename T>
 constexpr bool is_name = std::same_as<T, name>;
