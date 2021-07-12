@@ -34,16 +34,19 @@ General concepts
 
 .. concept:: template<typename T> known_by_cronch 
 
-   Type that satisfies all other concepts for meta information 
+   Type that satisfies all other concepts for meta information
 
 
    **Requirements** 
     - :concept:`serializable`
-    - :concept:`has_fields`
+    - :concept:`has_members`
 
 .. concept:: template<typename T> backend 
 
-   Type that can be used as a serializing/deserializing backend. 
+   Type that can be used as a serializing/deserializing backend.  
+
+   **Requirements** 
+    - 
 
 .. namespace-pop::
 

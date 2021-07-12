@@ -25,7 +25,7 @@ concept is = requires(const T& v)
 
 template<typename S>
 concept has_members = requires() {
-    { metadata<S>::fields };
+    { metadata<S>::members };
 };
 
 template<typename C>
@@ -49,9 +49,10 @@ concept ostreamable = requires(C c, std::ostream& s) {
 };
 
 template<typename B>
-concept backend = requires(typename B::document_type& doc)
+concept backend = requires(typename B::document_type& doc, const B& b, detail::empty_serializable& s, const detail::empty_serializable& cs)
 {
-    (void)true;//B::append(doc, detail::empty_serializable{});
+    { B::append(doc, cs) };
+    { b.parse_into(s) };
 };
 
 } // namespace cronch::concepts

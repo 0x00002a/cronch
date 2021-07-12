@@ -45,8 +45,8 @@ namespace cronch {
 template<>
 struct metadata<tests::serializable_mock> {
     static constexpr auto name = "serializable_mock";
-    static constexpr auto fields =
-        meta::fields(meta::field("vstr", &tests::serializable_mock::vstr),
+    static constexpr auto members =
+        meta::mems(meta::field("vstr", &tests::serializable_mock::vstr),
                      meta::field("str", &tests::serializable_mock::str),
                      meta::field("i", &tests::serializable_mock::i),
                      meta::property("hidden", &tests::serializable_mock::hidden, &tests::serializable_mock::hidden)

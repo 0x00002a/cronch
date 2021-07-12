@@ -23,7 +23,7 @@ struct metadata<std::vector<T>> {
 template<typename T1, typename T2>
 struct metadata<std::pair<T1, T2>> {
     constexpr static auto name = "pair";
-    constexpr static auto fields = meta::fields( 
+    constexpr static auto members = meta::mems( 
             meta::field("first", &std::pair<T1, T2>::first),
             meta::field("second", &std::pair<T1, T2>::second)
             );

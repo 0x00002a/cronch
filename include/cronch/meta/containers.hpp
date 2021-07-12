@@ -77,8 +77,6 @@ constexpr auto property(std::string_view name, R(T::*get)() const = nullptr, voi
     return detail::property_impl<T, R, S>{name, get, set};
 }
 
-template<typename T>
-constexpr bool is_name = std::same_as<T, name>;
 
 template<typename T>
 struct is_field {
