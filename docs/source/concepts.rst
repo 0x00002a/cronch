@@ -18,7 +18,6 @@ General concepts
    Type that can be serialized by cronch at the most basic level.
 
    **Requirements**
-   
         - :expr:`same_as<metadata<T>::name, const char*>`
 
 
@@ -27,9 +26,8 @@ General concepts
    Type that can defines fields for use by cronch
 
    **Requirements** 
-
-        - :concept:`serializable`
-        - :expr:`same_as<metadata<T>::fields, fields(...)>`
+      - :concept:`serializable`
+      - :expr:`same_as<metadata<T>::fields, fields(...)>`
 
 
 .. concept:: template<typename T> known_to_cronch 
@@ -49,9 +47,9 @@ General concepts
     - B::append(typename B::document_type&, const known_to_cronch auto&)
     - b.parse_into(known_to_cronch auto&)
 
-    **Implementations** 
-     - :class:`pugi`
-     - :class:`nloh`
+   **Implementations** 
+    - :class:`pugi`
+    - :class:`nloh`
 
 .. concept:: template<typename C> iterable 
 

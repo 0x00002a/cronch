@@ -12,7 +12,6 @@ Welcome to cronch's documentation!
 
    quick_start
    concepts 
-   func/high_level
    metadata
    backends
 
