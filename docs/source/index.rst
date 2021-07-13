@@ -14,6 +14,7 @@ Welcome to cronch's documentation!
    concepts 
    func/high_level
    metadata
+   backends
 
 .. include:: ../../README.rst
 

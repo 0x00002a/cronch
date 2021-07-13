@@ -1,7 +1,7 @@
 Metadata 
 ===========
 
-*Basically bootleg reflection* 
+*Aka bootleg reflection* 
 
 
 Introduction 
@@ -54,6 +54,8 @@ Registration points
 
    Holds a field belonging to T with type V. 
 
+   **Constructors**
+
    .. function:: constexpr field::field(std::string_view name, V T::* n)
 
 
@@ -65,6 +67,7 @@ Registration points
     while deserializing it requires all setters to be non-null
 
 
+   **Constructors**
 
     .. function:: constexpr property::property(std::string_view name, R(T::* getter) = nullptr, void(T::* setter) = nullptr) 
     
@@ -72,6 +75,8 @@ Registration points
 .. class:: template<typename... Fs> mems
 
    Holds the members of a type (which may be :class:`property` or :class:`field`'s)
+
+   **Constructors**
 
    .. function:: constexpr mems::mems(Fs... fs) 
         

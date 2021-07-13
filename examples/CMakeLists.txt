@@ -19,4 +19,5 @@ target_link_libraries(json_to_xml PUBLIC pugixml::pugixml)
 
 
 cronch_add_example(props props.cpp)
+cronch_add_example(custom_backend_plain custom_backend/plain.cpp)
 

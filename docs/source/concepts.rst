@@ -32,7 +32,7 @@ General concepts
         - :expr:`same_as<metadata<T>::fields, fields(...)>`
 
 
-.. concept:: template<typename T> known_by_cronch 
+.. concept:: template<typename T> known_to_cronch 
 
    Type that satisfies all other concepts for meta information
 
@@ -41,12 +41,25 @@ General concepts
     - :concept:`serializable`
     - :concept:`has_members`
 
-.. concept:: template<typename T> backend 
+.. concept:: template<typename B> backend 
 
    Type that can be used as a serializing/deserializing backend.  
 
    **Requirements** 
-    - 
+    - B::append(typename B::document_type&, const known_to_cronch auto&)
+    - b.parse_into(known_to_cronch auto&)
+
+    **Implementations** 
+     - :class:`pugi`
+     - :class:`nloh`
+
+.. concept:: template<typename C> iterable 
+
+   Type that can be iterated over 
+
+   **Requirements**
+    - :expr:`std::begin(c)`
+    - :expr:`std::end(c)`
 
 .. namespace-pop::
 
@@ -100,7 +113,7 @@ Metadata concepts
    A type that provides a view over the attributes of another type 
 
    **Requirements**
-    - V::map((:concept:`getter` or :concept:`setter`)) 
+    - v.map([]<typename T>(T&&) requires(getter<T> || setter<T>){})
 
    **Implementations**
     - :class:`mems`
