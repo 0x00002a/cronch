@@ -15,7 +15,8 @@ Welcome to cronch's documentation!
    metadata
    backends
 
-.. include:: ../../README.rst
+
+.. include:: readme.rst
 
 
 

@@ -47,7 +47,7 @@ Helper macros
 .. namespace-push:: meta
 
 
-Registration points
+Registration helpers
 --------------------
 
 .. class:: template<typename T, typename V> field 
@@ -80,6 +80,12 @@ Registration points
 
    .. function:: constexpr mems::mems(Fs... fs) 
         
+
+Note
+#######
+
+All these types are simply implementations of :concept:`accessor` that are provided to make cronch easier to use. There 
+is nothing to stop you defining your own accessor types and using those instead of/in conjunction with the above.
 
 Querying
 --------------
