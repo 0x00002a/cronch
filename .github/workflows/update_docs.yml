@@ -1,0 +1,41 @@
+name: Update docs 
+
+on: 
+  push: 
+    branches: [main]
+    paths: ["docs/**"]
+
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2 
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+          architecture: x64 
+
+      - name: Install sphinx 
+        run: pip install sphinx myst-parser karma-sphinx-theme
+      
+      - name: Generate html docs 
+        run: |
+          cd docs 
+          make html 
+          touch build/html/.nojekyll
+
+      - name: Deploy to pages 
+        uses: tsunematsu21/actions-publish-gh-pages@v1.0.2
+        with:
+          dir: docs/build/html 
+          branch: gh-pages 
+          token: ${{ secrets.ACCESS_TOKEN }}
+
+
+
+
+
+
+
