@@ -30,8 +30,8 @@ concept has_members = requires() {
 
 template<typename C>
 concept iterable = requires(C c) {
-    { c.begin() };
-    { c.end() };
+    { std::begin(c) };
+    { std::end(c) };
 };
 template<typename S>
 concept serializable = requires(const S& inst)
