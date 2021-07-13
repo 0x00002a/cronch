@@ -1,0 +1,334 @@
+
+
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Concepts &mdash; cronch 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.min.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.min.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Metadata" href="metadata.html" />
+    <link rel="prev" title="Quick start" href="quick_start.html" /> 
+
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <a class="site-nav-toggle hidden-lg-up"><i class="icon-menu"></i></a>
+            <a class="site-title" href="index.html">
+                cronch
+            </a>
+        </div>
+    </header>
+
+
+<div class="breadcrumbs-outer hidden-xs-down">
+    <div class="container">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="breadcrumbs">
+    
+      <li><a href="index.html">Docs</a></li>
+        
+      <li>Concepts</li>
+    
+    
+      <li class="breadcrumbs-aside">
+        
+            
+            <a href="_sources/concepts.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+</div>
+    </div>
+</div>
+    <div class="main-outer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-3 site-nav">
+                    
+<div role="search">
+    <form class="search" action="search.html" method="get">
+        <div class="icon-input">
+            <input type="text" name="q" placeholder="Search" />
+            <span class="icon-search"></span>
+        </div>
+        <input type="submit" value="Go" class="d-hidden" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+                    <div class="site-nav-tree">
+                        
+                            
+                            
+                                <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Quick start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quick_start.html#making-your-type-usable-with-cronch">Making your type usable with cronch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quick_start.html#serialization">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quick_start.html#deserialzation">Deserialzation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quick_start.html#an-example">An example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quick_start.html#registering-types">Registering types</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Concepts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#general-concepts">General concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#metadata-concepts">Metadata concepts</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">Metadata</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html#customisation-points">Customisation points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html#helper-macros">Helper macros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html#registration-helpers">Registration helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html#querying">Querying</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="backends.html">Backends</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="backends.html#json">JSON</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backends.html#xml">XML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backends.html#building-your-own">Building your own</a></li>
+</ul>
+</li>
+</ul>
+
+                            
+                        
+                    </div>
+                </div>
+                <div class="col-12 col-lg-9">
+                    <div class="document">
+                        
+                            
+  <section id="concepts">
+<h1>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h1>
+<p><em>As in the C++20 feature</em></p>
+<section id="general-concepts">
+<span id="id1"></span><h2>General concepts<a class="headerlink" href="#general-concepts" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp concept">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN6cronch8concepts12serializableE">
+<span id="_CPPv3I0EN6cronch8concepts12serializableE"></span><span id="_CPPv2I0EN6cronch8concepts12serializableE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">concept</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">serializable</span></span></span><a class="headerlink" href="#_CPPv4I0EN6cronch8concepts12serializableE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Type that can be serialized by cronch at the most basic level.</p>
+<dl class="simple">
+<dt><strong>Requirements</strong></dt><dd><ul class="simple">
+<li><p><span class="cpp-expr sig sig-inline cpp"><span class="n">same_as</span><span class="p">&lt;</span><a class="reference internal" href="metadata.html#_CPPv4I0EN6cronch8metadataE" title="cronch::metadata"><span class="n">metadata</span></a><span class="p">&lt;</span><a class="reference internal" href="#_CPPv4I0EN6cronch8concepts12serializableE" title="cronch::concepts::serializable::T"><span class="n">T</span></a><span class="p">&gt;</span><span class="p">::</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="p">*</span><span class="p">&gt;</span></span></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp concept">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN6cronch8concepts11has_membersE">
+<span id="_CPPv3I0EN6cronch8concepts11has_membersE"></span><span id="_CPPv2I0EN6cronch8concepts11has_membersE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">concept</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">has_members</span></span></span><a class="headerlink" href="#_CPPv4I0EN6cronch8concepts11has_membersE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Type that can defines fields for use by cronch</p>
+<dl class="simple">
+<dt><strong>Requirements</strong></dt><dd><ul class="simple">
+<li><p><a class="reference internal" href="#_CPPv4I0EN6cronch8concepts12serializableE" title="cronch::concepts::serializable"><code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">serializable</span></code></a></p></li>
+<li><p><span class="cpp-expr sig sig-inline cpp"><span class="n">same_as</span><span class="p">&lt;</span><a class="reference internal" href="metadata.html#_CPPv4I0EN6cronch8metadataE" title="cronch::metadata"><span class="n">metadata</span></a><span class="p">&lt;</span><a class="reference internal" href="#_CPPv4I0EN6cronch8concepts11has_membersE" title="cronch::concepts::has_members::T"><span class="n">T</span></a><span class="p">&gt;</span><span class="p">::</span><span class="n">fields</span><span class="p">,</span><span class="w"> </span><span class="n">fields</span><span class="p">(</span><span class="p">...</span><span class="p">)</span><span class="p">&gt;</span></span></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp concept">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN6cronch8concepts15known_to_cronchE">
+<span id="_CPPv3I0EN6cronch8concepts15known_to_cronchE"></span><span id="_CPPv2I0EN6cronch8concepts15known_to_cronchE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">concept</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">known_to_cronch</span></span></span><a class="headerlink" href="#_CPPv4I0EN6cronch8concepts15known_to_cronchE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Type that satisfies all other concepts for meta information</p>
+<dl class="simple">
+<dt><strong>Requirements</strong></dt><dd><ul class="simple">
+<li><p><a class="reference internal" href="#_CPPv4I0EN6cronch8concepts12serializableE" title="cronch::concepts::serializable"><code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">serializable</span></code></a></p></li>
+<li><p><a class="reference internal" href="#_CPPv4I0EN6cronch8concepts11has_membersE" title="cronch::concepts::has_members"><code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">has_members</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp concept">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN6cronch8concepts7backendE">
+<span id="_CPPv3I0EN6cronch8concepts7backendE"></span><span id="_CPPv2I0EN6cronch8concepts7backendE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">B</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">concept</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">backend</span></span></span><a class="headerlink" href="#_CPPv4I0EN6cronch8concepts7backendE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Type that can be used as a serializing/deserializing backend.</p>
+<dl class="simple">
+<dt><strong>Requirements</strong></dt><dd><ul class="simple">
+<li><p>B::append(typename B::document_type&amp;, const known_to_cronch auto&amp;)</p></li>
+<li><p>b.parse_into(known_to_cronch auto&amp;)</p></li>
+</ul>
+</dd>
+<dt><strong>Implementations</strong></dt><dd><ul class="simple">
+<li><p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">pugi</span></code></p></li>
+<li><p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">nloh</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp concept">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN6cronch8concepts8iterableE">
+<span id="_CPPv3I0EN6cronch8concepts8iterableE"></span><span id="_CPPv2I0EN6cronch8concepts8iterableE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">C</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">concept</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iterable</span></span></span><a class="headerlink" href="#_CPPv4I0EN6cronch8concepts8iterableE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Type that can be iterated over</p>
+<dl class="simple">
+<dt><strong>Requirements</strong></dt><dd><ul class="simple">
+<li><p><span class="cpp-expr sig sig-inline cpp"><span class="n">std</span><span class="p">::</span><span class="n">begin</span><span class="p">(</span><span class="n">c</span><span class="p">)</span></span></p></li>
+<li><p><span class="cpp-expr sig sig-inline cpp"><span class="n">std</span><span class="p">::</span><span class="n">end</span><span class="p">(</span><span class="n">c</span><span class="p">)</span></span></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="metadata-concepts">
+<span id="id2"></span><h2>Metadata concepts<a class="headerlink" href="#metadata-concepts" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp concept">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN6cronch4meta8concepts6getterE">
+<span id="_CPPv3I0EN6cronch4meta8concepts6getterE"></span><span id="_CPPv2I0EN6cronch4meta8concepts6getterE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">G</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">concept</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getter</span></span></span><a class="headerlink" href="#_CPPv4I0EN6cronch4meta8concepts6getterE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A type that acts as a getter to a member of another type</p>
+<dl class="simple">
+<dt><strong>Requirements</strong></dt><dd><ul class="simple">
+<li><p><span class="cpp-expr sig sig-inline cpp"><span class="k">typename</span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN6cronch4meta8concepts6getterE" title="cronch::meta::concepts::getter::G"><span class="n">G</span></a><span class="p">::</span><span class="n">owning_type</span></span></p></li>
+<li><p><span class="cpp-expr sig sig-inline cpp"><span class="k">typename</span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN6cronch4meta8concepts6getterE" title="cronch::meta::concepts::getter::G"><span class="n">G</span></a><span class="p">::</span><span class="n">value_type</span></span></p></li>
+<li><p><span class="cpp-expr sig sig-inline cpp"><span class="n">std</span><span class="p">::</span><span class="n">invocable</span><span class="p">&lt;</span><a class="reference internal" href="#_CPPv4I0EN6cronch4meta8concepts6getterE" title="cronch::meta::concepts::getter::G"><span class="n">G</span></a><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN6cronch4meta8concepts6getterE" title="cronch::meta::concepts::getter::G"><span class="n">G</span></a><span class="p">::</span><span class="n">owning_type</span><span class="p">&amp;</span><span class="p">&gt;</span></span></p></li>
+<li><p><span class="cpp-expr sig sig-inline cpp"><span class="n">std</span><span class="p">::</span><span class="n">same_as</span><span class="p">&lt;</span><span class="n">std</span><span class="p">::</span><span class="n">invoke_result_t</span><span class="p">&lt;</span><a class="reference internal" href="#_CPPv4I0EN6cronch4meta8concepts6getterE" title="cronch::meta::concepts::getter::G"><span class="n">G</span></a><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN6cronch4meta8concepts6getterE" title="cronch::meta::concepts::getter::G"><span class="n">G</span></a><span class="p">::</span><span class="n">owning_type</span><span class="p">&amp;</span><span class="p">&gt;</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN6cronch4meta8concepts6getterE" title="cronch::meta::concepts::getter::G"><span class="n">G</span></a><span class="p">::</span><span class="n">value_type</span><span class="p">&gt;</span></span></p></li>
+</ul>
+</dd>
+<dt><strong>Implementations</strong></dt><dd><ul class="simple">
+<li><p>Anything that implements <a class="reference internal" href="#_CPPv4I0EN6cronch4meta8concepts8accessorE" title="cronch::meta::concepts::accessor"><code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">accessor</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp concept">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN6cronch4meta8concepts6setterE">
+<span id="_CPPv3I0EN6cronch4meta8concepts6setterE"></span><span id="_CPPv2I0EN6cronch4meta8concepts6setterE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">S</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">concept</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setter</span></span></span><a class="headerlink" href="#_CPPv4I0EN6cronch4meta8concepts6setterE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A type that acts as a setter to a member of another type</p>
+<dl class="simple">
+<dt><strong>Requirements</strong></dt><dd><ul class="simple">
+<li><p><span class="cpp-expr sig sig-inline cpp"><span class="k">typename</span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN6cronch4meta8concepts6setterE" title="cronch::meta::concepts::setter::S"><span class="n">S</span></a><span class="p">::</span><span class="n">owning_type</span></span></p></li>
+<li><p><span class="cpp-expr sig sig-inline cpp"><span class="k">typename</span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN6cronch4meta8concepts6setterE" title="cronch::meta::concepts::setter::S"><span class="n">S</span></a><span class="p">::</span><span class="n">value_type</span></span></p></li>
+<li><p><span class="cpp-expr sig sig-inline cpp"><span class="n">std</span><span class="p">::</span><span class="n">invocable</span><span class="p">&lt;</span><a class="reference internal" href="#_CPPv4I0EN6cronch4meta8concepts6setterE" title="cronch::meta::concepts::setter::S"><span class="n">S</span></a><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="n">G</span><span class="p">::</span><span class="n">owning_type</span><span class="p">&amp;</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN6cronch4meta8concepts6setterE" title="cronch::meta::concepts::setter::S"><span class="n">S</span></a><span class="p">::</span><span class="n">value_type</span><span class="p">&gt;</span></span></p></li>
+</ul>
+</dd>
+<dt><strong>Implementations</strong></dt><dd><ul class="simple">
+<li><p>Anything that implements <a class="reference internal" href="#_CPPv4I0EN6cronch4meta8concepts8accessorE" title="cronch::meta::concepts::accessor"><code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">accessor</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp concept">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN6cronch4meta8concepts8accessorE">
+<span id="_CPPv3I0EN6cronch4meta8concepts8accessorE"></span><span id="_CPPv2I0EN6cronch4meta8concepts8accessorE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">A</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">concept</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">accessor</span></span></span><a class="headerlink" href="#_CPPv4I0EN6cronch4meta8concepts8accessorE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A type that acts as both a setter and getter for a member of another type</p>
+<dl class="simple">
+<dt><strong>Requirements</strong></dt><dd><ul class="simple">
+<li><p><a class="reference internal" href="#_CPPv4I0EN6cronch4meta8concepts6setterE" title="cronch::meta::concepts::setter"><code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">setter</span></code></a></p></li>
+<li><p><a class="reference internal" href="#_CPPv4I0EN6cronch4meta8concepts6getterE" title="cronch::meta::concepts::getter"><code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">getter</span></code></a></p></li>
+</ul>
+</dd>
+<dt><strong>Implementations</strong></dt><dd><ul class="simple">
+<li><p><a class="reference internal" href="metadata.html#_CPPv4I00EN6cronch4meta5fieldE" title="cronch::meta::field"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">field</span></code></a></p></li>
+<li><p><a class="reference internal" href="metadata.html#_CPPv4I000EN6cronch4meta8propertyE" title="cronch::meta::property"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">property</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp concept">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN6cronch4meta8concepts4viewE">
+<span id="_CPPv3I0EN6cronch4meta8concepts4viewE"></span><span id="_CPPv2I0EN6cronch4meta8concepts4viewE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">V</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">concept</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">view</span></span></span><a class="headerlink" href="#_CPPv4I0EN6cronch4meta8concepts4viewE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A type that provides a view over the attributes of another type</p>
+<dl class="simple">
+<dt><strong>Requirements</strong></dt><dd><ul class="simple">
+<li><p>v.map([]&lt;typename T&gt;(T&amp;&amp;) requires(getter&lt;T&gt; || setter&lt;T&gt;){})</p></li>
+</ul>
+</dd>
+<dt><strong>Implementations</strong></dt><dd><ul class="simple">
+<li><p><a class="reference internal" href="metadata.html#_CPPv4IDpEN6cronch4meta4memsE" title="cronch::meta::mems"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">mems</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+    <div class="footer" role="contentinfo">
+        <div class="container">
+            &#169; Copyright 2021, Natasha England-Elbro.
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.0.
+        </div>
+    </div>  
+
+</body>
+</html>

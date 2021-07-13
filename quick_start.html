@@ -1,0 +1,333 @@
+
+
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Quick start &mdash; cronch 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.min.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.min.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Concepts" href="concepts.html" />
+    <link rel="prev" title="Welcome to cronch’s documentation!" href="index.html" /> 
+
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <a class="site-nav-toggle hidden-lg-up"><i class="icon-menu"></i></a>
+            <a class="site-title" href="index.html">
+                cronch
+            </a>
+        </div>
+    </header>
+
+
+<div class="breadcrumbs-outer hidden-xs-down">
+    <div class="container">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="breadcrumbs">
+    
+      <li><a href="index.html">Docs</a></li>
+        
+      <li>Quick start</li>
+    
+    
+      <li class="breadcrumbs-aside">
+        
+            
+            <a href="_sources/quick_start.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+</div>
+    </div>
+</div>
+    <div class="main-outer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-3 site-nav">
+                    
+<div role="search">
+    <form class="search" action="search.html" method="get">
+        <div class="icon-input">
+            <input type="text" name="q" placeholder="Search" />
+            <span class="icon-search"></span>
+        </div>
+        <input type="submit" value="Go" class="d-hidden" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+                    <div class="site-nav-tree">
+                        
+                            
+                            
+                                <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quick start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#making-your-type-usable-with-cronch">Making your type usable with cronch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#serialization">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deserialzation">Deserialzation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#an-example">An example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#registering-types">Registering types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="concepts.html#general-concepts">General concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="concepts.html#metadata-concepts">Metadata concepts</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">Metadata</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html#customisation-points">Customisation points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html#helper-macros">Helper macros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html#registration-helpers">Registration helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html#querying">Querying</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="backends.html">Backends</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="backends.html#json">JSON</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backends.html#xml">XML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backends.html#building-your-own">Building your own</a></li>
+</ul>
+</li>
+</ul>
+
+                            
+                        
+                    </div>
+                </div>
+                <div class="col-12 col-lg-9">
+                    <div class="document">
+                        
+                            
+  <section id="quick-start">
+<h1>Quick start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h1>
+<section id="making-your-type-usable-with-cronch">
+<h2>Making your type usable with cronch<a class="headerlink" href="#making-your-type-usable-with-cronch" title="Permalink to this headline">¶</a></h2>
+<p>In order to use your type, cronch needs some metadata. The easiest way to provide this is with <a class="reference internal" href="metadata.html#c.CRONCH_META_TYPE" title="CRONCH_META_TYPE"><code class="xref c c-macro docutils literal notranslate"><span class="pre">CRONCH_META_TYPE</span></code></a> macro.
+It is also possible to add your type via templates (which is what the macro generates). See <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">metadata</span></code> for more information.</p>
+</section>
+<section id="serialization">
+<h2>Serialization<a class="headerlink" href="#serialization" title="Permalink to this headline">¶</a></h2>
+<p>Serialization is done via the <a class="reference internal" href="#_CPPv4I00E9serializeNSt6stringERK1T" title="serialize"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">serialize()</span></code></a> function.</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I00E9serializeNSt6stringERK1T">
+<span id="_CPPv3I00E9serializeRK1T"></span><span id="_CPPv2I00E9serializeRK1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Backend</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">serialize</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I00E9serializeNSt6stringERK1T" title="serialize::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">obj</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00E9serializeNSt6stringERK1T" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Same as the overload taking document_type, but default constructs the document_type.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I_7backend0E9serializeNSt6stringERK1TRN7Backend13document_typeE">
+<span id="_CPPv3I_7backend0E9serializeRK1TRN7Backend13document_typeE"></span><span id="_CPPv2I_7backend0E9serializeRK1TRN7Backend13document_typeE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">backend</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Backend</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">serialize</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_7backend0E9serializeNSt6stringERK1TRN7Backend13document_typeE" title="serialize::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">obj</span></span>, <a class="reference internal" href="#_CPPv4I_7backend0E9serializeNSt6stringERK1TRN7Backend13document_typeE" title="serialize::Backend"><span class="n"><span class="pre">Backend</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">document_type</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">doc</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I_7backend0E9serializeNSt6stringERK1TRN7Backend13document_typeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Turns a type known to cronch into a string using the specified backend and appending it to doc.</p>
+</dd></dl>
+
+</section>
+<section id="deserialzation">
+<h2>Deserialzation<a class="headerlink" href="#deserialzation" title="Permalink to this headline">¶</a></h2>
+<p>Deserialization is done via the <a class="reference internal" href="#_CPPv4I0_7backendE11deserialize1TRK7Backend" title="deserialize"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">deserialize()</span></code></a> function.</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0_7backendE11deserialize1TRK7Backend">
+<span id="_CPPv3I0_7backendE11deserializeRK7Backend"></span><span id="_CPPv2I0_7backendE11deserializeRK7Backend"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">backend</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Backend</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><a class="reference internal" href="#_CPPv4I0_7backendE11deserialize1TRK7Backend" title="deserialize::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">deserialize</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0_7backendE11deserialize1TRK7Backend" title="deserialize::Backend"><span class="n"><span class="pre">Backend</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">from</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0_7backendE11deserialize1TRK7Backend" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Parse a type from the data stored by the backend <em>from</em>. Default constructs T</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0_7backendE11deserializevRK7BackendR1T">
+<span id="_CPPv3I0_7backendE11deserializeRK7BackendR1T"></span><span id="_CPPv2I0_7backendE11deserializeRK7BackendR1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">backend</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Backend</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">deserialize</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0_7backendE11deserializevRK7BackendR1T" title="deserialize::Backend"><span class="n"><span class="pre">Backend</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">from</span></span>, <a class="reference internal" href="#_CPPv4I0_7backendE11deserializevRK7BackendR1T" title="deserialize::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">to</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0_7backendE11deserializevRK7BackendR1T" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Same as the overload that returns T, except it parses it into <em>to</em> instead.</p>
+</dd></dl>
+
+</section>
+<section id="an-example">
+<h2>An example<a class="headerlink" href="#an-example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;cronch/json/json.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;cronch/meta.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;cronch/serialize.hpp&gt;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp"></span>
+
+<span class="k">namespace</span> <span class="nn">cr</span> <span class="o">=</span> <span class="nn">cronch</span><span class="p">;</span>
+
+<span class="k">struct</span> <span class="nc">my_type</span> <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">some_info</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;&gt;</span>
+<span class="k">struct</span> <span class="nc">cr</span><span class="o">::</span><span class="n">metadata</span><span class="o">&lt;</span><span class="n">my_type</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="c1">// clang-format off</span>
+    <span class="k">constexpr</span> <span class="k">static</span> <span class="k">auto</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;my_type&quot;</span><span class="p">;</span>
+    <span class="k">constexpr</span> <span class="k">static</span> <span class="k">auto</span> <span class="n">fields</span> <span class="o">=</span> <span class="n">cr</span><span class="o">::</span><span class="n">meta</span><span class="o">::</span><span class="n">fields</span><span class="p">(</span>
+        <span class="n">cr</span><span class="o">::</span><span class="n">meta</span><span class="o">::</span><span class="n">field</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">my_type</span><span class="o">::</span><span class="n">name</span><span class="p">),</span>
+        <span class="n">cr</span><span class="o">::</span><span class="n">meta</span><span class="o">::</span><span class="n">field</span><span class="p">(</span><span class="s">&quot;some_info&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">my_type</span><span class="o">::</span><span class="n">some_info</span><span class="p">)</span>
+    <span class="p">);</span>
+    <span class="c1">// clang-format on</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">const</span> <span class="k">auto</span> <span class="n">my_obj</span> <span class="o">=</span> <span class="n">my_type</span><span class="p">{</span><span class="s">&quot;Hello there&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">};</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;my_type: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">cr</span><span class="o">::</span><span class="n">serialize</span><span class="o">&lt;</span><span class="n">cr</span><span class="o">::</span><span class="n">json</span><span class="o">::</span><span class="n">nloh</span><span class="o">&gt;</span><span class="p">(</span><span class="n">my_obj</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="registering-types">
+<h2>Registering types<a class="headerlink" href="#registering-types" title="Permalink to this headline">¶</a></h2>
+<p>The registration of types is done via <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">metadata</span></code>. See the associated page for detailed information.</p>
+<section id="naming-your-type">
+<h3>Naming your type<a class="headerlink" href="#naming-your-type" title="Permalink to this headline">¶</a></h3>
+<p>To define a name for your type, add a field: constexpr static const char* name = “my name” to your specialisation of metadata.</p>
+</section>
+<section id="registering-fields">
+<h3>Registering fields<a class="headerlink" href="#registering-fields" title="Permalink to this headline">¶</a></h3>
+<p>Fields are added via <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">field</span></code>. For each field you want cronch to be aware of, add a
+cronch::meta::field(“name”, &amp;my_type::field_name) to the <span class="cpp-expr sig sig-inline cpp"><span class="n">members</span></span> field in your specialisation of metadata.</p>
+</section>
+<section id="registering-properties">
+<h3>Registering properties<a class="headerlink" href="#registering-properties" title="Permalink to this headline">¶</a></h3>
+<p>Properties refer to members of your type which are accessed through get/set pairs. cronch supports these via the <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">property</span></code>
+type. Add it to the members field of your metadata specialisation.</p>
+</section>
+<section id="properties-example">
+<h3>Properties example<a class="headerlink" href="#properties-example" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+<span class="c1">#include &lt;cronch/serialize.hpp&gt;</span>
+<span class="c1">#include &lt;cronch/meta.hpp&gt;</span>
+<span class="c1">#include &lt;cronch/json/json.hpp&gt;</span>
+
+<span class="c1">#include &lt;iostream&gt;</span>
+
+<span class="k">class</span> <span class="nc">my_type</span> <span class="p">{</span>
+<span class="n">public</span><span class="p">:</span>
+
+    <span class="n">void</span> <span class="n">value</span><span class="p">(</span><span class="n">const</span> <span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">value_</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span>
+    <span class="p">}</span> 
+
+    <span class="n">auto</span> <span class="n">value</span><span class="p">()</span> <span class="n">const</span> <span class="o">-&gt;</span> <span class="n">const</span> <span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">value_</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">auto</span> <span class="n">i</span><span class="p">()</span> <span class="n">const</span> <span class="o">-&gt;</span> <span class="nb">int</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">i_</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">void</span> <span class="n">set_i</span><span class="p">(</span><span class="nb">int</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">i_</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="n">private</span><span class="p">:</span>
+    <span class="n">std</span><span class="p">::</span><span class="n">string</span> <span class="n">value_</span><span class="p">;</span>
+    <span class="nb">int</span> <span class="n">i_</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="n">namespace</span> <span class="n">cm</span> <span class="o">=</span> <span class="n">cronch</span><span class="p">::</span><span class="n">meta</span><span class="p">;</span>
+
+
+
+<span class="n">CRONCH_META_TYPE</span><span class="p">(</span><span class="n">my_type</span><span class="p">,</span> <span class="p">(</span>
+            <span class="n">cm</span><span class="p">::</span><span class="nb">property</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">my_type</span><span class="p">::</span><span class="n">value</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">my_type</span><span class="p">::</span><span class="n">value</span><span class="p">),</span>
+            <span class="n">cm</span><span class="p">::</span><span class="nb">property</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">my_type</span><span class="p">::</span><span class="n">i</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">my_type</span><span class="p">::</span><span class="n">set_i</span><span class="p">)</span>
+
+            <span class="p">))</span>
+
+<span class="nb">int</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="n">my_type</span> <span class="n">t</span><span class="p">;</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">set_i</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">);</span>
+
+    <span class="n">std</span><span class="p">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">cronch</span><span class="p">::</span><span class="n">serialize</span><span class="o">&lt;</span><span class="n">cronch</span><span class="p">::</span><span class="n">json</span><span class="p">::</span><span class="n">nloh</span><span class="o">&gt;</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">;</span>
+
+<span class="p">}</span>
+
+
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+    <div class="footer" role="contentinfo">
+        <div class="container">
+            &#169; Copyright 2021, Natasha England-Elbro.
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.0.
+        </div>
+    </div>  
+
+</body>
+</html>

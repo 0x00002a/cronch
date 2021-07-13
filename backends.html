@@ -1,0 +1,294 @@
+
+
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Backends &mdash; cronch 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.min.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.min.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Metadata" href="metadata.html" /> 
+
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <a class="site-nav-toggle hidden-lg-up"><i class="icon-menu"></i></a>
+            <a class="site-title" href="index.html">
+                cronch
+            </a>
+        </div>
+    </header>
+
+
+<div class="breadcrumbs-outer hidden-xs-down">
+    <div class="container">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="breadcrumbs">
+    
+      <li><a href="index.html">Docs</a></li>
+        
+      <li>Backends</li>
+    
+    
+      <li class="breadcrumbs-aside">
+        
+            
+            <a href="_sources/backends.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+</div>
+    </div>
+</div>
+    <div class="main-outer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-3 site-nav">
+                    
+<div role="search">
+    <form class="search" action="search.html" method="get">
+        <div class="icon-input">
+            <input type="text" name="q" placeholder="Search" />
+            <span class="icon-search"></span>
+        </div>
+        <input type="submit" value="Go" class="d-hidden" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+                    <div class="site-nav-tree">
+                        
+                            
+                            
+                                <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Quick start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quick_start.html#making-your-type-usable-with-cronch">Making your type usable with cronch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quick_start.html#serialization">Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quick_start.html#deserialzation">Deserialzation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quick_start.html#an-example">An example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quick_start.html#registering-types">Registering types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Concepts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="concepts.html#general-concepts">General concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="concepts.html#metadata-concepts">Metadata concepts</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">Metadata</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html#customisation-points">Customisation points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html#helper-macros">Helper macros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html#registration-helpers">Registration helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html#querying">Querying</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Backends</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#json">JSON</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#xml">XML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#building-your-own">Building your own</a></li>
+</ul>
+</li>
+</ul>
+
+                            
+                        
+                    </div>
+                </div>
+                <div class="col-12 col-lg-9">
+                    <div class="document">
+                        
+                            
+  <section id="backends">
+<h1>Backends<a class="headerlink" href="#backends" title="Permalink to this headline">¶</a></h1>
+<p>All classes in this section satisfy <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">backend</span></code> unless otherwise specified</p>
+<section id="json">
+<h2>JSON<a class="headerlink" href="#json" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N6cronch4json4nlohE">
+<span id="_CPPv3N6cronch4json4nlohE"></span><span id="_CPPv2N6cronch4json4nlohE"></span><span id="cronch::json::nloh"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nloh</span></span></span><a class="headerlink" href="#_CPPv4N6cronch4json4nlohE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Provides json support via <a class="reference external" href="https://github.com/nlohmann/json">nlohammn/json</a></p>
+<p><strong>Supported types</strong></p>
+<p>Since nlohmann/json already has its own mechanism for parsing user-defined types, cronch leverages that first before
+falling back to its own metadata. If a type is not known to cronch <em>and</em> there is no nlohmann/json support for it
+then it will cause a compile error, unless it satisfies <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">iterable</span></code>, in which case it will be iterated over
+with the <span class="cpp-expr sig sig-inline cpp"><span class="n">nlohmann</span><span class="p">::</span><span class="n">json</span></span> instance being treated as an array.</p>
+<p><strong>Constructors</strong></p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6cronch4json4nloh4nloh4nlohERKNSt6stringE">
+<span id="_CPPv3N6cronch4json4nloh4nloh4nlohERKNSt6stringE"></span><span id="_CPPv2N6cronch4json4nloh4nloh4nlohERKNSt6stringE"></span><span id="cronch::json::nloh::nloh::nloh__ssCR"></span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv4N6cronch4json4nloh4nloh4nlohERKNSt6stringE" title="cronch::json::nloh::nloh::nloh"><span class="n"><span class="pre">nloh</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">nloh</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">contents</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6cronch4json4nloh4nloh4nlohERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Constructs the backend by parsing the contents string</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6cronch4json4nloh4nloh4nlohEN8nlohmann4jsonE">
+<span id="_CPPv3N6cronch4json4nloh4nloh4nlohEN8nlohmann4jsonE"></span><span id="_CPPv2N6cronch4json4nloh4nloh4nlohEN8nlohmann4jsonE"></span><span id="cronch::json::nloh::nloh::nloh__nlohmann::json"></span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv4N6cronch4json4nloh4nloh4nlohEN8nlohmann4jsonE" title="cronch::json::nloh::nloh::nloh"><span class="n"><span class="pre">nloh</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">nloh</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">nlohmann</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">json</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">doc</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6cronch4json4nloh4nloh4nlohEN8nlohmann4jsonE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Constructs the backend by copying an existing parsed fragment</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="xml">
+<h2>XML<a class="headerlink" href="#xml" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N6cronch3xml4pugiE">
+<span id="_CPPv3N6cronch3xml4pugiE"></span><span id="_CPPv2N6cronch3xml4pugiE"></span><span id="cronch::xml::pugi"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pugi</span></span></span><a class="headerlink" href="#_CPPv4N6cronch3xml4pugiE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Provides xml support via <a class="reference external" href="https://pugixml.org">pugixml</a></p>
+<p>The default version uses a node-per-value format. With the name of each node being either the name of the type (if from a
+type without members metadata or the top level node) or the name of the member it references.</p>
+<p><strong>Supported types</strong></p>
+<p>pugixml does not provide any way of parsing user defined types automatically. Instead it uses purely <span class="cpp-expr sig sig-inline cpp"><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="p">*</span></span>
+for its values. Therefore, in order to successfully wrap pugi, cronch uses <span class="cpp-expr sig sig-inline cpp"><span class="n">boost</span><span class="p">::</span><span class="n">lexical_cast</span><span class="p">&lt;</span><span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="p">&gt;</span><span class="p">(</span><span class="p">)</span></span>
+to serialize types and <span class="cpp-expr sig sig-inline cpp"><span class="n">boost</span><span class="p">::</span><span class="n">lexical_cast</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span></span> to deserialize them. See the <a class="reference external" href="https://www.boost.org/doc/libs/1_76_0/doc/html/boost_lexical_cast/synopsis.html#boost_lexical_cast.synopsis.lexical_cast">docs</a> on lexical cast for more information.</p>
+<p>Types that are neither supported by lexical cast or have members known to cronch will cause a compile error, unless the type
+is <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">iterable</span></code>, in which case it must have at least a name known by cronch (either a member name or type name).</p>
+<p><strong>Constructors</strong></p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6cronch3xml4pugi4pugi4pugiERKNSt6stringE">
+<span id="_CPPv3N6cronch3xml4pugi4pugi4pugiERKNSt6stringE"></span><span id="_CPPv2N6cronch3xml4pugi4pugi4pugiERKNSt6stringE"></span><span id="cronch::xml::pugi::pugi::pugi__ssCR"></span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv4N6cronch3xml4pugi4pugi4pugiERKNSt6stringE" title="cronch::xml::pugi::pugi::pugi"><span class="n"><span class="pre">pugi</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">pugi</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">contents</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6cronch3xml4pugi4pugi4pugiERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Constructs the backend by parsing the contents string</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6cronch3xml4pugi4pugi4pugiEN4pugi12xml_documentE">
+<span id="_CPPv3N6cronch3xml4pugi4pugi4pugiEN4pugi12xml_documentE"></span><span id="_CPPv2N6cronch3xml4pugi4pugi4pugiEN4pugi12xml_documentE"></span><span id="cronch::xml::pugi::pugi::pugi__pugi::xml_document"></span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv4N6cronch3xml4pugi4pugi4pugiEN4pugi12xml_documentE" title="cronch::xml::pugi::pugi::pugi"><span class="n"><span class="pre">pugi</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">pugi</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N6cronch3xml4pugi4pugi4pugiEN4pugi12xml_documentE" title="cronch::xml::pugi::pugi::pugi"><span class="n"><span class="pre">pugi</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">xml_document</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">doc</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6cronch3xml4pugi4pugi4pugiEN4pugi12xml_documentE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Constructs the backend by copying the reference to an existing xml document</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="building-your-own">
+<h2>Building your own<a class="headerlink" href="#building-your-own" title="Permalink to this headline">¶</a></h2>
+<p>Making your own backend is mostly quite simple. Define a type which satisfies <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">backend</span></code> and use it. Done.</p>
+<p>A very basic backend, which simply uses <span class="cpp-expr sig sig-inline cpp"><span class="n">boost</span><span class="p">::</span><span class="n">lexical_cast</span></span> to convert types, is shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+<span class="c1">#include &lt;cronch/deserialize.hpp&gt;</span>
+<span class="c1">#include &lt;cronch/concepts.hpp&gt; </span>
+
+<span class="c1">#include &lt;boost/lexical_cast.hpp&gt;</span>
+
+<span class="c1">#include &lt;iostream&gt;</span>
+
+
+<span class="k">class</span> <span class="nc">plain_backend</span> <span class="p">{</span>
+<span class="n">public</span><span class="p">:</span>
+    <span class="n">using</span> <span class="n">document_type</span> <span class="o">=</span> <span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="p">;</span>
+
+    <span class="n">explicit</span> <span class="n">plain_backend</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">string</span> <span class="n">doc</span><span class="p">)</span> <span class="p">:</span> <span class="n">document_</span><span class="p">{</span><span class="n">std</span><span class="p">::</span><span class="n">move</span><span class="p">(</span><span class="n">doc</span><span class="p">)}</span> <span class="p">{}</span>
+
+    <span class="n">static</span> <span class="n">void</span> <span class="n">append</span><span class="p">(</span><span class="n">document_type</span><span class="o">&amp;</span> <span class="n">doc</span><span class="p">,</span> <span class="n">const</span> <span class="n">auto</span><span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">doc</span> <span class="o">+=</span> <span class="n">boost</span><span class="p">::</span><span class="n">lexical_cast</span><span class="o">&lt;</span><span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">template</span><span class="o">&lt;</span><span class="n">typename</span> <span class="n">V</span><span class="o">&gt;</span>
+    <span class="n">void</span> <span class="n">parse_into</span><span class="p">(</span><span class="n">V</span><span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span> <span class="n">const</span> <span class="p">{</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">boost</span><span class="p">::</span><span class="n">lexical_cast</span><span class="o">&lt;</span><span class="n">std</span><span class="p">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="n">private</span><span class="p">:</span>
+    <span class="n">std</span><span class="p">::</span><span class="n">string</span> <span class="n">document_</span><span class="p">;</span>
+
+
+<span class="p">};</span>
+
+<span class="n">static_assert</span><span class="p">(</span><span class="n">cronch</span><span class="p">::</span><span class="n">concepts</span><span class="p">::</span><span class="n">backend</span><span class="o">&lt;</span><span class="n">plain_backend</span><span class="o">&gt;</span><span class="p">,</span> <span class="s2">&quot;must be a backend&quot;</span><span class="p">);</span>
+
+<span class="nb">int</span> <span class="n">main</span><span class="p">(</span><span class="nb">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">std</span><span class="p">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;Invalid number of arguments, requires 1</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">EXIT_FAILURE</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">const</span> <span class="n">auto</span> <span class="n">v</span> <span class="o">=</span> <span class="n">cronch</span><span class="p">::</span><span class="n">deserialize</span><span class="o">&lt;</span><span class="nb">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">plain_backend</span><span class="p">{</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]});</span>
+
+    <span class="n">std</span><span class="p">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;You passed an int: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">v</span> <span class="o">&lt;&lt;</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+
+</pre></div>
+</div>
+</section>
+</section>
+
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+    <div class="footer" role="contentinfo">
+        <div class="container">
+            &#169; Copyright 2021, Natasha England-Elbro.
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.0.
+        </div>
+    </div>  
+
+</body>
+</html>
