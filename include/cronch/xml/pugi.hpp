@@ -24,15 +24,6 @@ public:
     }
     explicit basic_xml(pugi::xml_document doc) : doc_{std::move(doc)} {}
 
-    template<concepts::iterable V>
-    requires (!concepts::serializable<V> && !concepts::ostreamable<V>)
-    static void append(pugi::xml_node& doc, std::string_view name, const V& v)
-    {
-        auto top = doc.append_child(name.data());
-        for (const auto& child : v) {
-            append(top, child);
-        }
-    }
 
     template<cronch::concepts::iterable V>
     requires (!cronch::concepts::has_members<V> && !concepts::ostreamable<V>)

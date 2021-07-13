@@ -14,3 +14,4 @@ target_compile_features(cronch INTERFACE cxx_std_20)
 
 add_subdirectory(tests)
 add_subdirectory(examples)
+add_subdirectory(bench)
