@@ -8,7 +8,7 @@ Introduction
 
 The aim of cronch is to provide a less painful way of serializing and deserializing C++ types.
 It does not use reflection, so you still have to provide names for fields and such but the idea is 
-you should only have to provide this information *once*. 2n times for each format you need. 
+you should only have to provide this information *once*. Instead of 2n times for each format you need. 
 
 cronch is designed to be an interface layer of sorts and delegate the actual parsing and formatting of bytes 
 to specialised libraries. To this end, its main goal is simply to take in the information about your types in 
@@ -20,7 +20,8 @@ Disclaimer
 ----------
 
 cronch is currently in early development and not particularly stable. It should be usable but beware there may be API changes and 
-occasional bugs.
+(hopefully occasional) bugs. It should not be used in production environments, nuclear reactors, around small children, etc
+
 
 Structure
 ---------
