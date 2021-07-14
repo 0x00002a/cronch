@@ -1,0 +1,85 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+    branches: [main]
+
+env:
+  BUILD_TYPE: Release
+  INSTALL_LOCATION: .local
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        toolchain:
+          [
+            {
+              name: "ubuntu gcc",
+              cxx: "g++-11",
+              cc: "gcc-11",
+              packages: "gcc-11 g++-11",
+              os: ubuntu-latest,
+            },
+            {
+              name: "msvc2019",
+              cxx: "cl.exe",
+              cc: "cl.exe",
+              packages: "",
+              os: windows-latest
+            }
+          ]
+
+    continue-on-error: false
+    runs-on: ${{ matrix.toolchain.os }}
+    env:
+      CC: ${{ matrix.toolchain.cc }}
+      CXX: ${{ matrix.toolchain.cxx }}
+
+    name: "${{ matrix.toolchain.name }}"
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+          architecture: x64 
+
+      - name: Install conan 
+        run: | 
+          pip install conan 
+      - name: Install dependencies 
+        run: | 
+          mkdir build 
+          cp ci/conanfile.txt .
+          cd build 
+          conan install ..
+
+      - name: Install Ninja
+        uses: seanmiddleditch/gha-setup-ninja@master
+
+      - name: Install packages (via choco)
+        if: runner.os == 'Windows' && ${{ matrix.toolchain.packages != '' }}
+        run: choco upgrade ${{ matrix.toolchain.packages }}
+
+      - name: Install packages (via apt)
+        if: runner.os == 'Linux'
+        run: sudo apt install ${{ matrix.toolchain.packages }} -y
+
+      - name: Install packages (via homebrew)
+        if: runner.os == 'macOS'
+        run: brew install ${{ matrix.toolchain.packages }}
+
+      - name: Install msvc
+        if: ${{ matrix.toolchain.cxx == 'cl.exe' }} # This is a bit of a hack
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Configure
+        run: cmake -Bbuild -GNinja -DCRONCH_BUILD_TESTS=ON -DCRONCH_BUILD_EXAMPLES=ON -DCMAKE_MODULE_PATH=build
+
+      - name: Build
+        run: cmake --build build
+
+      - name: Run tests
+        run: ./build/tests/tests
