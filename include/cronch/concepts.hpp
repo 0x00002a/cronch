@@ -10,10 +10,14 @@ namespace cronch::concepts::detail {
 struct empty_serializable {
 };
 
+struct empty_view {
+    void map(auto&&) const {}
+};
 } // namespace cronch::concepts::detail
 template<>
 struct cronch::metadata<cronch::concepts::detail::empty_serializable> {
     static constexpr auto name = "";
+    static constexpr auto members = cronch::concepts::detail::empty_view{};
 };
 namespace cronch::concepts {
 
@@ -42,6 +46,7 @@ concept serializable = requires(const S& inst)
 template<typename S>
 concept known_to_cronch = has_members<S> && serializable<S>;
 
+static_assert(known_to_cronch<detail::empty_serializable>);
 
 template<typename C>
 concept ostreamable = requires(C c, std::ostream& s) {

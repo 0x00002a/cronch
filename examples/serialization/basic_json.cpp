@@ -1,7 +1,7 @@
 
 #include <iostream>
 
-#include <cronch/json/json.hpp>
+#include <cronch/json/nloh.hpp>
 #include <cronch/meta.hpp>
 #include <cronch/serialize.hpp>
 
@@ -18,7 +18,7 @@ template<>
 struct cr::metadata<my_type> {
     // clang-format off
     constexpr static auto name = "my_type";
-    constexpr static auto fields = cr::meta::fields(
+    constexpr static auto members = cr::meta::mems(
         cr::meta::field("name", &my_type::name),
         cr::meta::field("some_info", &my_type::some_info)
     );

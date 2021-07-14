@@ -3,7 +3,7 @@
 #include <cronch/serialize.hpp> 
 #include <cronch/meta.hpp> 
 #include <cronch/metadata.hpp> 
-#include <cronch/json/json.hpp>
+#include <cronch/json/nloh.hpp>
 
 #include <iostream>
 #include <vector>
@@ -22,6 +22,7 @@ CRONCH_META_TYPE(my_type, (
             ))
 
 
+static_assert(cronch::concepts::known_to_cronch<my_type>);
 
 int main(int argc, char** argv) {
     if (argc != 2) {

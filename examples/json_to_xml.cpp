@@ -2,7 +2,7 @@
 #include <iostream>
 
 #include <cronch/deserialize.hpp>
-#include <cronch/json/json.hpp>
+#include <cronch/json/nloh.hpp>
 #include <cronch/meta.hpp>
 #include <cronch/metatypes.hpp>
 #include <cronch/serialize.hpp>
@@ -22,15 +22,14 @@ template<>
 struct cr::metadata<my_type> {
     // clang-format off
     constexpr static auto name = "my_type";
-    constexpr static auto fields = cr::meta::fields(
+    constexpr static auto members = cr::meta::mems(
         cr::meta::field("name", &my_type::name),
         cr::meta::field("some_info", &my_type::some_info),
         cr::meta::field("values", &my_type::values)
     );
     // clang-format on
 };
-
-constexpr auto n = cr::meta::name("m");
+static_assert(cr::concepts::known_to_cronch<my_type>);
 
 int main(int argc, char** argv)
 {
@@ -51,7 +50,5 @@ int main(int argc, char** argv)
     std::cout << "json data: (json): " << ss.str() << '\n';
     auto my_obj = cr::deserialize<my_type>(cr::json::nloh{ss.str()});
     std::cout << "my_type (xml): " << cr::serialize<cr::xml::pugi>(my_obj)
-              << '\n'
-              << "(with attrs): " << cr::serialize<cr::xml::pugi_attr>(my_obj)
               << '\n';
 }

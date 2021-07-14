@@ -29,6 +29,7 @@ function(cronch_add_diagnostics TARGET)
             PRIVATE 
                 -fdiagnostics-color=always
                 -fdiagnostics-show-template-tree
+                -fconcepts-diagnostics-depth=3
             )
     endif()
 
