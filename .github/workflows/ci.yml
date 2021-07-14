@@ -71,13 +71,14 @@ jobs:
 
       - name: Install dependencies 
         run: | 
+          conan profile update settings.compiler.libcxx=libstdc++11 default
           mkdir build 
           cp ci/conanfile.txt .
           cd build 
           conan install .. -b missing
 
       - name: Configure
-        run: cmake -Bbuild -GNinja -DCRONCH_BUILD_TESTS=ON -DCRONCH_BUILD_EXAMPLES=ON -DCMAKE_MODULE_PATH=build
+        run: cmake -Bbuild -GNinja -DCRONCH_BUILD_TESTS=ON -DCRONCH_BUILD_EXAMPLES=ON -DCMAKE_MODULE_PATH=$(pwd)/build
 
       - name: Build
         run: cmake --build build
