@@ -1,6 +1,7 @@
 
 #include <cronch/deserialize.hpp>
 #include <cronch/concepts.hpp> 
+#include <cronch/metatypes.hpp> // Provides meta::nameof<int>() support i.e serializable<int> is satisfied
 
 #include <boost/lexical_cast.hpp>
 
@@ -19,7 +20,7 @@ public:
 
     template<typename V>
     void parse_into(V& v) const {
-        v = boost::lexical_cast<std::decay_t<V>>(v);
+        v = boost::lexical_cast<std::decay_t<V>>(document_);
     }
 
 private:
