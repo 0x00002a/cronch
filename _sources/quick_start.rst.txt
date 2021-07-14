@@ -1,6 +1,7 @@
 Quick start 
 ===========
 
+.. namespace:: cronch
 
 Making your type usable with cronch 
 ------------------------------------
@@ -61,20 +62,20 @@ The registration of types is done via :class:`metadata`. See the associated page
 Naming your type 
 #################
 
-To define a name for your type, add a field: constexpr static const char* name = "my name" to your specialisation of metadata.
+To define a name for your type, add a field: ``constexpr static const char* name = "my name"`` to your specialisation of metadata.
 
 
 Registering fields 
 ###################
 
-Fields are added via :class:`field`. For each field you want cronch to be aware of, add a 
-cronch::meta::field("name", &my_type::field_name) to the :expr:`members` field in your specialisation of metadata. 
+Fields are added via :class:`meta::field`. For each field you want cronch to be aware of, add a 
+``cronch::meta::field("name", &my_type::field_name)`` to the :expr:`metadata::members` field in your specialisation of metadata. 
 
 
 Registering properties 
 #######################
 
-Properties refer to members of your type which are accessed through get/set pairs. cronch supports these via the :class:`property` 
+Properties refer to members of your type which are accessed through get/set pairs. cronch supports these via the :class:`meta::property` 
 type. Add it to the members field of your metadata specialisation.
 
 

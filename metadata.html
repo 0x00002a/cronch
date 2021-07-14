@@ -161,6 +161,20 @@ lifting.</p>
 serializing and deserializing of it.</p>
 <p>The unspecialised form has no members and is completely empty. To make a type consumable by cronch, you must specialise
 this struct for your type and define the needed members. See <a class="reference internal" href="concepts.html#metadata-concepts"><span class="std std-ref">Metadata concepts</span></a> for more information.</p>
+<p><strong>Possible fields</strong></p>
+<dl class="cpp member">
+<dt class="sig sig-object cpp" id="_CPPv4N6cronch8metadata7membersE">
+<span id="_CPPv3N6cronch8metadata7membersE"></span><span id="_CPPv2N6cronch8metadata7membersE"></span><span id="cronch::metadata::members__meta::concepts::view"></span><span class="n"><span class="pre">meta</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">concepts</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="concepts.html#_CPPv4I0EN6cronch4meta8concepts4viewE" title="cronch::meta::concepts::view"><span class="n"><span class="pre">view</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">members</span></span></span><a class="headerlink" href="#_CPPv4N6cronch8metadata7membersE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Members of the type for use when serializing and deserializing. See <a class="reference internal" href="#_CPPv4IDpEN6cronch4meta4memsE" title="cronch::meta::mems"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">meta::mems</span></code></a> for the provided concrete type
+for this.</p>
+</dd></dl>
+
+<dl class="cpp member">
+<dt class="sig sig-object cpp" id="_CPPv4N6cronch8metadata4nameE">
+<span id="_CPPv3N6cronch8metadata4nameE"></span><span id="_CPPv2N6cronch8metadata4nameE"></span><span id="cronch::metadata::name__cCP"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">name</span></span></span><a class="headerlink" href="#_CPPv4N6cronch8metadata4nameE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Name of the type used by some serializers and deserializers (e.g. <a class="reference internal" href="backends.html#_CPPv4N6cronch3xml4pugiE" title="cronch::xml::pugi"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">xml::pugi</span></code></a>)</p>
+</dd></dl>
+
 <p><strong>Example</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;cronch/meta.hpp&gt;</span>
 <span class="c1">#include &lt;cronch/metadata.hpp&gt;</span>
@@ -188,7 +202,8 @@ this struct for your type and define the needed members. See <a class="reference
 <dl class="c macro">
 <dt class="sig sig-object c" id="c.CRONCH_META_TYPE">
 <span class="sig-name descname"><span class="n"><span class="pre">CRONCH_META_TYPE</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">type</span></span>, <span class="n"><span class="pre">fields</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.CRONCH_META_TYPE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Shortcut for generating <code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">metadata</span></code>. The name is set to <em>type</em> while the fields are passed to cronch::meta::fields</p>
+<dd><p>Shortcut for generating <a class="reference internal" href="#_CPPv4I0EN6cronch8metadataE" title="cronch::metadata"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">metadata&lt;type&gt;</span></code></a>. The name is set to <code class="docutils literal notranslate"><span class="pre">type</span></code> while the fields are passed to <a class="reference internal" href="#_CPPv4IDpEN6cronch4meta4memsE" title="cronch::meta::mems"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">meta::mems</span></code></a>
+and set as the value of <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">metadata&lt;type&gt;::members</span></code>.</p>
 <p><strong>Example</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 <span class="c1">#include &lt;cronch/meta.hpp&gt;</span>
@@ -255,23 +270,23 @@ while deserializing it requires all setters to be non-null</p>
 
 <section id="note">
 <h3>Note<a class="headerlink" href="#note" title="Permalink to this headline">¶</a></h3>
-<p>All these types are simply implementations of <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">accessor</span></code> that are provided to make cronch easier to use. There
+<p>All these types are simply implementations of concepts in <a class="reference internal" href="concepts.html#metadata-concepts"><span class="std std-ref">Metadata concepts</span></a> that are provided to make cronch easier to use. There
 is nothing to stop you defining your own accessor types and using those instead of/in conjunction with the above.</p>
 </section>
 </section>
 <section id="querying">
 <h2>Querying<a class="headerlink" href="#querying" title="Permalink to this headline">¶</a></h2>
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4I_11has_membersEN6cronch4meta9accessorsERKN8concepts4viewEv">
-<span id="_CPPv3I_11has_membersEN6cronch4meta9accessorsEv"></span><span id="_CPPv2I_11has_membersEN6cronch4meta9accessorsEv"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">has_members</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">concepts</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="concepts.html#_CPPv4I0EN6cronch4meta8concepts4viewE" title="cronch::meta::concepts::view"><span class="n"><span class="pre">view</span></span></a><span class="w"> </span><span class="k"><span class="pre">auto</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">accessors</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I_11has_membersEN6cronch4meta9accessorsERKN8concepts4viewEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Returns a const reference to a type satisfying <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">view</span></code> that refers to
-the members of T satisfying <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">accessor</span></code></p>
+<dt class="sig sig-object cpp" id="_CPPv4I_11has_membersEN6cronch4meta8concepts9accessorsERK4viewv">
+<span id="_CPPv3I_11has_membersEN6cronch4meta8concepts9accessorsEv"></span><span id="_CPPv2I_11has_membersEN6cronch4meta8concepts9accessorsEv"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">has_members</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="concepts.html#_CPPv4I0EN6cronch4meta8concepts4viewE" title="cronch::meta::concepts::view"><span class="n"><span class="pre">view</span></span></a><span class="w"> </span><span class="k"><span class="pre">auto</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">accessors</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I_11has_membersEN6cronch4meta8concepts9accessorsERK4viewv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns a const reference to a type satisfying <a class="reference internal" href="concepts.html#_CPPv4I0EN6cronch4meta8concepts4viewE" title="cronch::meta::concepts::view"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">view</span></code></a> that refers to
+the members of T satisfying <a class="reference internal" href="concepts.html#_CPPv4I0EN6cronch4meta8concepts8accessorE" title="cronch::meta::concepts::accessor"><code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">accessor</span></code></a></p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4I_12serializableEN6cronch4meta6nameofENSt11string_viewEv">
-<span id="_CPPv3I_12serializableEN6cronch4meta6nameofEv"></span><span id="_CPPv2I_12serializableEN6cronch4meta6nameofEv"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">serializable</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nameof</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I_12serializableEN6cronch4meta6nameofENSt11string_viewEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Returns the name of the type as registered via <a class="reference internal" href="#_CPPv4I_12serializableEN6cronch4meta6nameofENSt11string_viewEv" title="cronch::meta::nameof::T"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">metadata</span></code></a></p>
+<dt class="sig sig-object cpp" id="_CPPv4I_12serializableEN6cronch4meta8concepts6nameofENSt11string_viewEv">
+<span id="_CPPv3I_12serializableEN6cronch4meta8concepts6nameofEv"></span><span id="_CPPv2I_12serializableEN6cronch4meta8concepts6nameofEv"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">serializable</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nameof</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I_12serializableEN6cronch4meta8concepts6nameofENSt11string_viewEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns the name of the type as registered via <a class="reference internal" href="#_CPPv4I_12serializableEN6cronch4meta8concepts6nameofENSt11string_viewEv" title="cronch::meta::concepts::nameof::T"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">metadata</span></code></a></p>
 </dd></dl>
 
 </section>

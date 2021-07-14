@@ -18,8 +18,7 @@ General concepts
    Type that can be serialized by cronch at the most basic level.
 
    **Requirements**
-        - :expr:`same_as<metadata<T>::name, const char*>`
-
+        - ``{ metadata<T>::name } -> std::same_as<const char*>``
 
 .. concept:: template<typename T> has_members
 
@@ -27,7 +26,7 @@ General concepts
 
    **Requirements** 
       - :concept:`serializable`
-      - :expr:`same_as<metadata<T>::fields, fields(...)>`
+      - ``{ metadata<T>::members } -> meta::concepts::view``
 
 
 .. concept:: template<typename T> known_to_cronch 

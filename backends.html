@@ -145,7 +145,7 @@
                             
   <section id="backends">
 <h1>Backends<a class="headerlink" href="#backends" title="Permalink to this headline">¶</a></h1>
-<p>All classes in this section satisfy <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">backend</span></code> unless otherwise specified</p>
+<p>All classes in this section satisfy <a class="reference internal" href="concepts.html#_CPPv4I0EN6cronch8concepts7backendE" title="cronch::concepts::backend"><code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">concepts::backend</span></code></a> unless otherwise specified</p>
 <section id="json">
 <h2>JSON<a class="headerlink" href="#json" title="Permalink to this headline">¶</a></h2>
 <dl class="cpp class">
@@ -155,7 +155,7 @@
 <p><strong>Supported types</strong></p>
 <p>Since nlohmann/json already has its own mechanism for parsing user-defined types, cronch leverages that first before
 falling back to its own metadata. If a type is not known to cronch <em>and</em> there is no nlohmann/json support for it
-then it will cause a compile error, unless it satisfies <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">iterable</span></code>, in which case it will be iterated over
+then it will cause a compile error, unless it satisfies <a class="reference internal" href="concepts.html#_CPPv4I0EN6cronch8concepts8iterableE" title="cronch::concepts::iterable"><code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">concepts::iterable</span></code></a>, in which case it will be iterated over
 with the <span class="cpp-expr sig sig-inline cpp"><span class="n">nlohmann</span><span class="p">::</span><span class="n">json</span></span> instance being treated as an array.</p>
 <p><strong>Constructors</strong></p>
 <dl class="cpp function">
@@ -184,9 +184,9 @@ type without members metadata or the top level node) or the name of the member i
 <p><strong>Supported types</strong></p>
 <p>pugixml does not provide any way of parsing user defined types automatically. Instead it uses purely <span class="cpp-expr sig sig-inline cpp"><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="p">*</span></span>
 for its values. Therefore, in order to successfully wrap pugi, cronch uses <span class="cpp-expr sig sig-inline cpp"><span class="n">boost</span><span class="p">::</span><span class="n">lexical_cast</span><span class="p">&lt;</span><span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="p">&gt;</span><span class="p">(</span><span class="p">)</span></span>
-to serialize types and <span class="cpp-expr sig sig-inline cpp"><span class="n">boost</span><span class="p">::</span><span class="n">lexical_cast</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span></span> to deserialize them. See the <a class="reference external" href="https://www.boost.org/doc/libs/1_76_0/doc/html/boost_lexical_cast/synopsis.html#boost_lexical_cast.synopsis.lexical_cast">docs</a> on lexical cast for more information.</p>
+to serialize types and <span class="cpp-expr sig sig-inline cpp"><span class="n">boost</span><span class="p">::</span><span class="n">lexical_cast</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span><span class="p">(</span><span class="p">)</span></span> to deserialize them. See the <a class="reference external" href="https://www.boost.org/doc/libs/1_76_0/doc/html/boost_lexical_cast/synopsis.html#boost_lexical_cast.synopsis.lexical_cast">docs</a> on lexical cast for more information.</p>
 <p>Types that are neither supported by lexical cast or have members known to cronch will cause a compile error, unless the type
-is <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">iterable</span></code>, in which case it must have at least a name known by cronch (either a member name or type name).</p>
+is <a class="reference internal" href="concepts.html#_CPPv4I0EN6cronch8concepts8iterableE" title="cronch::concepts::iterable"><code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">concepts::iterable</span></code></a>, in which case it must have at least a name known by cronch (either a member name or type name).</p>
 <p><strong>Constructors</strong></p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N6cronch3xml4pugi4pugi4pugiERKNSt6stringE">
@@ -205,7 +205,7 @@ is <code class="xref cpp cpp-concept docutils literal notranslate"><span class="
 </section>
 <section id="building-your-own">
 <h2>Building your own<a class="headerlink" href="#building-your-own" title="Permalink to this headline">¶</a></h2>
-<p>Making your own backend is mostly quite simple. Define a type which satisfies <code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">backend</span></code> and use it. Done.</p>
+<p>Making your own backend is mostly quite simple. Define a type which satisfies <a class="reference internal" href="concepts.html#_CPPv4I0EN6cronch8concepts7backendE" title="cronch::concepts::backend"><code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">concepts::backend</span></code></a> and use it. Done.</p>
 <p>A very basic backend, which simply uses <span class="cpp-expr sig sig-inline cpp"><span class="n">boost</span><span class="p">::</span><span class="n">lexical_cast</span></span> to convert types, is shown below:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 <span class="c1">#include &lt;cronch/deserialize.hpp&gt;</span>

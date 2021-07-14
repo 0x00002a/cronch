@@ -159,6 +159,11 @@ as pain-free way as possible and expose it in a way that is easy to consume.</p>
 <p>cronch is currently in early development and not particularly stable. It should be usable but beware there may be API changes and
 (hopefully occasional) bugs. It should not be used in production environments, nuclear reactors, around small children, etc</p>
 </section>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>You can find full documentation [here](<a class="reference external" href="https://0x00002a.github.io/cronch/index.html">https://0x00002a.github.io/cronch/index.html</a>). It is a work-in-progress (like the rest)
+of this library) but it provides some examples and a basic “quick start” section.</p>
+</section>
 <section id="structure">
 <h2>Structure<a class="headerlink" href="#structure" title="Permalink to this headline">¶</a></h2>
 <p>Rather than use traditional inheritance based dependency injection and interface definition, cronch relies on templates
@@ -177,6 +182,11 @@ features such as concepts, which reduce the horrible error messages and the burd
 <li><p>JSON: nlomann/json</p></li>
 <li><p>XML: pugixml</p></li>
 </ul>
+</section>
+<section id="conan">
+<h3>Conan<a class="headerlink" href="#conan" title="Permalink to this headline">¶</a></h3>
+<p>There is a conanfile.txt in the ci directory. It is setup so that the library may be built (minus the benchmarks) as long as
+<code class="docutils literal notranslate"><span class="pre">CMAKE_MODULE_PATH</span></code> contains the directory in which you ran <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">install</span></code>.</p>
 </section>
 </section>
 </section>

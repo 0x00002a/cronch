@@ -23,6 +23,17 @@ Customisation points
    The unspecialised form has no members and is completely empty. To make a type consumable by cronch, you must specialise 
    this struct for your type and define the needed members. See :ref:`metadata concepts` for more information. 
 
+   **Possible fields**
+
+   .. member:: meta::concepts::view members 
+       
+       Members of the type for use when serializing and deserializing. See :class:`meta::mems` for the provided concrete type 
+       for this.
+
+   .. member:: const char* name
+
+       Name of the type used by some serializers and deserializers (e.g. :class:`xml::pugi`)
+
    **Example**
 
    .. literalinclude:: /code/metadata_use_example.cpp 
@@ -33,7 +44,8 @@ Helper macros
 
 .. c:macro:: CRONCH_META_TYPE(type, fields)
 
-   Shortcut for generating :class:`metadata<type>`. The name is set to *type* while the fields are passed to cronch::meta::fields 
+   Shortcut for generating :class:`metadata\<type\>`. The name is set to ``type`` while the fields are passed to :class:`meta::mems` 
+   and set as the value of `metadata\<type\>::members`.
 
    **Example** 
 
@@ -81,16 +93,18 @@ Registration helpers
    .. function:: constexpr mems::mems(Fs... fs) 
         
 
+.. namespace-push:: concepts
+
 Note
 #######
 
-All these types are simply implementations of :concept:`accessor` that are provided to make cronch easier to use. There 
+All these types are simply implementations of concepts in :ref:`metadata concepts` that are provided to make cronch easier to use. There 
 is nothing to stop you defining your own accessor types and using those instead of/in conjunction with the above.
 
 Querying
 --------------
 
-.. function:: template<has_members T> const concepts::view auto& accessors() 
+.. function:: template<has_members T> const view auto& accessors() 
 
    Returns a const reference to a type satisfying `view` that refers to 
    the members of T satisfying :concept:`accessor`
@@ -99,6 +113,7 @@ Querying
 
    Returns the name of the type as registered via `metadata<T>`
 
+.. namespace-pop::
 .. namespace-pop::
 
 
