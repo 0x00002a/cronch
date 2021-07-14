@@ -26,7 +26,7 @@ cronch is currently in early development and not particularly stable. It should 
 Documentation 
 --------------
 
-You can find full documentation `here <https://0x00002a.github.io/cronch/index.html>`_. It is a work-in-progress (like the rest) 
+You can find full documentation `here <https://0x00002a.github.io/cronch/index.html>`_. It is a work-in-progress (like the rest 
 of this library) but it provides some examples and a basic "quick start" section.
 
 
@@ -43,7 +43,7 @@ features such as concepts, which reduce the horrible error messages and the burd
 Dependencies
 -------------
 
-- boost >=1.76.0
+- boost >=1.75.0 (maybe earlier, but those are untested)
 
 For each backend
 #################
