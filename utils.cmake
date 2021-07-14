@@ -4,8 +4,10 @@ function(cronch_add_werror TARGET)
         target_compile_options( 
             ${TARGET}
             PRIVATE 
-                /Wall 
+                /W4
                 /WX
+                /external:anglebrackets
+                /external:W0
             )
     else()
         target_compile_options(
