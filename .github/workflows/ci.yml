@@ -71,6 +71,7 @@ jobs:
 
       - name: Install dependencies 
         run: | 
+          conan profile new default --detect
           conan profile update settings.compiler.libcxx=libstdc++11 default
           mkdir build 
           cp ci/conanfile.txt .
