@@ -27,3 +27,15 @@ target_compile_features(cronch INTERFACE cxx_std_20)
 target_compile_options(cronch INTERFACE
         $<$<BOOL:MSVC>:/Zc:preprocessor> # See: https://devblogs.microsoft.com/cppblog/announcing-full-support-for-a-c-c-conformant-preprocessor-in-msvc/
         )
+
+if (CRONCH_BUILD_TESTS)
+    add_subdirectory(tests)
+endif()
+if (CRONCH_BUILD_EXAMPLES)
+    add_subdirectory(examples)
+endif()
+if (CRONCH_BUILD_BENCHMARKS)
+    add_subdirectory(bench)
+endif()
+
+
