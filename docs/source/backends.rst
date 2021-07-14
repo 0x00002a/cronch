@@ -1,10 +1,12 @@
+
+.. namespace:: cronch
+
 Backends 
 =========
 
-All classes in this section satisfy :concept:`backend` unless otherwise specified
+All classes in this section satisfy :concept:`concepts::backend` unless otherwise specified
 
 
-.. namespace:: cronch
 
 .. namespace-push:: json
 
@@ -19,7 +21,7 @@ JSON
 
    Since nlohmann/json already has its own mechanism for parsing user-defined types, cronch leverages that first before 
    falling back to its own metadata. If a type is not known to cronch *and* there is no nlohmann/json support for it 
-   then it will cause a compile error, unless it satisfies :concept:`iterable`, in which case it will be iterated over 
+   then it will cause a compile error, unless it satisfies :concept:`concepts::iterable`, in which case it will be iterated over 
    with the :expr:`nlohmann::json` instance being treated as an array.
 
    **Constructors**
@@ -52,10 +54,10 @@ XML
 
    pugixml does not provide any way of parsing user defined types automatically. Instead it uses purely :expr:`const char*` 
    for its values. Therefore, in order to successfully wrap pugi, cronch uses :expr:`boost::lexical_cast<std::string>()` 
-   to serialize types and :expr:`boost::lexical_cast<T>` to deserialize them. See the `docs <https://www.boost.org/doc/libs/1_76_0/doc/html/boost_lexical_cast/synopsis.html#boost_lexical_cast.synopsis.lexical_cast>`_ on lexical cast for more information.
+   to serialize types and :expr:`boost::lexical_cast\<T\>()` to deserialize them. See the `docs <https://www.boost.org/doc/libs/1_76_0/doc/html/boost_lexical_cast/synopsis.html#boost_lexical_cast.synopsis.lexical_cast>`_ on lexical cast for more information.
 
    Types that are neither supported by lexical cast or have members known to cronch will cause a compile error, unless the type 
-   is :concept:`iterable`, in which case it must have at least a name known by cronch (either a member name or type name).
+   is :concept:`concepts::iterable`, in which case it must have at least a name known by cronch (either a member name or type name).
 
    **Constructors**
 
@@ -71,7 +73,7 @@ XML
 Building your own 
 ------------------
 
-Making your own backend is mostly quite simple. Define a type which satisfies :concept:`backend` and use it. Done.
+Making your own backend is mostly quite simple. Define a type which satisfies :concept:`concepts::backend` and use it. Done.
 
 A very basic backend, which simply uses :expr:`boost::lexical_cast` to convert types, is shown below:
 

@@ -23,6 +23,13 @@ cronch is currently in early development and not particularly stable. It should 
 (hopefully occasional) bugs. It should not be used in production environments, nuclear reactors, around small children, etc
 
 
+Documentation 
+--------------
+
+You can find full documentation [here](https://0x00002a.github.io/cronch/index.html). It is a work-in-progress (like the rest) 
+of this library) but it provides some examples and a basic "quick start" section.
+
+
 Structure
 ---------
 
@@ -43,6 +50,13 @@ For each backend
 
 - JSON: nlomann/json 
 - XML: pugixml
+
+
+Conan 
+#######
+
+There is a conanfile.txt in the ci directory. It is setup so that the library may be built (minus the benchmarks) as long as 
+``CMAKE_MODULE_PATH`` contains the directory in which you ran ``conan install``.
 
 
 
