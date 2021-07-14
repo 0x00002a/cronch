@@ -29,9 +29,15 @@ private:
 namespace cm = cronch::meta;
 
 
+void set_v(my_type& t, const std::string& s) {
+    t.value(s);
+}
+auto get_v(const my_type& t) -> const std::string&  {
+    return t.value();
+}
 
 CRONCH_META_TYPE(my_type, (
-            cm::property("value", &my_type::value, &my_type::value),
+            cm::property("value", &get_v, &set_v),
             cm::property("i", &my_type::i, &my_type::set_i)
 
             ))
