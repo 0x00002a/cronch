@@ -21,6 +21,7 @@ jobs:
               cxx: "g++-11",
               cc: "gcc-11",
               packages: "gcc-11 g++-11",
+              profile: "gcc",
               os: ubuntu-latest,
             },
             {
@@ -28,6 +29,7 @@ jobs:
               cxx: "cl.exe",
               cc: "cl.exe",
               packages: "",
+              profile: "msvc",
               os: windows-latest
             }
           ]
@@ -71,12 +73,10 @@ jobs:
 
       - name: Install dependencies 
         run: | 
-          conan profile new default --detect
-          conan profile update settings.compiler.libcxx=libstdc++11 default
-          mkdir build 
+          mkdir build
           cp ci/conanfile.txt .
           cd build 
-          conan install .. -b missing
+          conan install .. -b missing -pr=../ci/${{ matrix.toolchain.profile}.profile
 
       - name: Configure
         run: cmake -Bbuild -GNinja -DCRONCH_BUILD_TESTS=ON -DCRONCH_BUILD_EXAMPLES=ON -DCMAKE_MODULE_PATH=$(pwd)/build
