@@ -57,7 +57,7 @@ public:
     }
     template<cronch::concepts::iterable V>
     requires(!cronch::concepts::has_members<V> &&
-             !concepts::json_deserializable<V>) void parse_into(V& out)
+             !concepts::json_deserializable<V>) void parse_into(V& out) const
     {
         auto i = 0ul;
         for (auto& v : out) {
@@ -70,7 +70,7 @@ public:
     template<cronch::concepts::known_to_cronch V>
     void parse_into(V& out) const
     {
-        metadata<V>::fields.map([&](auto&& f) mutable {
+        meta::accessors<V>().map([&](auto&& f) mutable {
             auto name = f.name;
 
             using vtype = typename std::decay_t<decltype(f)>::value_type;
@@ -95,5 +95,7 @@ public:
 private:
     document_type doc_;
 };
+
+static_assert(cronch::concepts::backend<nloh>, "nloh is invalid");
 
 } // namespace cronch::json
