@@ -123,7 +123,7 @@ private:
 };
 
 } // namespace detail
-using pugi_attr = detail::basic_xml<true>;
+
 using pugi = detail::basic_xml<false>;
 
 } // namespace cronch::xml
