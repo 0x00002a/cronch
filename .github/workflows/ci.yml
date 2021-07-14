@@ -49,18 +49,12 @@ jobs:
       - name: Install conan 
         run: | 
           pip install conan 
-      - name: Install dependencies 
-        run: | 
-          mkdir build 
-          cp ci/conanfile.txt .
-          cd build 
-          conan install ..
-
+      
       - name: Install Ninja
         uses: seanmiddleditch/gha-setup-ninja@master
 
       - name: Install packages (via choco)
-        if: runner.os == 'Windows' && ${{ matrix.toolchain.packages != '' }}
+        if: ${{ runner.os == 'Windows' && matrix.toolchain.packages != '' }}
         run: choco upgrade ${{ matrix.toolchain.packages }}
 
       - name: Install packages (via apt)
@@ -74,6 +68,13 @@ jobs:
       - name: Install msvc
         if: ${{ matrix.toolchain.cxx == 'cl.exe' }} # This is a bit of a hack
         uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Install dependencies 
+        run: | 
+          mkdir build 
+          cp ci/conanfile.txt .
+          cd build 
+          conan install .. -b missing
 
       - name: Configure
         run: cmake -Bbuild -GNinja -DCRONCH_BUILD_TESTS=ON -DCRONCH_BUILD_EXAMPLES=ON -DCMAKE_MODULE_PATH=build
