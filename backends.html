@@ -210,6 +210,7 @@ is <a class="reference internal" href="concepts.html#_CPPv4I0EN6cronch8concepts8
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 <span class="c1">#include &lt;cronch/deserialize.hpp&gt;</span>
 <span class="c1">#include &lt;cronch/concepts.hpp&gt; </span>
+<span class="c1">#include &lt;cronch/metatypes.hpp&gt; // Provides meta::nameof&lt;int&gt;() support i.e serializable&lt;int&gt; is satisfied</span>
 
 <span class="c1">#include &lt;boost/lexical_cast.hpp&gt;</span>
 
@@ -228,7 +229,7 @@ is <a class="reference internal" href="concepts.html#_CPPv4I0EN6cronch8concepts8
 
     <span class="n">template</span><span class="o">&lt;</span><span class="n">typename</span> <span class="n">V</span><span class="o">&gt;</span>
     <span class="n">void</span> <span class="n">parse_into</span><span class="p">(</span><span class="n">V</span><span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span> <span class="n">const</span> <span class="p">{</span>
-        <span class="n">v</span> <span class="o">=</span> <span class="n">boost</span><span class="p">::</span><span class="n">lexical_cast</span><span class="o">&lt;</span><span class="n">std</span><span class="p">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">boost</span><span class="p">::</span><span class="n">lexical_cast</span><span class="o">&lt;</span><span class="n">std</span><span class="p">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">document_</span><span class="p">);</span>
     <span class="p">}</span>
 
 <span class="n">private</span><span class="p">:</span>
