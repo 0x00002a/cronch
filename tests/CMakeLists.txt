@@ -9,12 +9,10 @@ add_executable(tests ${SRC})
 
 
 find_package(doctest REQUIRED)
-find_package(pugixml REQUIRED)
 
-target_link_libraries(tests PUBLIC doctest::doctest cronch pugixml::pugixml)
+target_link_libraries(tests PUBLIC doctest::doctest cronch)
 
-cronch_add_werror(tests)
-cronch_add_diagnostics(tests)
+cronch_setup_target(tests)
 
 
 

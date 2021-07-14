@@ -10,7 +10,7 @@ option(CRONCH_BUILD_BENCHMARKS "Whether to build the benchmarks" OFF)
 
 add_library(${PROJECT_NAME} INTERFACE)
 
-find_package(Boost REQUIRED)
+find_package(Boost 1.75.0 REQUIRED)
 
 include(${CMAKE_CURRENT_LIST_DIR}/utils.cmake)
 

@@ -34,3 +34,21 @@ function(cronch_add_diagnostics TARGET)
 
 endfunction()
 
+
+function(cronch_link_deps TARGET) 
+
+    find_package(nlohmann_json REQUIRED)
+    find_package(pugixml REQUIRED)
+    target_link_libraries(${TARGET} PUBLIC nlohmann_json::nlohmann_json pugixml::pugixml)
+
+endfunction()
+
+
+function(cronch_setup_target TARGET)
+
+    cronch_add_diagnostics(${TARGET})
+    cronch_add_werror(${TARGET})
+    cronch_link_deps(${TARGET})
+
+endfunction()
+

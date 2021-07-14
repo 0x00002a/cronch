@@ -23,4 +23,5 @@ SortIncludes: true
 SpaceAfterTemplateKeyword: false
 ColumnLimit: 120
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
+IndentRequires: true
 ...
