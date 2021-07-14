@@ -80,7 +80,7 @@ jobs:
 
 
       - name: Configure
-        run: cmake -Bbuild -GNinja -DCRONCH_BUILD_TESTS=ON -DCRONCH_BUILD_EXAMPLES=ON -DCRONCH_ADD_BUILD_TO_MODULE_PATH=ON
+        run: cmake -Bbuild -GNinja -DCRONCH_BUILD_TESTS=ON -DCRONCH_BUILD_EXAMPLES=ON -DCRONCH_ADD_BUILD_TO_MODULE_PATH=ON -DCMAKE_BUILD_TYPE=Release
 
       - name: Build
         run: cmake --build build
