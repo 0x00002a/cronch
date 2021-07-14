@@ -56,6 +56,10 @@ Helper macros
    Same as CRONCH_META_TYPE(type, fields) but without the fields 
 
 
+**Important Note**
+
+These macros must be used either in the ``cronch`` namespace or outside of any namespaces.
+
 .. namespace-push:: meta
 
 

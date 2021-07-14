@@ -24,6 +24,13 @@ JSON
    then it will cause a compile error, unless it satisfies :concept:`concepts::iterable`, in which case it will be iterated over 
    with the :expr:`nlohmann::json` instance being treated as an array.
 
+   **Supported formats**
+
+   This backend supports any json supported by nlohmann/json, in addition to any binary formats it supports 
+   (currently cbor, msgpack, bson, and ubjson). Support for the binary formats is done via the :func:`nloh::nloh` overload which takes a 
+   ``nlohmann::json`` (allowing stuff such as :expr:`nlohmann::json::from_bson` to be passed) and the :func:`serialize` overload which 
+   takes a ``Backend::document_type&``, allowing the caller full access to the underlying ``nlohamnn::json``.
+
    **Constructors**
 
    .. function:: nloh::nloh(const std::string& contents)
