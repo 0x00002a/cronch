@@ -19,6 +19,10 @@ target_include_directories(cronch INTERFACE ${CMAKE_CURRENT_LIST_DIR}/include)
 target_link_libraries(cronch INTERFACE Boost::headers)
 target_compile_features(cronch INTERFACE cxx_std_20)
 
+target_compile_options(cronch INTERFACE
+        $<$<BOOL:MSVC>:/Zc:preprocessor> # See: https://devblogs.microsoft.com/cppblog/announcing-full-support-for-a-c-c-conformant-preprocessor-in-msvc/
+        )
+
 if (CRONCH_BUILD_TESTS)
     add_subdirectory(tests)
 endif()
