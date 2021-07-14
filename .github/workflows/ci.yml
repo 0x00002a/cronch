@@ -78,6 +78,7 @@ jobs:
           cd build 
           conan install .. -b missing --profile ../ci/${{ matrix.toolchain.profile }}.profile
 
+
       - name: Configure
         run: cmake -Bbuild -GNinja -DCRONCH_BUILD_TESTS=ON -DCRONCH_BUILD_EXAMPLES=ON -DCMAKE_MODULE_PATH=${{ github.workspace }}/build
 

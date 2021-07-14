@@ -7,6 +7,10 @@ option(CRONCH_BUILD_TESTS "Whether to build the tests" OFF)
 option(CRONCH_BUILD_EXAMPLES "Whether to build the examples" OFF)
 option(CRONCH_BUILD_BENCHMARKS "Whether to build the benchmarks" OFF)
 
+if(CMAKE_MODULE_PATH)
+    file(TO_CMAKE_PATH ${CMAKE_MODULE_PATH} TMP)
+    set(CMAKE_MODULE_PATH ${TMP})
+endif()
 
 add_library(${PROJECT_NAME} INTERFACE)
 
