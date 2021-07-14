@@ -19,14 +19,14 @@ struct metadata : std::false_type {
 
 #define CRONCH_META_TYPE_FIELDS(type, nfields)                                                                         \
     template<>                                                                                                         \
-    struct ::cronch::metadata<type> {                                                                                  \
+    struct cronch::metadata<type> {                                                                                    \
         static constexpr const char* name = #type;                                                                     \
         static constexpr auto members = cronch::meta::mems nfields;                                                    \
     };
 
 #define CRONCH_META_TYPE_NAME(type)                                                                                    \
     template<>                                                                                                         \
-    struct ::cronch::metadata<type> {                                                                                  \
+    struct cronch::metadata<type> {                                                                                    \
         static constexpr const char* name = #type;                                                                     \
     };
 
