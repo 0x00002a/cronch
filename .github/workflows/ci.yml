@@ -76,7 +76,7 @@ jobs:
           mkdir build
           cp ci/conanfile.txt .
           cd build 
-          conan install .. -b missing -pr=../ci/${{ matrix.toolchain.profile }}.profile
+          conan install .. -b missing --profile ../ci/${{ matrix.toolchain.profile }}.profile
 
       - name: Configure
         run: cmake -Bbuild -GNinja -DCRONCH_BUILD_TESTS=ON -DCRONCH_BUILD_EXAMPLES=ON -DCMAKE_MODULE_PATH=$(pwd)/build
