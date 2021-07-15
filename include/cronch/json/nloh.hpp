@@ -33,11 +33,16 @@ public:
     requires (!concepts::json_serializable<V> && !cronch::concepts::meta_complete<V>)
     static void append(document_type& doc, const V& val) {
         std::size_t i = 0;
-        for(const auto& v : val) {
-            nlohmann::json j;
-            append(j, v);
-            doc.emplace_back(j);
-            ++i;
+        if (std::begin(val) == std::end(val)) {
+            // Empty
+            doc = nlohmann::json::parse("[]");
+        } else {
+            for (const auto& v : val) {
+                nlohmann::json j;
+                append(j, v);
+                doc.emplace_back(j);
+                ++i;
+            }
         }
     }
 
