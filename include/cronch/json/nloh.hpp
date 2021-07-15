@@ -44,18 +44,10 @@ public:
     {
         meta::accessors<V>().map([&](auto&& f) mutable {
             auto name = f.name;
-            
-            using vtype = typename std::decay_t<decltype(f)>::value_type;
             auto&& value = f(v);
 
-            if constexpr (cronch::concepts::serializable<vtype>) {
-                auto& subdoc = doc[std::string(name)];
-                
-                append(subdoc, value);
-            }
-            else {
-                doc[std::string(name)] = value;
-            }
+            auto& subdoc = doc[std::string(name)];
+            append(subdoc, value);
         });
     }
 
@@ -85,14 +77,10 @@ public:
 
             using vtype = typename std::decay_t<decltype(f)>::value_type;
             vtype value;
-            if constexpr (cronch::concepts::serializable<vtype>) {
-                nlohmann::json sub_doc = doc_.at(std::string{name});
-                nloh sub{std::move(sub_doc)};
-                sub.parse_into(value);
-            }
-            else {
-                doc_.at(std::string{name}).get_to(value);
-            }
+            nlohmann::json sub_doc = doc_.at(std::string{name});
+            nloh sub{std::move(sub_doc)};
+            sub.parse_into(value);
+
             f(out, value);
         });
     }
