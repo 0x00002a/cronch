@@ -38,7 +38,7 @@ TEST_SUITE("json_nloh - deserialize") {
         nlohmann::json expected = nlohmann::json::parse(R"([ { "value": 2, "also": [ { "v": 4 } ] }, { "value": 4, "also": [ { "v": 6 } ] } ])");
         std::vector<test_type> input;
         for (const auto& v : expected) {
-            test_type t{v.at("value").get<int>()};
+            test_type t{v.at("value").get<int>(), {}};
             for (const auto& jalso : v.at("also")) {
                 t.also_values.emplace_back(other_val{jalso.at("v").get<int>()});
             }
