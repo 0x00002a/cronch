@@ -56,8 +56,13 @@ Conan
 #######
 
 There is a conanfile.txt in the ci directory. It is setup so that the library may be built (minus the benchmarks) as long as 
-``CMAKE_MODULE_PATH`` contains the directory in which you ran ``conan install``.
+``CMAKE_MODULE_PATH`` contains the directory in which you ran ``conan install``. There are also profiles there for
+gcc 11 and msvc 16.
 
+Supported toolchains
+---------------------
+
+The CI currently builds against gcc 11 on ubuntu and msvc 16. Mac is not supported at least until clang 13 drops.
 
 
 
