@@ -7,6 +7,7 @@
 #include <cronch/metatypes.hpp>
 #include <cronch/serialize.hpp>
 #include <cronch/xml/pugi.hpp>
+#include <cronch/metatypes.hpp>
 
 #include <string>
 

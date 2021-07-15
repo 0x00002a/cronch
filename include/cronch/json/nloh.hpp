@@ -23,10 +23,20 @@ public:
     explicit nloh(document_type doc) : doc_(std::move(doc)) {}
 
     template<typename V>
-    requires(concepts::json_serializable<V> && !cronch::concepts::meta_complete<V>) static void append(
+    requires(concepts::json_serializable<V> && !cronch::concepts::meta_complete<V>)
+    static void append(
         document_type& doc, const V& val)
     {
         doc = val;
+    }
+    template<cronch::concepts::iterable V>
+    requires (!concepts::json_serializable<V> && !cronch::concepts::meta_complete<V>)
+    static void append(document_type& doc, const V& val) {
+        std::size_t i = 0;
+        for(const auto& v : val) {
+            append(doc.at(i), v);
+            ++i;
+        }
     }
 
     template<cronch::concepts::meta_complete V>

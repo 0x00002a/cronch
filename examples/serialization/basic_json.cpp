@@ -24,10 +24,13 @@ struct cr::metadata<my_type> {
     );
     // clang-format on
 };
+static_assert(!cr::json::concepts::json_serializable<std::vector<my_type>>);
 
 int main()
 {
     const auto my_obj = my_type{"Hello there", 4};
     std::cout << "my_type: " << cr::serialize<cr::json::nloh>(my_obj) << '\n';
+    std::vector<my_type> types{{"Hello", 2}, {"Sup", 3}};
+    std::cout << "my_types: " << cr::serialize<cr::json::nloh>(types) << '\n';
 
 }
