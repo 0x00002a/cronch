@@ -3,6 +3,7 @@
 
 #include "cronch/metadata.hpp"
 
+#include <iterator>
 #include <concepts>
 #include <string_view>
 
