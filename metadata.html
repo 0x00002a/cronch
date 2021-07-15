@@ -223,6 +223,8 @@ and set as the value of <code class="xref cpp cpp-any docutils literal notransla
 <dd><p>Same as CRONCH_META_TYPE(type, fields) but without the fields</p>
 </dd></dl>
 
+<p><strong>Important Note</strong></p>
+<p>These macros must be used either in the <code class="docutils literal notranslate"><span class="pre">cronch</span></code> namespace or outside of any namespaces.</p>
 </section>
 <section id="registration-helpers">
 <h2>Registration helpers<a class="headerlink" href="#registration-helpers" title="Permalink to this headline">¶</a></h2>
@@ -253,13 +255,23 @@ while deserializing it requires all setters to be non-null</p>
 <span id="_CPPv3N6cronch4meta8property8property8propertyENSt11string_viewEM1T1RM1Tv"></span><span id="_CPPv2N6cronch4meta8property8property8propertyENSt11string_viewEM1T1RM1Tv"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv4N6cronch4meta8property8property8propertyENSt11string_viewEM1T1RM1Tv" title="cronch::meta::property::property::property"><span class="n"><span class="pre">property</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">property</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">name</span></span>, <a class="reference internal" href="#_CPPv4I000EN6cronch4meta8propertyE" title="cronch::meta::property::R"><span class="n"><span class="pre">R</span></span></a><span class="w"> </span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I000EN6cronch4meta8propertyE" title="cronch::meta::property::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">::</span></span><span class="p"><span class="pre">*</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">getter</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I000EN6cronch4meta8propertyE" title="cronch::meta::property::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">::</span></span><span class="p"><span class="pre">*</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">setter</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6cronch4meta8property8property8propertyENSt11string_viewEM1T1RM1Tv" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="sig-name descname"><span class="pre">constexpr</span> <span class="pre">property::property(std::string_view</span> <span class="pre">name,</span> <span class="pre">R(*</span> <span class="pre">getter)(const</span> <span class="pre">T*</span> <span class="pre">)</span> <span class="pre">=</span> <span class="pre">nullptr,</span> <span class="pre">void(*</span> <span class="pre">setter)(T*</span> <span class="pre">,</span> <span class="pre">S)</span> <span class="pre">=</span> <span class="pre">nullptr)</span></span></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="sig-name descname"><span class="pre">constexpr</span> <span class="pre">property::property(std::string_view</span> <span class="pre">name,</span> <span class="pre">R(*</span> <span class="pre">getter)(const</span> <span class="pre">T&amp;)</span> <span class="pre">=</span> <span class="pre">nullptr,</span> <span class="pre">void(*</span> <span class="pre">setter)(T&amp;,</span> <span class="pre">S)</span> <span class="pre">=</span> <span class="pre">nullptr)</span></span></dt>
+<dd></dd></dl>
+
 </div></blockquote>
 </dd></dl>
 
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4IDpEN6cronch4meta4memsE">
 <span id="_CPPv3IDpEN6cronch4meta4memsE"></span><span id="_CPPv2IDpEN6cronch4meta4memsE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Fs</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mems</span></span></span><a class="headerlink" href="#_CPPv4IDpEN6cronch4meta4memsE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Holds the members of a type (which may be <a class="reference internal" href="#_CPPv4I000EN6cronch4meta8propertyE" title="cronch::meta::property"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">property</span></code></a> or <a class="reference internal" href="#_CPPv4I00EN6cronch4meta5fieldE" title="cronch::meta::field"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">field</span></code></a>’s)</p>
+<dd><p>Holds the members of a type (which may be <a class="reference internal" href="#_CPPv4I000EN6cronch4meta8propertyE" title="cronch::meta::property"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">property</span></code></a> or <a class="reference internal" href="#_CPPv4I00EN6cronch4meta5fieldE" title="cronch::meta::field"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">field</span></code></a>’s)</p>
 <p><strong>Constructors</strong></p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N6cronch4meta4mems4mems4memsEDp2Fs">
@@ -323,7 +335,7 @@ the members of T satisfying <a class="reference internal" href="concepts.html#_C
     <div class="footer" role="contentinfo">
         <div class="container">
             &#169; Copyright 2021, Natasha England-Elbro.
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.0.
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.1.
         </div>
     </div>  
 

@@ -187,7 +187,7 @@ It is also possible to add your type via templates (which is what the macro gene
 <h2>An example<a class="headerlink" href="#an-example" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
 
-<span class="cp">#include</span> <span class="cpf">&lt;cronch/json/json.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;cronch/json/nloh.hpp&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;cronch/meta.hpp&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;cronch/serialize.hpp&gt;</span><span class="cp"></span>
 
@@ -204,7 +204,7 @@ It is also possible to add your type via templates (which is what the macro gene
 <span class="k">struct</span> <span class="nc">cr</span><span class="o">::</span><span class="n">metadata</span><span class="o">&lt;</span><span class="n">my_type</span><span class="o">&gt;</span> <span class="p">{</span>
     <span class="c1">// clang-format off</span>
     <span class="k">constexpr</span> <span class="k">static</span> <span class="k">auto</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;my_type&quot;</span><span class="p">;</span>
-    <span class="k">constexpr</span> <span class="k">static</span> <span class="k">auto</span> <span class="n">fields</span> <span class="o">=</span> <span class="n">cr</span><span class="o">::</span><span class="n">meta</span><span class="o">::</span><span class="n">fields</span><span class="p">(</span>
+    <span class="k">constexpr</span> <span class="k">static</span> <span class="k">auto</span> <span class="n">members</span> <span class="o">=</span> <span class="n">cr</span><span class="o">::</span><span class="n">meta</span><span class="o">::</span><span class="n">mems</span><span class="p">(</span>
         <span class="n">cr</span><span class="o">::</span><span class="n">meta</span><span class="o">::</span><span class="n">field</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">my_type</span><span class="o">::</span><span class="n">name</span><span class="p">),</span>
         <span class="n">cr</span><span class="o">::</span><span class="n">meta</span><span class="o">::</span><span class="n">field</span><span class="p">(</span><span class="s">&quot;some_info&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">my_type</span><span class="o">::</span><span class="n">some_info</span><span class="p">)</span>
     <span class="p">);</span>
@@ -242,7 +242,7 @@ type. Add it to the members field of your metadata specialisation.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 <span class="c1">#include &lt;cronch/serialize.hpp&gt;</span>
 <span class="c1">#include &lt;cronch/meta.hpp&gt;</span>
-<span class="c1">#include &lt;cronch/json/json.hpp&gt;</span>
+<span class="c1">#include &lt;cronch/json/nloh.hpp&gt;</span>
 
 <span class="c1">#include &lt;iostream&gt;</span>
 
@@ -270,9 +270,15 @@ type. Add it to the members field of your metadata specialisation.</p>
 <span class="n">namespace</span> <span class="n">cm</span> <span class="o">=</span> <span class="n">cronch</span><span class="p">::</span><span class="n">meta</span><span class="p">;</span>
 
 
+<span class="n">void</span> <span class="n">set_v</span><span class="p">(</span><span class="n">my_type</span><span class="o">&amp;</span> <span class="n">t</span><span class="p">,</span> <span class="n">const</span> <span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="n">auto</span> <span class="n">get_v</span><span class="p">(</span><span class="n">const</span> <span class="n">my_type</span><span class="o">&amp;</span> <span class="n">t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">const</span> <span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="o">&amp;</span>  <span class="p">{</span>
+    <span class="k">return</span> <span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">();</span>
+<span class="p">}</span>
 
 <span class="n">CRONCH_META_TYPE</span><span class="p">(</span><span class="n">my_type</span><span class="p">,</span> <span class="p">(</span>
-            <span class="n">cm</span><span class="p">::</span><span class="nb">property</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">my_type</span><span class="p">::</span><span class="n">value</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">my_type</span><span class="p">::</span><span class="n">value</span><span class="p">),</span>
+            <span class="n">cm</span><span class="p">::</span><span class="nb">property</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">get_v</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">set_v</span><span class="p">),</span>
             <span class="n">cm</span><span class="p">::</span><span class="nb">property</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">my_type</span><span class="p">::</span><span class="n">i</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">my_type</span><span class="p">::</span><span class="n">set_i</span><span class="p">)</span>
 
             <span class="p">))</span>
@@ -325,7 +331,7 @@ type. Add it to the members field of your metadata specialisation.</p>
     <div class="footer" role="contentinfo">
         <div class="container">
             &#169; Copyright 2021, Natasha England-Elbro.
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.0.
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.1.
         </div>
     </div>  
 

@@ -157,6 +157,11 @@
 falling back to its own metadata. If a type is not known to cronch <em>and</em> there is no nlohmann/json support for it
 then it will cause a compile error, unless it satisfies <a class="reference internal" href="concepts.html#_CPPv4I0EN6cronch8concepts8iterableE" title="cronch::concepts::iterable"><code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">concepts::iterable</span></code></a>, in which case it will be iterated over
 with the <span class="cpp-expr sig sig-inline cpp"><span class="n">nlohmann</span><span class="p">::</span><span class="n">json</span></span> instance being treated as an array.</p>
+<p><strong>Supported formats</strong></p>
+<p>This backend supports any json supported by nlohmann/json, in addition to any binary formats it supports
+(currently cbor, msgpack, bson, and ubjson). Support for the binary formats is done via the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">nloh::nloh()</span></code> overload which takes a
+<code class="docutils literal notranslate"><span class="pre">nlohmann::json</span></code> (allowing stuff such as <span class="cpp-expr sig sig-inline cpp"><span class="n">nlohmann</span><span class="p">::</span><span class="n">json</span><span class="p">::</span><span class="n">from_bson</span></span> to be passed) and the <a class="reference internal" href="quick_start.html#_CPPv4I00EN6cronch9serializeENSt6stringERK1T" title="cronch::serialize"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">serialize()</span></code></a> overload which
+takes a <code class="docutils literal notranslate"><span class="pre">Backend::document_type&amp;</span></code>, allowing the caller full access to the underlying <code class="docutils literal notranslate"><span class="pre">nlohamnn::json</span></code>.</p>
 <p><strong>Constructors</strong></p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N6cronch4json4nloh4nloh4nlohERKNSt6stringE">
@@ -287,7 +292,7 @@ is <a class="reference internal" href="concepts.html#_CPPv4I0EN6cronch8concepts8
     <div class="footer" role="contentinfo">
         <div class="container">
             &#169; Copyright 2021, Natasha England-Elbro.
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.0.
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.1.
         </div>
     </div>  
 
