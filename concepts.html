@@ -175,8 +175,8 @@
 </dd></dl>
 
 <dl class="cpp concept">
-<dt class="sig sig-object cpp" id="_CPPv4I0EN6cronch8concepts15known_to_cronchE">
-<span id="_CPPv3I0EN6cronch8concepts15known_to_cronchE"></span><span id="_CPPv2I0EN6cronch8concepts15known_to_cronchE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">concept</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">known_to_cronch</span></span></span><a class="headerlink" href="#_CPPv4I0EN6cronch8concepts15known_to_cronchE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4I0EN6cronch8concepts13meta_completeE">
+<span id="_CPPv3I0EN6cronch8concepts13meta_completeE"></span><span id="_CPPv2I0EN6cronch8concepts13meta_completeE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">concept</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">meta_complete</span></span></span><a class="headerlink" href="#_CPPv4I0EN6cronch8concepts13meta_completeE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Type that satisfies all other concepts for meta information</p>
 <dl class="simple">
 <dt><strong>Requirements</strong></dt><dd><ul class="simple">
@@ -193,8 +193,8 @@
 <dd><p>Type that can be used as a serializing/deserializing backend.</p>
 <dl class="simple">
 <dt><strong>Requirements</strong></dt><dd><ul class="simple">
-<li><p>B::append(typename B::document_type&amp;, const known_to_cronch auto&amp;)</p></li>
-<li><p>b.parse_into(known_to_cronch auto&amp;)</p></li>
+<li><p>B::append(typename B::document_type&amp;, const meta_complete auto&amp;)</p></li>
+<li><p>b.parse_into(meta_complete auto&amp;)</p></li>
 </ul>
 </dd>
 <dt><strong>Implementations</strong></dt><dd><ul class="simple">
