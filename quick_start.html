@@ -210,11 +210,14 @@ It is also possible to add your type via templates (which is what the macro gene
     <span class="p">);</span>
     <span class="c1">// clang-format on</span>
 <span class="p">};</span>
+<span class="k">static_assert</span><span class="p">(</span><span class="o">!</span><span class="n">cr</span><span class="o">::</span><span class="n">json</span><span class="o">::</span><span class="n">concepts</span><span class="o">::</span><span class="n">json_serializable</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">my_type</span><span class="o">&gt;&gt;</span><span class="p">);</span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="k">const</span> <span class="k">auto</span> <span class="n">my_obj</span> <span class="o">=</span> <span class="n">my_type</span><span class="p">{</span><span class="s">&quot;Hello there&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">};</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;my_type: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">cr</span><span class="o">::</span><span class="n">serialize</span><span class="o">&lt;</span><span class="n">cr</span><span class="o">::</span><span class="n">json</span><span class="o">::</span><span class="n">nloh</span><span class="o">&gt;</span><span class="p">(</span><span class="n">my_obj</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">my_type</span><span class="o">&gt;</span> <span class="n">types</span><span class="p">{{</span><span class="s">&quot;Hello&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">},</span> <span class="p">{</span><span class="s">&quot;Sup&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">}};</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;my_types: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">cr</span><span class="o">::</span><span class="n">serialize</span><span class="o">&lt;</span><span class="n">cr</span><span class="o">::</span><span class="n">json</span><span class="o">::</span><span class="n">nloh</span><span class="o">&gt;</span><span class="p">(</span><span class="n">types</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
 
 <span class="p">}</span>
 </pre></div>

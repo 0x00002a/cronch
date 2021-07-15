@@ -222,8 +222,13 @@ features such as concepts, which reduce the horrible error messages and the burd
 <section id="conan">
 <h3>Conan<a class="headerlink" href="#conan" title="Permalink to this headline">¶</a></h3>
 <p>There is a conanfile.txt in the ci directory. It is setup so that the library may be built (minus the benchmarks) as long as
-<code class="docutils literal notranslate"><span class="pre">CMAKE_MODULE_PATH</span></code> contains the directory in which you ran <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">install</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">CMAKE_MODULE_PATH</span></code> contains the directory in which you ran <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">install</span></code>. There are also profiles there for
+gcc 11 and msvc 16.</p>
 </section>
+</section>
+<section id="supported-toolchains">
+<h2>Supported toolchains<a class="headerlink" href="#supported-toolchains" title="Permalink to this headline">¶</a></h2>
+<p>The CI currently builds against gcc 11 on ubuntu and msvc 16. Mac is not supported at least until clang 13 drops.</p>
 </section>
 </section>
 <section id="indices-and-tables">
