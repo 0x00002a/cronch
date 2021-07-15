@@ -2,7 +2,7 @@
 set(SRC 
     main.cpp
     serialize.cpp
-    deserialize.cpp
+        json_nloh.cpp
 
     )
 
