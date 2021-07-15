@@ -57,6 +57,13 @@ TEST_SUITE("json_nloh - serialize") {
         cronch::serialize<cronch::json::nloh>(input, actual);
         REQUIRE(actual == expected);
     }
+    TEST_CASE("Serializing an empty vector of types not known to nlomann/json results in an empty array json object") {
+        std::vector<test_type> t;
+        nlohmann::json j;
+        cronch::serialize<cronch::json::nloh>(t, j);
+        const auto expected = nlohmann::json::parse("[]");
+        REQUIRE(expected == j);
+    }
 }
 
 }
