@@ -34,7 +34,9 @@ public:
     static void append(document_type& doc, const V& val) {
         std::size_t i = 0;
         for(const auto& v : val) {
-            append(doc.at(i), v);
+            nlohmann::json j;
+            append(j, v);
+            doc.emplace_back(j);
             ++i;
         }
     }
@@ -57,16 +59,17 @@ public:
     {
         doc_.get_to(out);
     }
-    template<cronch::concepts::iterable V>
+    template<cronch::concepts::container V>
     requires(!cronch::concepts::has_members<V> &&
              !concepts::json_deserializable<V>) void parse_into(V& out) const
     {
-        auto i = 0ul;
-        for (auto& v : out) {
-            nloh sub{doc_.at(i)};
-            sub.parse_into(v);
-            ++i;
-        }
+        using vtype = typename std::decay_t<V>::value_type;
+        std::transform(doc_.begin(), doc_.end(), std::back_inserter(out), [&](const auto& subdoc){
+          nloh sub{subdoc};
+          vtype v;
+          sub.parse_into(v);
+          return v;
+        });
     }
 
     template<cronch::concepts::meta_complete V>

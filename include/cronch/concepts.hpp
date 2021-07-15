@@ -37,6 +37,13 @@ concept iterable = requires(C c) {
     { std::begin(c) };
     { std::end(c) };
 };
+
+template<typename C>
+concept container = iterable<C> && requires(const C& c) {
+    typename C::value_type;
+    { std::back_inserter(c) };
+};
+
 template<typename S>
 concept serializable = requires(const S& inst)
 {
