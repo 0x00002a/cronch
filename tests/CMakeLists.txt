@@ -2,6 +2,7 @@
 set(SRC 
     main.cpp
     serialize.cpp
+    deserialize.cpp
 
     )
 
