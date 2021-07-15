@@ -22,7 +22,8 @@ jobs:
       
       - name: Generate html docs 
         run: |
-          cd docs 
+          cd docs
+          cp ../README.rst ./source/readme.rst
           make html 
           touch build/html/.nojekyll
 
