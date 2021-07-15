@@ -29,7 +29,7 @@ struct cr::metadata<my_type> {
     );
     // clang-format on
 };
-static_assert(cr::concepts::known_to_cronch<my_type>);
+static_assert(cr::concepts::meta_complete<my_type>);
 
 int main(int argc, char** argv)
 {

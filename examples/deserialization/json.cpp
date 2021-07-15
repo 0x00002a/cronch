@@ -22,7 +22,7 @@ CRONCH_META_TYPE(my_type, (
             ))
 
 
-static_assert(cronch::concepts::known_to_cronch<my_type>);
+static_assert(cronch::concepts::meta_complete<my_type>);
 
 int main(int argc, char** argv) {
     if (argc != 2) {

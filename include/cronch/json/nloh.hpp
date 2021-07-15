@@ -23,13 +23,13 @@ public:
     explicit nloh(document_type doc) : doc_(std::move(doc)) {}
 
     template<typename V>
-    requires(concepts::json_serializable<V> && !cronch::concepts::known_to_cronch<V>) static void append(
+    requires(concepts::json_serializable<V> && !cronch::concepts::meta_complete<V>) static void append(
         document_type& doc, const V& val)
     {
         doc = val;
     }
 
-    template<cronch::concepts::known_to_cronch V>
+    template<cronch::concepts::meta_complete V>
     static void append(document_type& doc, const V& v)
     {
         meta::accessors<V>().map([&](auto&& f) mutable {
@@ -50,7 +50,7 @@ public:
     }
 
     template<concepts::json_deserializable V>
-    requires(!cronch::concepts::known_to_cronch<V>) void parse_into(
+    requires(!cronch::concepts::meta_complete<V>) void parse_into(
         V& out) const
     {
         doc_.get_to(out);
@@ -67,7 +67,7 @@ public:
         }
     }
 
-    template<cronch::concepts::known_to_cronch V>
+    template<cronch::concepts::meta_complete V>
     void parse_into(V& out) const
     {
         meta::accessors<V>().map([&](auto&& f) mutable {

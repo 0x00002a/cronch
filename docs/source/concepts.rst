@@ -29,7 +29,7 @@ General concepts
       - ``{ metadata<T>::members } -> meta::concepts::view``
 
 
-.. concept:: template<typename T> known_to_cronch 
+.. concept:: template<typename T> meta_complete
 
    Type that satisfies all other concepts for meta information
 
@@ -43,8 +43,8 @@ General concepts
    Type that can be used as a serializing/deserializing backend.  
 
    **Requirements** 
-    - B::append(typename B::document_type&, const known_to_cronch auto&)
-    - b.parse_into(known_to_cronch auto&)
+    - B::append(typename B::document_type&, const meta_complete auto&)
+    - b.parse_into(meta_complete auto&)
 
    **Implementations** 
     - :class:`pugi`

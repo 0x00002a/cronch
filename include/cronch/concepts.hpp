@@ -44,9 +44,9 @@ concept serializable = requires(const S& inst)
 };
 
 template<typename S>
-concept known_to_cronch = has_members<S> && serializable<S>;
+concept meta_complete = has_members<S> && serializable<S>;
 
-static_assert(known_to_cronch<detail::empty_serializable>);
+static_assert(meta_complete<detail::empty_serializable>);
 
 template<typename C>
 concept ostreamable = requires(C c, std::ostream& s) {

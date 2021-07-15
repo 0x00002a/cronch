@@ -69,7 +69,7 @@ public:
         });
     }
 
-    template<cronch::concepts::known_to_cronch V>
+    template<cronch::concepts::meta_complete V>
     void parse_into(V& out) const {
         parse_into(out, meta::nameof<V>());
     }
