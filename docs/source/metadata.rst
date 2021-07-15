@@ -86,11 +86,14 @@ Registration helpers
    **Constructors**
 
     .. function:: constexpr property::property(std::string_view name, R(T::* getter) = nullptr, void(T::* setter) = nullptr) 
+
+    .. function:: constexpr property::property(std::string_view name, R(* getter)(const T* ) = nullptr, void(* setter)(T* , S) = nullptr) 
     
+    .. function:: constexpr property::property(std::string_view name, R(* getter)(const T&) = nullptr, void(* setter)(T&, S) = nullptr) 
 
 .. class:: template<typename... Fs> mems
 
-   Holds the members of a type (which may be :class:`property` or :class:`field`'s)
+   Holds the members of a type (which may be `property` or :class:`field`'s)
 
    **Constructors**
 
