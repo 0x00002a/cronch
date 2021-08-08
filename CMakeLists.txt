@@ -7,11 +7,15 @@ option(CRONCH_BUILD_TESTS "Whether to build the tests" OFF)
 option(CRONCH_BUILD_EXAMPLES "Whether to build the examples" OFF)
 option(CRONCH_BUILD_BENCHMARKS "Whether to build the benchmarks" OFF)
 option(CRONCH_ADD_BUILD_TO_MODULE_PATH "Whether to add the build directory to the module path. You probably don't want this unless you're using conan" OFF)
+option(CRONCH_USE_CONAN "Whether to pull in dependencies via conan" OFF)
 
 if (CRONCH_ADD_BUILD_TO_MODULE_PATH)
     list(APPEND CMAKE_MODULE_PATH "${CMAKE_BINARY_DIR}")
 endif()
 
+if (CRONCH_USE_CONAN)
+    include(${CMAKE_CURRENT_LIST_DIR}/conan.cmake)
+endif()
 
 add_library(${PROJECT_NAME} INTERFACE)
 
