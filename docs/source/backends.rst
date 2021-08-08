@@ -96,6 +96,59 @@ XML
    Types that are neither supported by lexical cast or have members known to cronch will cause a compile error, unless the type 
    is :concept:`concepts::iterable`, in which case it must have at least a name known by cronch (either a member name or type name).
 
+
+   **XML structure**
+
+
+   The output (and expected input) xml is of the form:
+   ``<typename>{inner}</typename>`` where ``typename`` is the name of the type
+   passed to `pugi::serialize_to` and ``{inner}`` is the result of serializing
+   the inner members of that type. It will be one of the following (uses first matching, top to bottom):
+
+   .. namespace:: ::cronch::concepts
+
+   .. list-table::
+      :widths: 7 25 
+      :header-rows: 1 
+
+      * 
+        - Satisfied concepts 
+        - Output 
+      * 
+        - `has_members` 
+        - ``<member name>{inner}</member name>`` for each member 
+      * 
+        - `ostreamable`
+        - Result of :expr:`boost::lexical_cast<std::string>(v)` where ``v`` is the value 
+      * 
+        - `iterable`
+        - ``<0..n>{inner}</0..n>`` for each element 0 to n where n is the size of the iterable - 1
+
+   .. namespace-pop::
+
+   **Example**
+
+   .. code-block:: cpp
+
+       struct mytype { 
+          int i;
+          std::vector<std::string> elements;
+       };
+       const auto myvalue = mytype{ .i = 2, .elements = { "Hello", "World" } };
+
+   Here ``myvalue`` would be formatted as:
+
+   .. code-block:: xml 
+
+       <mytype>
+           <i>2</i>
+           <elements>
+               <0>Hello</0>
+               <1>World</1>
+           </elements>
+       </mytype>
+
+
    **Constructors**
 
    .. function:: pugi::pugi(const std::string& contents) 
@@ -105,6 +158,7 @@ XML
    .. function:: pugi::pugi(pugi::xml_document doc) 
 
         Constructs the backend by copying the reference to an existing xml document
+
 
 
 Building your own 
