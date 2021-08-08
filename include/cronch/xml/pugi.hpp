@@ -15,6 +15,9 @@ namespace cronch::xml {
 namespace detail {
 
 template<typename T>
+constexpr bool always_false = false;
+
+template<typename T>
 concept from_stringable = requires(const std::string& str)
 {
     boost::lexical_cast<T>(str);
@@ -36,17 +39,16 @@ public:
     explicit basic_xml(const std::string& contents) : doc_{} { doc_.load_string(contents.c_str()); }
     explicit basic_xml(pugi::xml_document doc) : doc_{std::move(doc)} {}
 
+    template<cronch::concepts::serializable V>
+        static void serialize_to(document_type& doc, const V& val) {
+            auto el = doc.append_child(meta::nameof<V>());
+            serialize_to(el, val);
+        } 
+
     template<pugi_xml_serializable V>
     static void serialize_to(pugi::xml_node& top, const V& outer_value)
     {
-        if constexpr (cronch::concepts::serializable<V>) {
-            if (top.name() != std::string_view{meta::nameof<V>()}) {
-                auto el = top.append_child(meta::nameof<V>());
-                serialize_to(el, outer_value);
-                return;
-            }
-        }
-        auto append = [&](const auto& v) mutable {
+        auto append = [&top](const auto& v) mutable {
             if constexpr (cronch::concepts::has_members<V>) {
                 meta::accessors<V>().map([&](auto&& f) mutable {
                     auto name = f.name;
@@ -58,10 +60,17 @@ public:
             }
             else if constexpr (concepts::ostreamable<V>) {
                 top.append_child(pugi::node_pcdata).set_value(boost::lexical_cast<std::string>(v).c_str());
+            } else {
+                static_assert(always_false<V>);
             }
         };
-        if constexpr (cronch::concepts::iterable<V>) {
-            std::for_each(std::begin(outer_value), std::end(outer_value), append);
+        if constexpr (cronch::concepts::iterable<V> && !(cronch::concepts::has_members<V> || cronch::concepts::ostreamable<V>)) {
+            std::size_t n{0};
+            std::for_each(std::begin(outer_value), std::end(outer_value), [&n, &top](const auto& v) mutable {
+                    auto el = top.append_child(boost::lexical_cast<std::string>(n).c_str());
+                    serialize_to(el, v);
+                    ++n;
+                    });
         }
         else {
             append(outer_value);
@@ -71,14 +80,6 @@ public:
     template<pugi_xml_deserializable V>
     void deserialize_to(V& out)
     {
-        // Traverse down to our node
-        if constexpr (cronch::concepts::serializable<V>) {
-            if (doc_.name() != std::string_view{meta::nameof<V>()}) {
-                basic_xml{doc_.child(meta::nameof<V>())}.deserialize_to(out);
-                return;
-            }
-        }
-
         if constexpr (cronch::concepts::has_members<V>) {
             meta::accessors<V>().map([&](auto&& f) mutable {
                 auto fname = f.name;

@@ -80,11 +80,13 @@ TEST_SUITE("serialize")
                 pugi::xml_document doc;
                 auto node = doc.append_child(metadata<serializable_mock>::name);
                 auto vnode = node.append_child("vstr");
+                std::size_t n{0};
                 for (const auto& v : target.vstr) {
                     vnode
-                        .append_child(metadata<std::decay_t<decltype(v)>>::name)
+                        .append_child(boost::lexical_cast<std::string>(n).c_str())
                         .append_child(pugi::node_pcdata)
                         .set_value(v.c_str());
+                    ++n;
                 }
                 node.append_child("str")
                     .append_child(pugi::node_pcdata)
@@ -97,10 +99,9 @@ TEST_SUITE("serialize")
 
                 return doc;
             }();
-            const pugi::xml_document actual = [&] {
+            const auto actual = [&] {
                 pugi::xml_document doc;
-                doc.load_string(
-                    cronch::serialize<cronch::xml::pugi>(target).c_str());
+                cronch::serialize<cronch::xml::pugi>(target, doc);
                 return doc;
             }();
             CHECK(boost::lexical_cast<std::string>(actual) ==
