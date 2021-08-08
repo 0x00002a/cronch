@@ -14,12 +14,12 @@ public:
 
     explicit plain_backend(std::string doc) : document_{std::move(doc)} {}
 
-    static void append(document_type& doc, const auto& v) {
+    static void serialize_to(document_type& doc, const auto& v) {
         doc += boost::lexical_cast<std::string>(v);
     }
 
     template<typename V>
-    void parse_into(V& v) const {
+    void deserialize_to(V& v) const {
         v = boost::lexical_cast<std::decay_t<V>>(document_);
     }
 

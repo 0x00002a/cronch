@@ -24,7 +24,7 @@ TEST_SUITE("json_boost") {
         const auto expected = boost::json::parse(R"({ "v": 2, "v2": [ "Test", "Me" ] })");
         test_type input{ .v = 2, .v2 = { "Test", "Me" } };
         boost::json::value b;
-        const auto actual = cronch::serialize<cronch::json::boost>(input, b);
+        cronch::serialize<cronch::json::boost>(input, b);
         CHECK(expected == b);
 
         const auto output = cronch::deserialize<test_type>(cronch::json::boost{b});
