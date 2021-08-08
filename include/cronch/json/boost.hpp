@@ -1,7 +1,7 @@
 
 #pragma once
 
-#ifndef CRONCH_FEATURE_BOOST_JSON 
+#ifndef CRONCH_FEATURE_BOOST_JSON
 #error "cronch must be build with CRONCH_FEATURE_BOOST_JSON support to enable this header"
 #endif
 
@@ -18,12 +18,21 @@ concept native_json_type = requires(const T& t)
     boost::json::value(t);
 };
 
+template<typename T>
+concept from_json_type = requires(T& t) {
+    t = boost::json::value{};
+};
+
 template<typename T, typename C>
 concept boost_json_converter = requires(const boost::json::value& dt, T& v, boost::json::value& f, const T& v2)
 {
-    {C::to_json(dt, v)};
-    {C::from_json(f, v2)};
+    {C::to_json(f, v2)};
+    {C::from_json(dt, v)};
 };
+
+template<typename V, template<typename> typename C>
+concept boost_json_supported_type =  cronch::concepts::meta_complete<V> || cronch::concepts::container<V> || native_json_type<V> ||
+                boost_json_converter<V, C<V>>;
 
 } // namespace detail
 
@@ -35,13 +44,10 @@ public:
 
     using document_type = ::boost::json::value;
 
-    explicit boost(const std::string& doc) : doc_{::boost::json::parse(doc)} {}
-    explicit boost(document_type doc) : doc_{std::move(doc)} {}
+    explicit boost(const std::string& doc) : doc_(::boost::json::parse(doc)) {}
+    explicit boost(document_type doc) : doc_(std::move(doc)) {}
 
-    template<typename V>
-        requires(cronch::concepts::meta_complete<V> || cronch::concepts::container<V> ||
-                 detail::native_json_type<V> ||
-                 detail::boost_json_converter<V, converter<V>>)
+    template<detail::boost_json_supported_type<converter> V>
     static void append(document_type& doc, const V& v)
     {
         if constexpr (cronch::concepts::meta_complete<V>) {
@@ -68,54 +74,56 @@ public:
         }
     }
 
-    template<cronch::concepts::meta_complete V>
+    template<detail::boost_json_supported_type<converter> V>
     void parse_into(V& v) const
     {
-        auto& doc = doc_.as_object();
-        meta::accessors<V>().map(
-            [&]<typename A>(const A& accessor) mutable { accessor(v, gen_obj<A>(doc.at(accessor.name))); });
-    }
-
-    template<cronch::concepts::serializable V>
-        requires(!cronch::concepts::meta_complete<V>)
-    void parse_into(V& v) const
-    {
-        const auto name = meta::nameof<V>();
-        v = doc_.as_object().at(name);
-    }
-    template<cronch::concepts::container V>
-        requires(!cronch::concepts::serializable<V>)
-    void parse_into(V& v) const
-    {
-        auto& doc = doc_.as_array();
-        std::transform(std::begin(doc), std::end(doc), std::back_inserter(v),
-                       [&](const auto& val) mutable { return gen_obj<V>(val); });
+        if constexpr (cronch::concepts::meta_complete<V>) {
+            auto& doc = doc_.as_object();
+            meta::accessors<V>().map(
+                [&]<typename A>(const A& accessor) mutable { accessor(v, gen_obj<A>(doc.at(accessor.name.data()))); });
+        }
+        else if constexpr (detail::from_json_type<V>) {
+            v = doc_;
+        }
+        else if constexpr (detail::boost_json_converter<V, converter<V>>) {
+            converter<V>::from_json(doc_, v);
+        }
+        else if constexpr (cronch::concepts::container<V>) {
+            auto& doc = doc_.as_array();
+            std::transform(std::begin(doc), std::end(doc), std::back_inserter(v),
+                           [&](const auto& val) mutable { return gen_obj<V>(val); });
+        }
     }
 
     static auto to_string(const document_type& doc) -> std::string { return ::boost::json::serialize(doc); }
 
 private:
     template<typename V>
-    auto gen_obj(document_type doc) -> typename V::value_type
+    auto gen_obj(const document_type& doc) const -> typename V::value_type
     {
         using T = typename V::value_type;
         T obj;
-        boost{std::move(doc)}.parse_into(obj);
+        boost{doc}.parse_into(obj);
         return obj;
     }
 
     document_type doc_;
 };
+} // namespace cronch::json
 
 template<std::integral T>
-struct boost::converter<T> {
+struct cronch::json::boost::converter<T> {
     static void to_json(::boost::json::value& doc, const T& v) { doc.as_int64() = v; }
     static void from_json(const ::boost::json::value& doc, T& v) { v = static_cast<T>(doc.as_int64()); }
 };
 
 template<>
-struct boost::converter<std::string> {
+struct cronch::json::boost::converter<std::string> {
     static void to_json(::boost::json::value& doc, const std::string& v) { doc.as_string() = v.c_str(); }
     static void from_json(const ::boost::json::value& doc, std::string& v) { v = doc.as_string().c_str(); }
 };
-} // namespace cronch::json
+
+static_assert(cronch::json::detail::boost_json_converter<std::string, cronch::json::boost::converter<std::string>>);
+static_assert(cronch::json::detail::boost_json_converter<int, cronch::json::boost::converter<int>>);
+
+
