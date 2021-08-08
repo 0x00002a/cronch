@@ -42,6 +42,36 @@ JSON
        Constructs the backend by copying an existing parsed fragment
 
 
+.. class:: boost 
+
+   Provides json support via `Boost.JSON <https://www.boost.org/doc/libs/1_76_0/libs/json/doc/html/index.html>`_
+
+   It is similar to the nlohmann backend, but due Boost.JSON's lack of support for user-defined types, it adds its own system 
+   for conversion of them.
+
+   **Supported types** 
+
+   All of Boost.JSON's native types (object, array, string, etc). For additional type support, the `converter` struct is provided
+
+   .. class:: template<typename T> converter
+
+        Provides a customisation point for user-defined type support. Specialise it to add support. Specialisations are provided for 
+        the following out of the box:
+
+        - std::string 
+        - anything satisfying std::intergral
+
+        .. function:: void to_json(boost::json::value& doc, const T& v) 
+
+            Convert the type to a json value 
+        
+        .. function:: void from_json(const boost::json::value& doc, T& v) 
+            
+            Convert the type from a json value 
+
+        **Example** 
+
+        .. literalinclude:: /code/boost_json_example.cpp
 
 .. namespace-pop::
 

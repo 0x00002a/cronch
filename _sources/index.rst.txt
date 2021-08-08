@@ -14,6 +14,7 @@ Welcome to cronch's documentation!
    concepts 
    metadata
    backends
+   building
 
 
 .. include:: readme.rst

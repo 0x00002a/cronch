@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="_static/css/theme.min.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Building" href="building.html" />
     <link rel="prev" title="Metadata" href="metadata.html" /> 
 
 </head>
@@ -133,6 +134,10 @@
 <li class="toctree-l2"><a class="reference internal" href="#building-your-own">Building your own</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="building.html">Building</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="building.html#cmake-options">CMake options</a></li>
+</ul>
+</li>
 </ul>
 
                             
@@ -173,6 +178,58 @@ takes a <code class="docutils literal notranslate"><span class="pre">Backend::do
 <dt class="sig sig-object cpp" id="_CPPv4N6cronch4json4nloh4nloh4nlohEN8nlohmann4jsonE">
 <span id="_CPPv3N6cronch4json4nloh4nloh4nlohEN8nlohmann4jsonE"></span><span id="_CPPv2N6cronch4json4nloh4nloh4nlohEN8nlohmann4jsonE"></span><span id="cronch::json::nloh::nloh::nloh__nlohmann::json"></span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv4N6cronch4json4nloh4nloh4nlohEN8nlohmann4jsonE" title="cronch::json::nloh::nloh::nloh"><span class="n"><span class="pre">nloh</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">nloh</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">nlohmann</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">json</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">doc</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6cronch4json4nloh4nloh4nlohEN8nlohmann4jsonE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Constructs the backend by copying an existing parsed fragment</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N6cronch4json5boostE">
+<span id="_CPPv3N6cronch4json5boostE"></span><span id="_CPPv2N6cronch4json5boostE"></span><span id="cronch::json::boost"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">boost</span></span></span><a class="headerlink" href="#_CPPv4N6cronch4json5boostE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Provides json support via <a class="reference external" href="https://www.boost.org/doc/libs/1_76_0/libs/json/doc/html/index.html">Boost.JSON</a></p>
+<p>It is similar to the nlohmann backend, but due Boost.JSON’s lack of support for user-defined types, it adds its own system
+for conversion of them.</p>
+<p><strong>Supported types</strong></p>
+<p>All of Boost.JSON’s native types (object, array, string, etc). For additional type support, the <a class="reference internal" href="#_CPPv4I0EN6cronch4json5boost9converterE" title="cronch::json::boost::converter"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">converter</span></code></a> struct is provided</p>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN6cronch4json5boost9converterE">
+<span id="_CPPv3I0EN6cronch4json5boost9converterE"></span><span id="_CPPv2I0EN6cronch4json5boost9converterE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">converter</span></span></span><a class="headerlink" href="#_CPPv4I0EN6cronch4json5boost9converterE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Provides a customisation point for user-defined type support. Specialise it to add support. Specialisations are provided for
+the following out of the box:</p>
+<ul class="simple">
+<li><p>std::string</p></li>
+<li><p>anything satisfying std::intergral</p></li>
+</ul>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6cronch4json5boost9converter7to_jsonERN5boost4json5valueERK1T">
+<span id="_CPPv3N6cronch4json5boost9converter7to_jsonERN5boost4json5valueERK1T"></span><span id="_CPPv2N6cronch4json5boost9converter7to_jsonERN5boost4json5valueERK1T"></span><span id="cronch::json::boost::converter::to_json__boost::json::valueR.TCR"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">to_json</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N6cronch4json5boostE" title="cronch::json::boost"><span class="n"><span class="pre">boost</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">json</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">value</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">doc</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN6cronch4json5boost9converterE" title="cronch::json::boost::converter::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">v</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6cronch4json5boost9converter7to_jsonERN5boost4json5valueERK1T" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Convert the type to a json value</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6cronch4json5boost9converter9from_jsonERKN5boost4json5valueER1T">
+<span id="_CPPv3N6cronch4json5boost9converter9from_jsonERKN5boost4json5valueER1T"></span><span id="_CPPv2N6cronch4json5boost9converter9from_jsonERKN5boost4json5valueER1T"></span><span id="cronch::json::boost::converter::from_json__boost::json::valueCR.TR"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">from_json</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6cronch4json5boostE" title="cronch::json::boost"><span class="n"><span class="pre">boost</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">json</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">value</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">doc</span></span>, <a class="reference internal" href="#_CPPv4I0EN6cronch4json5boost9converterE" title="cronch::json::boost::converter::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">v</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6cronch4json5boost9converter9from_jsonERKN5boost4json5valueER1T" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Convert the type from a json value</p>
+</dd></dl>
+
+<p><strong>Example</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;cronch/json/boost.hpp&gt;</span>
+
+<span class="n">struct</span> <span class="n">my_value_type</span> <span class="p">{</span>
+    <span class="nb">int</span> <span class="n">i</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="n">template</span><span class="o">&lt;&gt;</span>
+<span class="n">struct</span> <span class="n">cronch</span><span class="p">::</span><span class="n">json</span><span class="p">::</span><span class="n">boost</span><span class="p">::</span><span class="n">converter</span><span class="o">&lt;</span><span class="n">my_value_type</span><span class="o">&gt;</span> <span class="p">{</span>
+
+    <span class="n">void</span> <span class="n">to_json</span><span class="p">(::</span><span class="n">boost</span><span class="p">::</span><span class="n">json</span><span class="p">::</span><span class="n">value</span><span class="o">&amp;</span> <span class="n">doc</span><span class="p">,</span> <span class="n">const</span> <span class="n">my_value_type</span><span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">doc</span><span class="o">.</span><span class="n">emplace_int64</span><span class="p">()</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">i</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">void</span> <span class="n">from_json</span><span class="p">(</span><span class="n">const</span> <span class="p">::</span><span class="n">boost</span><span class="p">::</span><span class="n">json</span><span class="p">::</span><span class="n">value</span><span class="o">&amp;</span> <span class="n">doc</span><span class="p">,</span> <span class="n">my_value_type</span><span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">v</span><span class="o">.</span><span class="n">i</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">as_int64</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </dd></dl>
@@ -237,6 +294,9 @@ is <a class="reference internal" href="concepts.html#_CPPv4I0EN6cronch8concepts8
         <span class="n">v</span> <span class="o">=</span> <span class="n">boost</span><span class="p">::</span><span class="n">lexical_cast</span><span class="o">&lt;</span><span class="n">std</span><span class="p">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">document_</span><span class="p">);</span>
     <span class="p">}</span>
 
+    <span class="n">static</span> <span class="n">auto</span> <span class="n">to_string</span><span class="p">(</span><span class="n">const</span> <span class="n">document_type</span><span class="o">&amp;</span> <span class="n">doc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">std</span><span class="p">::</span><span class="n">string</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">doc</span><span class="p">;</span>
+    <span class="p">}</span>
 <span class="n">private</span><span class="p">:</span>
     <span class="n">std</span><span class="p">::</span><span class="n">string</span> <span class="n">document_</span><span class="p">;</span>
 
@@ -292,7 +352,7 @@ is <a class="reference internal" href="concepts.html#_CPPv4I0EN6cronch8concepts8
     <div class="footer" role="contentinfo">
         <div class="container">
             &#169; Copyright 2021, Natasha England-Elbro.
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.1.
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.1.2.
         </div>
     </div>  
 
