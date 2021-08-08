@@ -8,6 +8,7 @@ option(CRONCH_BUILD_EXAMPLES "Whether to build the examples" OFF)
 option(CRONCH_BUILD_BENCHMARKS "Whether to build the benchmarks" OFF)
 option(CRONCH_ADD_BUILD_TO_MODULE_PATH "Whether to add the build directory to the module path. You probably don't want this unless you're using conan" OFF)
 option(CRONCH_USE_CONAN "Whether to pull in dependencies via conan" OFF)
+option(CRONCH_FEATURE_BOOST_JSON "Whether to include boost.json support" ON)
 
 if (CRONCH_ADD_BUILD_TO_MODULE_PATH)
     list(APPEND CMAKE_MODULE_PATH "${CMAKE_BINARY_DIR}")
@@ -19,13 +20,23 @@ endif()
 
 add_library(${PROJECT_NAME} INTERFACE)
 
-find_package(Boost 1.75.0 COMPONENTS json REQUIRED)
+if (CRONCH_FEATURE_BOOST_JSON)
+    find_package(Boost 1.75.0 COMPONENTS json REQUIRED)
+else()
+    find_package(Boost 1.75.0 REQUIRED)
+endif()
 
 include(${CMAKE_CURRENT_LIST_DIR}/utils.cmake)
 
 
 target_include_directories(cronch INTERFACE ${CMAKE_CURRENT_LIST_DIR}/include)
-target_link_libraries(cronch INTERFACE Boost::headers Boost::json)
+target_link_libraries(cronch INTERFACE Boost::headers)
+
+if (CRONCH_FEATURE_BOOST_JSON)
+    target_link_libraries(cronch INTERFACE Boost::json)
+    target_compile_definitions(cronch INTERFACE CRONCH_FEATURE_BOOST_JSON)
+endif()
+
 target_compile_features(cronch INTERFACE cxx_std_20)
 
 

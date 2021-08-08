@@ -1,6 +1,10 @@
 
 #pragma once
 
+#ifndef CRONCH_FEATURE_BOOST_JSON 
+#error "cronch must be build with CRONCH_FEATURE_BOOST_JSON support to enable this header"
+#endif
+
 #include "cronch/meta/reflect.hpp"
 #include <boost/json.hpp>
 
