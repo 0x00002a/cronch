@@ -62,11 +62,15 @@ concept ostreamable = requires(C c, std::ostream& s) {
 };
 
 template<typename B>
-concept backend = requires(typename B::document_type& doc, const B& b, detail::empty_serializable& s, const detail::empty_serializable& cs)
-{
-    { B::append(doc, cs) };
-    { b.parse_into(s) };
-    { B::to_string(doc) } -> std::convertible_to<std::string>;
+concept serialization_backend = requires(typename B::document_type& doc, const detail::empty_serializable& cs) {
+    { B::serialize_to(doc, cs) };
 };
+template<typename B>
+concept deserizalation_backend = requires(const B& b, detail::empty_serializable& s) {
+    { b.deserialize_to(s) };
+};
+
+template<typename B>
+concept backend = serialization_backend<B> && deserizalation_backend<B>;
 
 } // namespace cronch::concepts

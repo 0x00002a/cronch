@@ -5,12 +5,12 @@
 
 namespace cronch {
 
-template<typename T, concepts::backend Backend>
-auto deserialize(T& into, const Backend& with)
+template<typename T, concepts::deserizalation_backend Backend>
+void deserialize(T& into, const Backend& with)
 {
-    with.parse_into(into);
+    with.deserialize_to(into);
 }
-template<typename T, concepts::backend Backend>
+template<typename T, concepts::deserizalation_backend Backend>
 auto deserialize(const Backend& with) -> T
 {
     T into;

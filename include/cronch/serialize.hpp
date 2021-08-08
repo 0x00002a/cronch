@@ -7,7 +7,7 @@
 
 namespace cronch {
 
-template<concepts::backend Backend, typename From>
+template<concepts::serialization_backend Backend, typename From>
 auto serialize(const From& from, typename Backend::document_type& with)
     -> std::string
 {
@@ -15,7 +15,10 @@ auto serialize(const From& from, typename Backend::document_type& with)
 
     return Backend::to_string(with);
 }
-template<concepts::backend Backend, typename From>
+template<concepts::serialization_backend Backend, typename From>
+requires requires(const typename Backend::document_type& doc) {
+    { Backend::to_string(doc) } -> std::convertible_to<std::string>;
+}
 auto serialize(const From& from)
     -> std::string
 {
