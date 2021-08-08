@@ -3,9 +3,11 @@
 
 #include <string>
 
+#include <cronch/concepts.hpp>
+
 namespace cronch {
 
-template<typename Backend, typename From>
+template<concepts::backend Backend, typename From>
 auto serialize(const From& from, typename Backend::document_type& with)
     -> std::string
 {
@@ -13,7 +15,7 @@ auto serialize(const From& from, typename Backend::document_type& with)
 
     return Backend::to_string(with);
 }
-template<typename Backend, typename From>
+template<concepts::backend Backend, typename From>
 auto serialize(const From& from)
     -> std::string
 {

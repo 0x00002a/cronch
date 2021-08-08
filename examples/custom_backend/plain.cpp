@@ -23,6 +23,9 @@ public:
         v = boost::lexical_cast<std::decay_t<V>>(document_);
     }
 
+    static auto to_string(const document_type& doc) -> std::string {
+        return doc;
+    }
 private:
     std::string document_;
 

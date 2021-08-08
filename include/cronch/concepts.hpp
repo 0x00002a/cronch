@@ -66,6 +66,7 @@ concept backend = requires(typename B::document_type& doc, const B& b, detail::e
 {
     { B::append(doc, cs) };
     { b.parse_into(s) };
+    { B::to_string(doc) } -> std::convertible_to<std::string>;
 };
 
 } // namespace cronch::concepts
