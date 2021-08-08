@@ -48,13 +48,13 @@ public:
     explicit boost(document_type doc) : doc_(std::move(doc)) {}
 
     template<detail::boost_json_supported_type<converter> V>
-    static void append(document_type& doc, const V& v)
+    static void serialize_to(document_type& doc, const V& v)
     {
         if constexpr (cronch::concepts::meta_complete<V>) {
             auto& element = doc.emplace_object();
             meta::accessors<V>().map([&]<typename A>(const A& accessor) mutable {
                 document_type eldoc;
-                append(eldoc, accessor(v));
+                serialize_to(eldoc, accessor(v));
                 element.emplace(accessor.name.data(), std::move(eldoc));
             });
         }
@@ -68,14 +68,14 @@ public:
             auto& element = doc.emplace_array();
             std::for_each(std::begin(v), std::end(v), [&](auto& v) mutable {
                 document_type eldoc;
-                append(eldoc, v);
+                serialize_to(eldoc, v);
                 element.emplace_back(std::move(eldoc));
             });
         }
     }
 
     template<detail::boost_json_supported_type<converter> V>
-    void parse_into(V& v) const
+    void deserialize_to(V& v) const
     {
         if constexpr (cronch::concepts::meta_complete<V>) {
             auto& doc = doc_.as_object();
@@ -103,7 +103,7 @@ private:
     {
         using T = typename V::value_type;
         T obj;
-        boost{doc}.parse_into(obj);
+        boost{doc}.deserialize_to(obj);
         return obj;
     }
 

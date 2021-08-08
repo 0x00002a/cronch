@@ -8,12 +8,9 @@
 namespace cronch {
 
 template<concepts::serialization_backend Backend, typename From>
-auto serialize(const From& from, typename Backend::document_type& with)
-    -> std::string
+void serialize(const From& from, typename Backend::document_type& to)
 {
-    Backend::append(with, from);
-
-    return Backend::to_string(with);
+    Backend::serialize_to(to, from);
 }
 template<concepts::serialization_backend Backend, typename From>
 requires requires(const typename Backend::document_type& doc) {
@@ -23,7 +20,7 @@ auto serialize(const From& from)
     -> std::string
 {
     typename Backend::document_type with;
-    Backend::append(with, from);
+    Backend::serialize_to(with, from);
 
     return Backend::to_string(with);
 }
