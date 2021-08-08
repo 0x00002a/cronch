@@ -38,17 +38,34 @@ General concepts
     - :concept:`serializable`
     - :concept:`has_members`
 
+
+.. concept:: template<typename B> serialization_backend 
+
+   Type that can be used as a serialization backend 
+
+   **Requirements**
+    - ``B::serialize_to(typename B::document_type&, const meta_complete auto&)``
+
+.. concept:: template<typename B> deserizalation_backend 
+
+   Type that can be used for deserializing 
+
+   **Requirements**
+    - ``(const B& b, meta_complete auto& v) { b.deserialize_to(v); }``
+
 .. concept:: template<typename B> backend 
 
    Type that can be used as a serializing/deserializing backend.  
 
    **Requirements** 
-    - B::append(typename B::document_type&, const meta_complete auto&)
-    - b.parse_into(meta_complete auto&)
+    - `serialization_backend`
+    - `deserizalation_backend`
 
    **Implementations** 
-    - :class:`pugi`
-    - :class:`nloh`
+    - :class:`::cronch::xml::pugi`
+    - :class:`::cronch::json::nloh`
+    - :class:`::cronch::json::boost`
+
 
 .. concept:: template<typename C> iterable 
 

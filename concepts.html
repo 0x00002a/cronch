@@ -192,18 +192,43 @@
 </dd></dl>
 
 <dl class="cpp concept">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN6cronch8concepts21serialization_backendE">
+<span id="_CPPv3I0EN6cronch8concepts21serialization_backendE"></span><span id="_CPPv2I0EN6cronch8concepts21serialization_backendE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">B</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">concept</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">serialization_backend</span></span></span><a class="headerlink" href="#_CPPv4I0EN6cronch8concepts21serialization_backendE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Type that can be used as a serialization backend</p>
+<dl class="simple">
+<dt><strong>Requirements</strong></dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">B::serialize_to(typename</span> <span class="pre">B::document_type&amp;,</span> <span class="pre">const</span> <span class="pre">meta_complete</span> <span class="pre">auto&amp;)</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp concept">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN6cronch8concepts22deserizalation_backendE">
+<span id="_CPPv3I0EN6cronch8concepts22deserizalation_backendE"></span><span id="_CPPv2I0EN6cronch8concepts22deserizalation_backendE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">B</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">concept</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">deserizalation_backend</span></span></span><a class="headerlink" href="#_CPPv4I0EN6cronch8concepts22deserizalation_backendE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Type that can be used for deserializing</p>
+<dl class="simple">
+<dt><strong>Requirements</strong></dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">(const</span> <span class="pre">B&amp;</span> <span class="pre">b,</span> <span class="pre">meta_complete</span> <span class="pre">auto&amp;</span> <span class="pre">v)</span> <span class="pre">{</span> <span class="pre">b.deserialize_to(v);</span> <span class="pre">}</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp concept">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN6cronch8concepts7backendE">
 <span id="_CPPv3I0EN6cronch8concepts7backendE"></span><span id="_CPPv2I0EN6cronch8concepts7backendE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">B</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">concept</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">backend</span></span></span><a class="headerlink" href="#_CPPv4I0EN6cronch8concepts7backendE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Type that can be used as a serializing/deserializing backend.</p>
 <dl class="simple">
 <dt><strong>Requirements</strong></dt><dd><ul class="simple">
-<li><p>B::append(typename B::document_type&amp;, const meta_complete auto&amp;)</p></li>
-<li><p>b.parse_into(meta_complete auto&amp;)</p></li>
+<li><p><a class="reference internal" href="#_CPPv4I0EN6cronch8concepts21serialization_backendE" title="cronch::concepts::serialization_backend"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">serialization_backend</span></code></a></p></li>
+<li><p><a class="reference internal" href="#_CPPv4I0EN6cronch8concepts22deserizalation_backendE" title="cronch::concepts::deserizalation_backend"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">deserizalation_backend</span></code></a></p></li>
 </ul>
 </dd>
 <dt><strong>Implementations</strong></dt><dd><ul class="simple">
-<li><p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">pugi</span></code></p></li>
-<li><p><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">nloh</span></code></p></li>
+<li><p><a class="reference internal" href="backends.html#_CPPv4N6cronch3xml4pugiE" title="cronch::xml::pugi"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">::cronch::xml::pugi</span></code></a></p></li>
+<li><p><a class="reference internal" href="backends.html#_CPPv4N6cronch4json4nlohE" title="cronch::json::nloh"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">::cronch::json::nloh</span></code></a></p></li>
+<li><p><a class="reference internal" href="backends.html#_CPPv4N6cronch4json5boostE" title="cronch::json::boost"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">::cronch::json::boost</span></code></a></p></li>
 </ul>
 </dd>
 </dl>

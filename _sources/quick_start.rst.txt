@@ -18,29 +18,32 @@ Serialization is done via the :func:`serialize` function.
 
 
 
-.. function:: template<typename Backend, typename T> \
+.. function:: template<concepts::serialization_backend Backend, typename T> \
                 std::string serialize(const T& obj) 
 
              Same as the overload taking document_type, but default constructs the document_type.
 
-.. function:: template<backend Backend, typename T> \
-              std::string serialize(const T& obj, Backend::document_type& doc)
+             **Additional Requirments**
 
-           Turns a type known to cronch into a string using the specified backend and appending it to doc.
+             - ``(const Backend::document_type& doc) { Backend::to_string(doc) } -> std::string``
+
+.. function:: template<concepts::serialization_backend Backend, typename T> \
+              void serialize(const T& obj, Backend::document_type& doc)
     
+    Reads a type into the document_type of the specified backend
 
 Deserialzation
 --------------
 
 Deserialization is done via the :func:`deserialize` function. 
 
-.. function:: template<typename T, backend Backend> \
+.. function:: template<typename T, concepts::deserizalation_backend Backend> \
                 T deserialize(const Backend& from)
 
              Parse a type from the data stored by the backend *from*. Default constructs T
 
 
-.. function:: template<typename T, backend Backend> \ 
+.. function:: template<typename T, concepts::deserizalation_backend Backend> \ 
             void deserialize(const Backend& from, T& to)
 
          Same as the overload that returns T, except it parses it into *to* instead.

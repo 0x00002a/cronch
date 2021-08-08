@@ -165,7 +165,7 @@ with the <span class="cpp-expr sig sig-inline cpp"><span class="n">nlohmann</spa
 <p><strong>Supported formats</strong></p>
 <p>This backend supports any json supported by nlohmann/json, in addition to any binary formats it supports
 (currently cbor, msgpack, bson, and ubjson). Support for the binary formats is done via the <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">nloh::nloh()</span></code> overload which takes a
-<code class="docutils literal notranslate"><span class="pre">nlohmann::json</span></code> (allowing stuff such as <span class="cpp-expr sig sig-inline cpp"><span class="n">nlohmann</span><span class="p">::</span><span class="n">json</span><span class="p">::</span><span class="n">from_bson</span></span> to be passed) and the <a class="reference internal" href="quick_start.html#_CPPv4I00EN6cronch9serializeENSt6stringERK1T" title="cronch::serialize"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">serialize()</span></code></a> overload which
+<code class="docutils literal notranslate"><span class="pre">nlohmann::json</span></code> (allowing stuff such as <span class="cpp-expr sig sig-inline cpp"><span class="n">nlohmann</span><span class="p">::</span><span class="n">json</span><span class="p">::</span><span class="n">from_bson</span></span> to be passed) and the <a class="reference internal" href="quick_start.html#_CPPv4I_N8concepts21serialization_backendE0EN6cronch9serializeENSt6stringERK1T" title="cronch::serialize"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">serialize()</span></code></a> overload which
 takes a <code class="docutils literal notranslate"><span class="pre">Backend::document_type&amp;</span></code>, allowing the caller full access to the underlying <code class="docutils literal notranslate"><span class="pre">nlohamnn::json</span></code>.</p>
 <p><strong>Constructors</strong></p>
 <dl class="cpp function">
@@ -249,16 +249,61 @@ for its values. Therefore, in order to successfully wrap pugi, cronch uses <span
 to serialize types and <span class="cpp-expr sig sig-inline cpp"><span class="n">boost</span><span class="p">::</span><span class="n">lexical_cast</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span><span class="p">(</span><span class="p">)</span></span> to deserialize them. See the <a class="reference external" href="https://www.boost.org/doc/libs/1_76_0/doc/html/boost_lexical_cast/synopsis.html#boost_lexical_cast.synopsis.lexical_cast">docs</a> on lexical cast for more information.</p>
 <p>Types that are neither supported by lexical cast or have members known to cronch will cause a compile error, unless the type
 is <a class="reference internal" href="concepts.html#_CPPv4I0EN6cronch8concepts8iterableE" title="cronch::concepts::iterable"><code class="xref cpp cpp-concept docutils literal notranslate"><span class="pre">concepts::iterable</span></code></a>, in which case it must have at least a name known by cronch (either a member name or type name).</p>
+<p><strong>XML structure</strong></p>
+<p>The output (and expected input) xml is of the form:
+<code class="docutils literal notranslate"><span class="pre">&lt;typename&gt;{inner}&lt;/typename&gt;</span></code> where <code class="docutils literal notranslate"><span class="pre">typename</span></code> is the name of the type
+passed to <code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">pugi::serialize_to</span></code> and <code class="docutils literal notranslate"><span class="pre">{inner}</span></code> is the result of serializing
+the inner members of that type. It will be one of the following (uses first matching, top to bottom):</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 78%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Satisfied concepts</p></th>
+<th class="head"><p>Output</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="concepts.html#_CPPv4I0EN6cronch8concepts11has_membersE" title="cronch::concepts::has_members"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">has_members</span></code></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&lt;member</span> <span class="pre">name&gt;{inner}&lt;/member</span> <span class="pre">name&gt;</span></code> for each member</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">ostreamable</span></code></p></td>
+<td><p>Result of <span class="cpp-expr sig sig-inline cpp"><span class="n">boost</span><span class="p">::</span><span class="n">lexical_cast</span><span class="p">&lt;</span><span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="p">&gt;</span><span class="p">(</span><span class="n">v</span><span class="p">)</span></span> where <code class="docutils literal notranslate"><span class="pre">v</span></code> is the value</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="concepts.html#_CPPv4I0EN6cronch8concepts8iterableE" title="cronch::concepts::iterable"><code class="xref cpp cpp-any docutils literal notranslate"><span class="pre">iterable</span></code></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&lt;0..n&gt;{inner}&lt;/0..n&gt;</span></code> for each element 0 to n where n is the size of the iterable - 1</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong></p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">mytype</span> <span class="p">{</span>
+   <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">elements</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="k">const</span> <span class="k">auto</span> <span class="n">myvalue</span> <span class="o">=</span> <span class="n">mytype</span><span class="p">{</span> <span class="p">.</span><span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="p">.</span><span class="n">elements</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&quot;Hello&quot;</span><span class="p">,</span> <span class="s">&quot;World&quot;</span> <span class="p">}</span> <span class="p">};</span>
+</pre></div>
+</div>
+<p>Here <code class="docutils literal notranslate"><span class="pre">myvalue</span></code> would be formatted as:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;mytype&gt;</span>
+    <span class="nt">&lt;i&gt;</span>2<span class="nt">&lt;/i&gt;</span>
+    <span class="nt">&lt;elements&gt;</span>
+        <span class="nt">&lt;0&gt;</span>Hello<span class="nt">&lt;/0&gt;</span>
+        <span class="nt">&lt;1&gt;</span>World<span class="nt">&lt;/1&gt;</span>
+    <span class="nt">&lt;/elements&gt;</span>
+<span class="nt">&lt;/mytype&gt;</span>
+</pre></div>
+</div>
 <p><strong>Constructors</strong></p>
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N6cronch3xml4pugi4pugi4pugiERKNSt6stringE">
-<span id="_CPPv3N6cronch3xml4pugi4pugi4pugiERKNSt6stringE"></span><span id="_CPPv2N6cronch3xml4pugi4pugi4pugiERKNSt6stringE"></span><span id="cronch::xml::pugi::pugi::pugi__ssCR"></span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv4N6cronch3xml4pugi4pugi4pugiERKNSt6stringE" title="cronch::xml::pugi::pugi::pugi"><span class="n"><span class="pre">pugi</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">pugi</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">contents</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6cronch3xml4pugi4pugi4pugiERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N4pugi4pugiERKNSt6stringE">
+<span id="_CPPv3N4pugi4pugiERKNSt6stringE"></span><span id="_CPPv2N4pugi4pugiERKNSt6stringE"></span><span id="pugi::pugi__ssCR"></span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv4N4pugi4pugiERKNSt6stringE" title="pugi::pugi"><span class="n"><span class="pre">pugi</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">pugi</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">contents</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4pugi4pugiERKNSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Constructs the backend by parsing the contents string</p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N6cronch3xml4pugi4pugi4pugiEN4pugi12xml_documentE">
-<span id="_CPPv3N6cronch3xml4pugi4pugi4pugiEN4pugi12xml_documentE"></span><span id="_CPPv2N6cronch3xml4pugi4pugi4pugiEN4pugi12xml_documentE"></span><span id="cronch::xml::pugi::pugi::pugi__pugi::xml_document"></span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv4N6cronch3xml4pugi4pugi4pugiEN4pugi12xml_documentE" title="cronch::xml::pugi::pugi::pugi"><span class="n"><span class="pre">pugi</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">pugi</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N6cronch3xml4pugi4pugi4pugiEN4pugi12xml_documentE" title="cronch::xml::pugi::pugi::pugi"><span class="n"><span class="pre">pugi</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">xml_document</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">doc</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6cronch3xml4pugi4pugi4pugiEN4pugi12xml_documentE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N4pugi4pugiEN4pugi12xml_documentE">
+<span id="_CPPv3N4pugi4pugiEN4pugi12xml_documentE"></span><span id="_CPPv2N4pugi4pugiEN4pugi12xml_documentE"></span><span id="pugi::pugi__pugi::xml_document"></span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv4N4pugi4pugiEN4pugi12xml_documentE" title="pugi::pugi"><span class="n"><span class="pre">pugi</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">pugi</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N4pugi4pugiEN4pugi12xml_documentE" title="pugi::pugi"><span class="n"><span class="pre">pugi</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">xml_document</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">doc</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4pugi4pugiEN4pugi12xml_documentE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Constructs the backend by copying the reference to an existing xml document</p>
 </dd></dl>
 
@@ -285,12 +330,12 @@ is <a class="reference internal" href="concepts.html#_CPPv4I0EN6cronch8concepts8
 
     <span class="n">explicit</span> <span class="n">plain_backend</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">string</span> <span class="n">doc</span><span class="p">)</span> <span class="p">:</span> <span class="n">document_</span><span class="p">{</span><span class="n">std</span><span class="p">::</span><span class="n">move</span><span class="p">(</span><span class="n">doc</span><span class="p">)}</span> <span class="p">{}</span>
 
-    <span class="n">static</span> <span class="n">void</span> <span class="n">append</span><span class="p">(</span><span class="n">document_type</span><span class="o">&amp;</span> <span class="n">doc</span><span class="p">,</span> <span class="n">const</span> <span class="n">auto</span><span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">static</span> <span class="n">void</span> <span class="n">serialize_to</span><span class="p">(</span><span class="n">document_type</span><span class="o">&amp;</span> <span class="n">doc</span><span class="p">,</span> <span class="n">const</span> <span class="n">auto</span><span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">doc</span> <span class="o">+=</span> <span class="n">boost</span><span class="p">::</span><span class="n">lexical_cast</span><span class="o">&lt;</span><span class="n">std</span><span class="p">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
     <span class="p">}</span>
 
     <span class="n">template</span><span class="o">&lt;</span><span class="n">typename</span> <span class="n">V</span><span class="o">&gt;</span>
-    <span class="n">void</span> <span class="n">parse_into</span><span class="p">(</span><span class="n">V</span><span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span> <span class="n">const</span> <span class="p">{</span>
+    <span class="n">void</span> <span class="n">deserialize_to</span><span class="p">(</span><span class="n">V</span><span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span> <span class="n">const</span> <span class="p">{</span>
         <span class="n">v</span> <span class="o">=</span> <span class="n">boost</span><span class="p">::</span><span class="n">lexical_cast</span><span class="o">&lt;</span><span class="n">std</span><span class="p">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">document_</span><span class="p">);</span>
     <span class="p">}</span>
 
