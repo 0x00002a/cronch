@@ -46,6 +46,9 @@ public:
         else if constexpr (concepts::json_serializable<V>) {
             doc = val;
         }
+        else if constexpr (std::same_as<V, nlohmann::json>) {
+            doc = val;
+        }
         else if constexpr (cronch::concepts::iterable<V>) {
             std::size_t i = 0;
             if (std::begin(val) == std::end(val)) {
@@ -82,6 +85,9 @@ public:
         }
         else if constexpr (concepts::json_deserializable<V>) {
             doc_.get_to(val);
+        }
+        else if constexpr (std::same_as<V, nlohmann::json>) {
+            val = doc_;
         }
         else if constexpr (cronch::concepts::container<V>) {
 
