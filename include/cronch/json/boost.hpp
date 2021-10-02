@@ -117,6 +117,28 @@ struct cronch::json::boost::converter<T> {
     static void from_json(const ::boost::json::value& doc, T& v) { v = static_cast<T>(doc.as_int64()); }
 };
 
+#if __GNUC__ && !__llvm__ // workaround for: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=92944
+#define CRONCH_DBL_CONV(type)                                                                                          \
+    template<>                                                                                                         \
+    struct cronch::json::boost::converter<type> {                                                                      \
+        using V = type;                                                                                                \
+        static void to_json(::boost::json::value& doc, const V& v) { doc.as_double() = v; }                            \
+        static void from_json(const ::boost::json::value& doc, V& v) { v = static_cast<V>(doc.as_double()); }          \
+    };
+
+CRONCH_DBL_CONV(float);
+CRONCH_DBL_CONV(double);
+CRONCH_DBL_CONV(long double);
+
+#undef CRONCH_DBL_CONV
+
+#else
+template<std::floating_point V>
+struct cronch::json::boost::converter<V> {
+    static void to_json(::boost::json::value& doc, const V& v) { doc.as_double() = v; }
+    static void from_json(const ::boost::json::value& doc, V& v) { v = static_cast<V>(doc.as_double()); }
+};
+#endif
 template<>
 struct cronch::json::boost::converter<std::string> {
     static void to_json(::boost::json::value& doc, const std::string& v) { doc.as_string() = v.c_str(); }
@@ -125,5 +147,5 @@ struct cronch::json::boost::converter<std::string> {
 
 static_assert(cronch::json::detail::boost_json_converter<std::string, cronch::json::boost::converter<std::string>>);
 static_assert(cronch::json::detail::boost_json_converter<int, cronch::json::boost::converter<int>>);
-
-
+static_assert(cronch::json::detail::boost_json_converter<float, cronch::json::boost::converter<float>>);
+static_assert(cronch::json::detail::boost_json_converter<double, cronch::json::boost::converter<double>>);
