@@ -17,6 +17,7 @@ function(cronch_add_werror TARGET)
                 -Wall 
                 -Wextra 
                 -Wpedantic
+                -Wno-gnu-zero-variadic-macro-arguments
             )
 
     endif() 
@@ -31,9 +32,13 @@ function(cronch_add_diagnostics TARGET)
             PRIVATE 
                 -fdiagnostics-color=always
                 -fdiagnostics-show-template-tree
-                -fconcepts-diagnostics-depth=3
             )
+        if (${CMAKE_CXX_COMPILER_ID} MATCHES "(GNU)")
+            target_compile_options(${TARGET} PRIVATE -fconcepts-diagnostics-depth=3)
+        endif()
+                
     endif()
+
 
 endfunction()
 
